@@ -61,7 +61,7 @@ const boot = () => {
   
   global.version = () => {
     // Prints the TSP version and Commit Hash
-    console.info(`FXP v${process.env.REACT_APP_VERSION}`);
+    console.info(`DFSP Management Portal v${process.env.REACT_APP_VERSION}`);
     console.info(`Commit # ${process.env.REACT_APP_COMMIT}`);
   };
 }

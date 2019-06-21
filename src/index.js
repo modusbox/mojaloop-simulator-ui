@@ -24,14 +24,11 @@ const store = configureStore(history, { isDevelopment });
 // Please note this is a local url, handled by the app ( see Route below ). It is not the /api/login endpoint
 const loginUrl = `${window.location.protocol}//${window.location.host}/login`;
 
-const NotFound = () => <div> View Not Found </div>;
-
 const Root = () => (
   <Provider store={store}>
     <ConnectedRouter history={history}>
       <Switch>
         <Route path="/" component={App} />
-        <Route component={NotFound} />
       </Switch>
     </ConnectedRouter>
   </Provider>
@@ -43,7 +40,6 @@ const boot = () => {
   const apiUrl = `127.0.0.1/api`;
   store.dispatch(setAppConfig({ apiUrl, loginUrl }));
   
-  console.log('rendering', Root)
   ReactDOM.render(<Root />, document.getElementById('root'));
   
   if (isDevelopment) {

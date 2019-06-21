@@ -1,9 +1,9 @@
 import { handleActions } from 'redux-actions';
 import { isDevelopment } from 'utils/env';
 import {
-  SET_APP_CONFIG,
-  SET_APP_LOADING,
-  UNSET_APP_LOADING,
+  SET_RESULTS_CONFIG,
+  SET_RESULTS_LOADING,
+  UNSET_RESULTS_LOADING,
   SHOW_TOAST,
   HIDE_TOAST,
   SHOW_ERROR_MODAL,
@@ -17,7 +17,7 @@ import {
 const initialState = {
   isDevelopment,
   config: {},
-  isAppLoading: true,
+  isResultsLoading: true,
   isSuccessToastVisible: false,
   isErrorModalVisible: false,
   errorModalPayload: undefined,
@@ -30,19 +30,19 @@ const initialState = {
   dfspId: undefined,
 };
 
-const App = handleActions(
+const Results = handleActions(
   {
-    [SET_APP_CONFIG]: (state, action) => ({
+    [SET_RESULTS_CONFIG]: (state, action) => ({
       ...state,
       config: action.payload,
     }),
-    [SET_APP_LOADING]: (state, action) => ({
+    [SET_RESULTS_LOADING]: (state, action) => ({
       ...state,
-      isAppLoading: true,
+      isResultsLoading: true,
     }),
-    [UNSET_APP_LOADING]: (state, action) => ({
+    [UNSET_RESULTS_LOADING]: (state, action) => ({
       ...state,
-      isAppLoading: false,
+      isResultsLoading: false,
     }),
     [SHOW_TOAST]: (state, action) => ({
       ...state,
@@ -82,5 +82,5 @@ const App = handleActions(
   initialState
 );
 
-export default App;
+export default Results;
 export { initialState };

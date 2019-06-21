@@ -4,7 +4,7 @@ import find from 'lodash/find';
 import get from 'lodash/get';
 import { is422, is400, is500 } from 'utils/http';
 
-export const getIsAppLoading = state => state.app.isAppLoading;
+export const getIsTesterLoading = state => state.app.isTesterLoading;
 export const getIsSuccessToastVisible = state => state.app.isSuccessToastVisible;
 export const getIsErrorModalVisible = state => state.app.isErrorModalVisible;
 export const getErrorModalPayload = state => state.app.errorModalPayload;
@@ -13,8 +13,8 @@ export const getDfspsError = state => state.app.dfspsError;
 export const getDfspId = state => state.app.dfspId;
 export const getLoginUrl = state => state.app.config.loginUrl;
 
-export const getIsAppLoadingFailed = createSelector(
-  getIsAppLoading,
+export const getIsTesterLoadingFailed = createSelector(
+  getIsTesterLoading,
   (isLoading) => !isLoading
 );
 

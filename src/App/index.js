@@ -5,6 +5,8 @@ import { Spinner } from 'components';
 import SuccessToast from './SuccessToast';
 import ErrorModal from './ErrorModal';
 import './App.css';
+/*import Tester from './Tester';*/
+import Results from './Results';
 
 import { initApp, hideErrorModal } from './actions';
 import {
@@ -17,6 +19,7 @@ import {
 
 const AppLoader = () => <Spinner center size="m" />;
 const AppError = () => <div id="app_error">There was an error while reading the environments</div>;
+const NotFound = () => <div> View Not Found </div>;
 
 class App extends PureComponent {
   render() {
@@ -31,7 +34,8 @@ class App extends PureComponent {
         <div id="app__navbar">
         </div>
         <div id="app__content">
-          <Route path="/" exact component={() => <AppLoader />} />
+          {/*<Tester />*/}
+          <Results />
         </div>
         <SuccessToast isVisible={isSuccessToastVisible} />
         <ErrorModal isVisible={isErrorModalVisible} content={errorModalContent} onClose={onCloseErrorModal} />

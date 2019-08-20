@@ -8,7 +8,7 @@ import {
   changeType,
   changeAmount,
   changeCurrency,
-  changeSecondaryDfsp,
+  changePayeeDfsp,
 } from './actions';
 import {
   getIsTesterLoading,
@@ -16,6 +16,8 @@ import {
   getType,
   getAmount,
   getCurrency,
+  getIsSubmitEnabled,
+  getValidationResult,
 } from './selectors';
 
 const stateProps = state => ({
@@ -24,9 +26,11 @@ const stateProps = state => ({
   type: getType(state),
   amount: getAmount(state),
   currency: getCurrency(state),
+  isSubmitEnabled: getIsSubmitEnabled(state),
+  validation: getValidationResult(state),
 });
 const actionProps = dispatch => ({
-  onSecondaryDfspChange: value => dispatch(changeSecondaryDfsp(value)),
+  onPayeeDfspChange: value => dispatch(changePayeeDfsp(value)),
   onTypeChange: value => dispatch(changeType(value)),
   onAmountChange: value => dispatch(changeAmount(value)),
   onCurrencyChange: value => dispatch(changeCurrency(value)),
@@ -42,10 +46,12 @@ class Tester extends PureComponent {
       amount,
       currency,
       payeeDfspId,
+      validation,
+      isSubmitEnabled,
       onTypeChange,
       onCurrencyChange,
       onAmountChange,
-      onSecondaryDfspChange,
+      onPayeeDfspChange,
     } = this.props;
     return (
       <div id="tester">
@@ -60,6 +66,7 @@ class Tester extends PureComponent {
               value={type}
               options={QUOTE_TYPES}
               onChange={onTypeChange}
+              validation={validation.fields.type}
             />
           </div>
           <div className="tester__runner__form-input">
@@ -69,6 +76,7 @@ class Tester extends PureComponent {
               placeholder="Enter amount"
               value={amount}
               onChange={onAmountChange}
+              validation={validation.fields.amount}
             />
           </div>
           <div className="tester__runner__form-input">
@@ -78,6 +86,7 @@ class Tester extends PureComponent {
               placeholder="Select Currency"
               value={currency}
               onChange={onCurrencyChange}
+              validation={validation.fields.currency}
             />
           </div>
           <div className="tester__runner__form-input">
@@ -85,13 +94,14 @@ class Tester extends PureComponent {
               type="select"
               label="Payee DFSP"
               value={payeeDfspId}
-              onChange={onSecondaryDfspChange}
+              onChange={onPayeeDfspChange}
+              validation={validation.fields.payeeDfspId}
             />
           </div>
         </div>
 
         <div className="tester__runner__button">
-          <Button label="Request Quote" />
+          <Button label="Request Quote" disabled={!isSubmitEnabled}/>
         </div>
       </div>
     );

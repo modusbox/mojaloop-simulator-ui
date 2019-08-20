@@ -1,7 +1,12 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Button, FormInput, ScrollBox, Spinner, Title } from 'components';
-import { QUOTE_RESPONSES, QUOTE_REJECT_REASONS } from './constants';
+import {
+  QUOTE_RESPONSE_ACCEPT,
+  QUOTE_RESPONSE_REJECT,
+  QUOTE_RESPONSES,
+  QUOTE_REJECT_REASONS
+} from './constants';
 import {
   getIsQuotesLoading,
   getQuotes,
@@ -9,7 +14,8 @@ import {
 } from './selectors';
 import {
   initQuotes,
-  changeQuoteResponse
+  changeQuoteResponseType,
+  changeQuoteResponseAmount,
 } from './actions';
 import './Quotes.css';
 
@@ -20,7 +26,10 @@ const stateProps = state => ({
 });
 const actionProps = dispatch => ({
   initQuotes: () => dispatch(initQuotes()),
-  onQuoteResponseChange: (value, index) => dispatch(changeQuoteResponse(value, index)),
+  onQuoteResponseTypeChange: (type, index) => dispatch(changeQuoteResponseType({ type, index })),
+  onQuoteResponseAmountChange: (amount, index) => dispatch(changeQuoteResponseAmount({ amount, index })),
+  onQuoteResponseCurrencyChange: (currency, index) => dispatch(changeQuoteResponseType({ currency, index })),
+  onQuoteResponseReasonChange: (reason, index) => dispatch(changeQuoteResponseAmount({ reason, index })),
 });
 
 
@@ -31,7 +40,10 @@ const QuotesError = () => <div id="app_error">There was an error while reading t
 const Quotes = ({
   quotes,
   quoteResponses,
-  onQuoteResponseChange
+  onQuoteResponseTypeChange,
+  onQuoteResponseAmountChange,
+  onQuoteResponseCurrencyChange,
+  onQuoteResponseReasonChange,
 }) => {
   
   return (
@@ -39,9 +51,13 @@ const Quotes = ({
       <ScrollBox>
         <div className="quotes__list">
           {quotes.map((quote, index) => <Quote
+            key={index}
             quote={quote}
-            quoteResponse={quoteResponses[index]}
-            onQuoteResponseChange={value => onQuoteResponseChange(value, index)}
+            response={quoteResponses[index]}
+            onQuoteResponseTypeChange={value => onQuoteResponseTypeChange(value, index)}
+            onQuoteResponseAmountChange={value => onQuoteResponseAmountChange(value, index)}
+            onQuoteResponseCurrencyChange={value => onQuoteResponseCurrencyChange(value, index)}
+            onQuoteResponseReasonChange={value => onQuoteResponseReasonChange(value, index)}
           />)}
         </div>
       </ScrollBox>
@@ -49,7 +65,15 @@ const Quotes = ({
   );
 }
 
-const Quote = ({ quote, quoteResponse, onQuoteResponseChange }) => (
+const Quote = ({
+  quote,
+  response,
+  quoteAmount,
+  onQuoteResponseTypeChange,
+  onQuoteResponseAmountChange,
+  onQuoteResponseCurrencyChange,
+  onQuoteResponseReasonChange,
+}) => (
   <div className="quote">
     <div className="quote__row">
       <QuoteBlock label="Date" value={quote.date} />
@@ -59,24 +83,45 @@ const Quote = ({ quote, quoteResponse, onQuoteResponseChange }) => (
     </div>
     <div className="quote__row">
       <div className="quote__response__form">
-        <div className="quote__response__form-input">
+        <div className="quote__response__form-input quote__response__type">
           <FormInput
             size="m"
             type="select"
             options={QUOTE_RESPONSES}
-            value={quoteResponse}
-            onChange={onQuoteResponseChange}
+            value={response.type}
+            onChange={onQuoteResponseTypeChange}
           />
         </div>
-        <div className="quote__response__form-input">
-          <FormInput
-            size="m"
-            type="select"
-            options={QUOTE_RESPONSES}
-            value={'s'}
-            onChange={console.log}
-          />
-        </div>
+        {response.type === QUOTE_RESPONSE_ACCEPT && [
+          <div className="quote__response__form-input quote__response__amount" key="amount">
+            <FormInput
+              size="m"
+              type="text"
+              value={response.amount}
+              onChange={onQuoteResponseAmountChange}
+            />
+          </div>,
+          <div className="quote__response__form-input quote__response__currency" key="currency">
+            <FormInput
+              size="m"
+              type="text"
+              value={response.currency}
+              onChange={onQuoteResponseCurrencyChange}
+            />
+          </div>
+        ]}
+        {response.type === QUOTE_RESPONSE_REJECT && 
+          <div className="quote__response__form-input quote__response__reason">
+            <FormInput
+              size="m"
+              type="select"
+              placeholder="Reason"
+              options={QUOTE_REJECT_REASONS}
+              value={response.reason}
+              onChange={onQuoteResponseReasonChange}
+            />
+          </div>
+        }
         <div className="quote__response__form-input">
           <Button
             size="m"

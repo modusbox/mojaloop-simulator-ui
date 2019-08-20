@@ -1,11 +1,13 @@
+const QUOTE_RESPONSE_ACCEPT = 'ACCEPT';
+const QUOTE_RESPONSE_REJECT = 'REJECT';
 const QUOTE_RESPONSES = [
   {
     label: 'Accept',
-    value: 'ACCEPT',
+    value: QUOTE_RESPONSE_ACCEPT,
   },
   {
     label: 'Reject',
-    value: 'REJECT',
+    value: QUOTE_RESPONSE_REJECT,
   },
 ];
 
@@ -20,4 +22,9 @@ const QUOTE_REJECT_REASONS = [
   },
 ];
 
-export { QUOTE_RESPONSES, QUOTE_REJECT_REASONS };
+export { 
+  QUOTE_RESPONSE_ACCEPT,
+  QUOTE_RESPONSE_REJECT,
+  QUOTE_RESPONSES,
+  QUOTE_REJECT_REASONS,
+};

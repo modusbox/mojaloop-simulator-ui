@@ -61,10 +61,19 @@
   flex-direction: row;
   align-items: center;
 }
+
 .quote__response__form-input {
   width: 250px;
   margin-right: 10px;
   display: flex;
   align-items: flex-end;
-
+}
+.quote__response__type {
+  width: 150px;
+}
+.quote__response__amount {
+  width: 100px;
+}
+.quote__response__currency {
+  width: 100px;
 }

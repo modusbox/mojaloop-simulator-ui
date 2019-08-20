@@ -2,7 +2,7 @@ import { handleActions } from 'redux-actions';
 import {
   SET_TESTER_LOADING,
   UNSET_TESTER_LOADING,
-  CHANGE_SECONDARY_DFSP,
+  CHANGE_PAYEE_DFSP,
   CHANGE_TYPE,
   CHANGE_AMOUNT,
   CHANGE_CURRENCY,
@@ -11,7 +11,7 @@ import {
 const initialState = {
   isTesterLoading: false,
   payeeDfspId: undefined,
-  type: undefined,
+  type: 'SEND',
   amount: undefined,
   currency: undefined,
 };
@@ -26,7 +26,7 @@ const Tester = handleActions(
       ...state,
       isTesterLoading: false,
     }),
-    [CHANGE_SECONDARY_DFSP]: (state, action) => ({
+    [CHANGE_PAYEE_DFSP]: (state, action) => ({
       ...state,
       payeeDfspId: action.payload,
     }),

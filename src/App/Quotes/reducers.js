@@ -1,15 +1,29 @@
 import { handleActions } from 'redux-actions';
-import { isDevelopment } from 'utils/env';
 import {
   SET_QUOTES_LOADING,
   UNSET_QUOTES_LOADING,
+  CHANGE_QUOTE_RESPONSE_TYPE,
+  CHANGE_QUOTE_RESPONSE_AMOUNT,
   
 } from './actions';
 
+const fakeQuote = {
+  date: '11/12/12',
+  amount: '55',
+  type: 'Send',
+  currency: 'USD',
+};
+
+const initialQuoteResponse = {
+  type: 'REJECT',
+  amount: 12,
+  currency: undefined,
+  reason: undefined,
+};
 const initialState = {
   isQuotesLoading: true,
-  quotes: [{date: '11/22/33'},{date: '11/22/33'},{date: '11/22/33'}], // [],
-  quoteResponses: [null, null, null],
+  quotes: [fakeQuote, fakeQuote, fakeQuote],
+  quoteResponses: [initialQuoteResponse, initialQuoteResponse, initialQuoteResponse],
 };
 
 const Quotes = handleActions(
@@ -21,6 +35,28 @@ const Quotes = handleActions(
     [UNSET_QUOTES_LOADING]: (state, action) => ({
       ...state,
       isQuotesLoading: false,
+    }),
+    [CHANGE_QUOTE_RESPONSE_TYPE]: (state, action) => ({
+      ...state,
+      quoteResponses: [
+        ...state.quoteResponses.slice(0, action.payload.index),
+        {
+          ...state.quoteResponses[action.payload.index],
+          type: action.payload.type,
+        },
+        ...state.quoteResponses.slice(action.payload.index + 1)
+      ]
+    }),
+    [CHANGE_QUOTE_RESPONSE_AMOUNT]: (state, action) => ({
+      ...state,
+      quoteResponses: [
+        ...state.quoteResponses.slice(0, action.payload.index),
+        {
+          ...state.quoteResponses[action.payload.index],
+          amount: action.payload.amount,
+        },
+        ...state.quoteResponses.slice(action.payload.index + 1)
+      ]
     }),
     
   },

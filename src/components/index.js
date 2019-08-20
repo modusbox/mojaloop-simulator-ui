@@ -5,6 +5,7 @@ import ControlIcon from './ControlIcon';
 import MessageBox from './MessageBox';
 import FormInput from './FormInput';
 import PendingOverlay from './PendingOverlay';
+import Title from './Title';
 
 import {
   Button,
@@ -67,5 +68,6 @@ export {
   Tabs,
   Toast,
   TextField,
+  Title,
   Tooltip,
 };

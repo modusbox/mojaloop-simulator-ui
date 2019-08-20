@@ -1,26 +1,39 @@
-#app {
-  height: 100%;
-  width: 100%;
+#results {
   display: flex;
   flex-direction: column;
-}
-#app__navbar {
-  flex: 0 0 55px;
-  width: 100%;
-}
-#app__content {
-  min-width: 0px;
-  flex: 1 1 1px;
-  display: flex;
-  max-height: 100%;
-  min-height: 0;
+  margin: 20px;
+  flex: 1 1 auto;
+  min-height: 0px;
+  margin: 0px;
 }
 
-#app_error {
+#results_error {
   display: flex;
   align-items: center;
   justify-content: center;
   height: 100%;
   font-size: 30px;
   color: #c33;
+}
+
+.results__clear__form {
+  display: flex;
+  margin-bottom: 30px;
+}
+.results__clear__form-input {
+  width: 250px;
+  margin-right: 10px;
+  display: flex;
+  align-items: flex-end;
+}
+
+#results__list {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-height: 0px;
+}
+.results__row__test.element-datalist__item-cell {
+  color: #39f ;
+  font-style: italic;
 }

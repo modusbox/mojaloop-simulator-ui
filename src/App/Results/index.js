@@ -1,29 +1,67 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { Spinner } from 'components';
+import { Button, DataList, Spinner, Title } from 'components';
 import './Results.css';
 import { initResults } from './actions';
 import {
   getIsResultsLoading,
-  getIsResultsLoadingFailed,
 } from './selectors';
 
 
+const columns = [
+  {
+    label: 'Test Ran',
+    key: 'test',
+    className: 'results__row__test'
+  },
+  {
+    label: 'Amount Sent',
+    key: 'amount',
+  },
+  {
+    label: 'Response',
+    key: 'response',
+  },
+  {
+    label: 'From DFSP',
+    key: 'from',
+  },{
+    label: 'To DFSP',
+    key: 'to',
+  },
+];
+
+const generateRecord = (_, i) => ({
+  test: `test number #${i}`,
+  amount: `${ 250 +  (i % 3) * 50 + (i % 2) * 12 }`,
+  response: `Test response`,
+  from: `DFSP #${i % 3}`,
+  to: `DFSP #${i % 4}`,
+});
+const items = new Array(10).fill(0).map(generateRecord);
+
+
 const ResultsLoader = () => <Spinner center size="m" />;
-const ResultsError = () => <div id="app_error">There was an error while reading the environments</div>;
+const ResultsError = () => <div id="app_error">There was an error while reading the results</div>;
 
 class Results extends PureComponent {
   render() {
-    const { ppp } = this.props;
     return (
-      <div id="app">Results</div>
+      <div id="results">
+        <div id="results__list">
+          <DataList
+            list={items}
+            columns={columns}
+            flex
+          />
+        </div>
+      </div>
     );
   }
 }
 
 const stateProps = state => ({
   isResultsLoading: getIsResultsLoading(state),
-  isResultsLoadingFailed: getIsResultsLoadingFailed(state),
 });
 const actionProps = dispatch => ({
   initResults: () => dispatch(initResults()),

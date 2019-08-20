@@ -1,41 +1,23 @@
 import { handleActions } from 'redux-actions';
-import { isDevelopment } from 'utils/env';
 import {
-  SET_TESTER_CONFIG,
   SET_TESTER_LOADING,
   UNSET_TESTER_LOADING,
-  SHOW_TOAST,
-  HIDE_TOAST,
-  SHOW_ERROR_MODAL,
-  HIDE_ERROR_MODAL,
-  SET_DFSPS,
-  SET_DFSPS_ERROR,
-  SET_DFSP_ID,
-  UNSET_DFSPS,
+  CHANGE_SECONDARY_DFSP,
+  CHANGE_TYPE,
+  CHANGE_AMOUNT,
+  CHANGE_CURRENCY,
 } from './actions';
 
 const initialState = {
-  isDevelopment,
-  config: {},
-  isTesterLoading: true,
-  isSuccessToastVisible: false,
-  isErrorModalVisible: false,
-  errorModalPayload: undefined,
-  environments: [],
-  environmentsError: undefined,
-  environmentsLoaded: false,
-  environmentId: undefined,
-  dfsps: [],
-  dfspsError: undefined,
-  dfspId: undefined,
+  isTesterLoading: false,
+  payeeDfspId: undefined,
+  type: undefined,
+  amount: undefined,
+  currency: undefined,
 };
 
 const Tester = handleActions(
   {
-    [SET_TESTER_CONFIG]: (state, action) => ({
-      ...state,
-      config: action.payload,
-    }),
     [SET_TESTER_LOADING]: (state, action) => ({
       ...state,
       isTesterLoading: true,
@@ -44,40 +26,22 @@ const Tester = handleActions(
       ...state,
       isTesterLoading: false,
     }),
-    [SHOW_TOAST]: (state, action) => ({
+    [CHANGE_SECONDARY_DFSP]: (state, action) => ({
       ...state,
-      isSuccessToastVisible: true,
+      payeeDfspId: action.payload,
     }),
-    [HIDE_TOAST]: (state, action) => ({
+    [CHANGE_TYPE]: (state, action) => ({
       ...state,
-      isSuccessToastVisible: false,
+      test: action.payload,
     }),
-    [SHOW_ERROR_MODAL]: (state, action) => ({
+    [CHANGE_AMOUNT]: (state, action) => ({
       ...state,
-      isErrorModalVisible: true,
-      errorModalPayload: action.payload,
+      amount: action.payload,
     }),
-    [HIDE_ERROR_MODAL]: (state, action) => ({
+    [CHANGE_CURRENCY]: (state, action) => ({
       ...state,
-      isErrorModalVisible: false,
-      errorModalPayload: undefined,
+      currency: action.payload,
     }),
-    [SET_DFSPS]: (state, action) => ({
-      ...state,
-      dfsps: action.payload,
-    }),
-    [SET_DFSPS_ERROR]: (state, action) => ({
-      ...state,
-      dfspsError: action.payload,
-    }),
-    [SET_DFSP_ID]: (state, action) => ({
-      ...state,
-      dfspId: action.payload,
-    }),
-    [UNSET_DFSPS]: (state, action) => ({
-      ...state,
-      dfsps: initialState.dfsps,
-    })
   },
   initialState
 );

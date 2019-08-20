@@ -15,7 +15,7 @@ export const getLoginUrl = state => state.app.config.loginUrl;
 
 export const getIsAppLoadingFailed = createSelector(
   getIsAppLoading,
-  (isLoading) => !isLoading
+  (isLoading) => false
 );
 
 const getDfsp = createSelector(

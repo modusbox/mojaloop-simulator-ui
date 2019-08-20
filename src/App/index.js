@@ -5,7 +5,10 @@ import { Spinner } from 'components';
 import SuccessToast from './SuccessToast';
 import ErrorModal from './ErrorModal';
 import './App.css';
-/*import Tester from './Tester';*/
+import Navbar from './Navbar';
+import Menu from './Menu';
+import Tester from './Tester';
+import Quotes from './Quotes';
 import Results from './Results';
 
 import { initApp, hideErrorModal } from './actions';
@@ -32,10 +35,17 @@ class App extends PureComponent {
     return (
       <div id="app">
         <div id="app__navbar">
+          <Navbar />
         </div>
         <div id="app__content">
-          {/*<Tester />*/}
-          <Results />
+          <div id="app__menu">
+            <Menu />
+          </div>
+          <div id="app__views">
+            <Route path="/payer" component={Tester} />
+            <Route path="/payee" component={Quotes} />
+            <Route path="/history" component={Results} />
+          </div>
         </div>
         <SuccessToast isVisible={isSuccessToastVisible} />
         <ErrorModal isVisible={isErrorModalVisible} content={errorModalContent} onClose={onCloseErrorModal} />

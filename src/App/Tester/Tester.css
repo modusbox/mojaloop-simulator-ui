@@ -1,0 +1,26 @@
+#tester {
+  display: flex;
+  flex-direction: column;
+  margin: 0px;
+}
+
+#tester_error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 30px;
+  color: #c33;
+}
+
+
+.tester__runner__form {
+  display: flex;
+  margin-bottom: 30px;
+}
+.tester__runner__form-input {
+  width: 250px;
+  margin-right: 10px;
+  display: flex;
+  align-items: flex-end;
+}

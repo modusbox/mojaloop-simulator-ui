@@ -11,6 +11,7 @@ import {
   getIsQuotesLoading,
   getQuotes,
   getQuoteResponses,
+  getQuoteRepsonsesValidationResults,
 } from './selectors';
 import {
   initQuotes,
@@ -23,7 +24,9 @@ const stateProps = state => ({
   isQuotesLoading: getIsQuotesLoading(state),
   quotes: getQuotes(state),
   quoteResponses: getQuoteResponses(state),
+  validations: getQuoteRepsonsesValidationResults(state),
 });
+
 const actionProps = dispatch => ({
   initQuotes: () => dispatch(initQuotes()),
   onQuoteResponseTypeChange: (type, index) => dispatch(changeQuoteResponseType({ type, index })),
@@ -40,12 +43,12 @@ const QuotesError = () => <div id="app_error">There was an error while reading t
 const Quotes = ({
   quotes,
   quoteResponses,
+  validations,
   onQuoteResponseTypeChange,
   onQuoteResponseAmountChange,
   onQuoteResponseCurrencyChange,
   onQuoteResponseReasonChange,
 }) => {
-  
   return (
     <div id="quotes">
       <ScrollBox>
@@ -54,6 +57,7 @@ const Quotes = ({
             key={index}
             quote={quote}
             response={quoteResponses[index]}
+            validation={validations[index]}
             onQuoteResponseTypeChange={value => onQuoteResponseTypeChange(value, index)}
             onQuoteResponseAmountChange={value => onQuoteResponseAmountChange(value, index)}
             onQuoteResponseCurrencyChange={value => onQuoteResponseCurrencyChange(value, index)}
@@ -68,7 +72,7 @@ const Quotes = ({
 const Quote = ({
   quote,
   response,
-  quoteAmount,
+  validation,
   onQuoteResponseTypeChange,
   onQuoteResponseAmountChange,
   onQuoteResponseCurrencyChange,
@@ -89,6 +93,7 @@ const Quote = ({
             type="select"
             options={QUOTE_RESPONSES}
             value={response.type}
+            validation={validation.fields.type}
             onChange={onQuoteResponseTypeChange}
           />
         </div>
@@ -98,6 +103,7 @@ const Quote = ({
               size="m"
               type="text"
               value={response.amount}
+              validation={validation.fields.amount}
               onChange={onQuoteResponseAmountChange}
             />
           </div>,
@@ -106,6 +112,7 @@ const Quote = ({
               size="m"
               type="text"
               value={response.currency}
+              validation={validation.fields.currency}
               onChange={onQuoteResponseCurrencyChange}
             />
           </div>
@@ -118,6 +125,7 @@ const Quote = ({
               placeholder="Reason"
               options={QUOTE_REJECT_REASONS}
               value={response.reason}
+              validation={validation.fields.reason}
               onChange={onQuoteResponseReasonChange}
             />
           </div>

@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { Button, FormInput, ScrollBox, Spinner, Title } from 'components';
+import { Button, FormInput, ScrollBox, Spinner } from 'components';
 import {
   QUOTE_RESPONSE_ACCEPT,
   QUOTE_RESPONSE_REJECT,

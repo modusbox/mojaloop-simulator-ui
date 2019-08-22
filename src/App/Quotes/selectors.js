@@ -1,6 +1,4 @@
 import { createSelector } from 'reselect';
-import find from 'lodash/find';
-import get from 'lodash/get';
 import { toValidationResult, getIsValid } from 'modusbox-ui-components/dist/redux-validation';
 import { getQuoteResponseValidators } from './validators';
 import { QUOTE_RESPONSE_ACCEPT } from './constants';

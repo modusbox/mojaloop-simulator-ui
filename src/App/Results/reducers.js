@@ -1,5 +1,4 @@
 import { handleActions } from 'redux-actions';
-import { isDevelopment } from 'utils/env';
 import {
   SET_RESULTS_LOADING,
   UNSET_RESULTS_LOADING,

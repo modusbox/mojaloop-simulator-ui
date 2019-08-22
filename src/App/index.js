@@ -25,7 +25,6 @@ import {
 
 const AppLoader = () => <Spinner center size="m" />;
 const AppError = () => <div id="app_error">There was an error while reading the environments</div>;
-const NotFound = () => <div> View Not Found </div>;
 
 class App extends PureComponent {
   render() {

@@ -1,5 +1,4 @@
 import { createAction } from 'redux-actions';
-import api from 'utils/api';
 
 export const SET_TESTER_LOADING = 'Tester/ Set Is Loading';
 export const UNSET_TESTER_LOADING = 'Tester/ Unset Is Loading';

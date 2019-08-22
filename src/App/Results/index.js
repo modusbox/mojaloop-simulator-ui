@@ -1,6 +1,6 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
-import { Button, DataList, Spinner, Title } from 'components';
+import { DataList, Spinner } from 'components';
 import './Results.css';
 import { initResults } from './actions';
 import {

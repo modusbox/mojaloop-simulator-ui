@@ -7,6 +7,7 @@ import ErrorModal from './ErrorModal';
 import './App.css';
 import Navbar from './Navbar';
 import Menu from './Menu';
+import Users from './Users';
 import Tester from './Tester';
 import Quotes from './Quotes';
 import Results from './Results';
@@ -42,6 +43,7 @@ class App extends PureComponent {
             <Menu />
           </div>
           <div id="app__views">
+            <Route path="/users" component={Users} />
             <Route path="/payer" component={Tester} />
             <Route path="/payee" component={Quotes} />
             <Route path="/history" component={Results} />

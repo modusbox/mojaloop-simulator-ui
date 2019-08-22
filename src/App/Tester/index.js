@@ -2,6 +2,8 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Button, FormInput, Spinner, Title } from 'components';
 import { QUOTE_TYPES } from './constants';
+import { CURRENCIES } from '../constants';
+import { arrayToOptions } from '../../utils/html'
 import './Tester.css';
 
 import {
@@ -35,6 +37,8 @@ const actionProps = dispatch => ({
   onAmountChange: value => dispatch(changeAmount(value)),
   onCurrencyChange: value => dispatch(changeCurrency(value)),
 });
+
+const currencies = arrayToOptions(CURRENCIES);
 
 const TesterLoader = () => <Spinner center size="m" />;
 const TesterError = () => <div id="app_error">There was an error while reading the environments</div>;
@@ -81,9 +85,10 @@ class Tester extends PureComponent {
           </div>
           <div className="tester__runner__form-input">
             <FormInput
-              type="text"
+              type="select"
               label="Currency"
               placeholder="Select Currency"
+              options={currencies}
               value={currency}
               onChange={onCurrencyChange}
               validation={validation.fields.currency}

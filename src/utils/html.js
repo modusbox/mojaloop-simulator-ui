@@ -16,6 +16,8 @@ const composeOptions = sourceMaps => {
   });
 };
 
+const arrayToOptions = items => items.map(item => composeOption(item, item));
+
 const downloadFile = (content, filename) => {
   const element = document.createElement('a');
   element.setAttribute('href', 'data:text/plain;charset=utf-8,' + encodeURIComponent(content));
@@ -58,4 +60,4 @@ const loadFile = async (accept = undefined) => {
   });
 };
 
-export { composeClassName, composeOptions, downloadFile, loadFile };
+export { arrayToOptions, composeClassName, composeOptions, downloadFile, loadFile };

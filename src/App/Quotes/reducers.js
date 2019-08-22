@@ -4,7 +4,8 @@ import {
   UNSET_QUOTES_LOADING,
   CHANGE_QUOTE_RESPONSE_TYPE,
   CHANGE_QUOTE_RESPONSE_AMOUNT,
-  
+  CHANGE_QUOTE_RESPONSE_CURRENCY,
+  CHANGE_QUOTE_RESPONSE_REASON,
 } from './actions';
 
 const fakeQuote = {
@@ -54,6 +55,28 @@ const Quotes = handleActions(
         {
           ...state.quoteResponses[action.payload.index],
           amount: action.payload.amount,
+        },
+        ...state.quoteResponses.slice(action.payload.index + 1)
+      ]
+    }),
+    [CHANGE_QUOTE_RESPONSE_CURRENCY]: (state, action) => ({
+      ...state,
+      quoteResponses: [
+        ...state.quoteResponses.slice(0, action.payload.index),
+        {
+          ...state.quoteResponses[action.payload.index],
+          currency: action.payload.currency,
+        },
+        ...state.quoteResponses.slice(action.payload.index + 1)
+      ]
+    }),
+    [CHANGE_QUOTE_RESPONSE_REASON]: (state, action) => ({
+      ...state,
+      quoteResponses: [
+        ...state.quoteResponses.slice(0, action.payload.index),
+        {
+          ...state.quoteResponses[action.payload.index],
+          reason: action.payload.reason,
         },
         ...state.quoteResponses.slice(action.payload.index + 1)
       ]

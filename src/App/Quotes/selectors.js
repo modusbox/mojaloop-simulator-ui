@@ -20,3 +20,10 @@ export const getQuoteRepsonsesValidationResults = createSelector(
     })
   }
 );
+
+export const getSubmitButtonsEnabled = createSelector(
+  getQuoteRepsonsesValidationResults,
+  results => {
+    return results.map(getIsValid)
+  }
+);

@@ -69,11 +69,14 @@
   align-items: flex-end;
 }
 .quote__response__type {
-  width: 150px;
+  width: 170px;
 }
 .quote__response__amount {
   width: 100px;
 }
 .quote__response__currency {
-  width: 100px;
+  width: 60px;
+}
+.quote__response__reason {
+  width: 170px;
 }

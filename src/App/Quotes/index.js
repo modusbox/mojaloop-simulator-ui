@@ -12,11 +12,14 @@ import {
   getQuotes,
   getQuoteResponses,
   getQuoteRepsonsesValidationResults,
+  getSubmitButtonsEnabled,
 } from './selectors';
 import {
   initQuotes,
   changeQuoteResponseType,
   changeQuoteResponseAmount,
+  changeQuoteResponseCurrency,
+  changeQuoteResponseReason,
 } from './actions';
 import './Quotes.css';
 
@@ -25,17 +28,16 @@ const stateProps = state => ({
   quotes: getQuotes(state),
   quoteResponses: getQuoteResponses(state),
   validations: getQuoteRepsonsesValidationResults(state),
+  submitButtonsEnabled: getSubmitButtonsEnabled(state),
 });
 
 const actionProps = dispatch => ({
   initQuotes: () => dispatch(initQuotes()),
   onQuoteResponseTypeChange: (type, index) => dispatch(changeQuoteResponseType({ type, index })),
   onQuoteResponseAmountChange: (amount, index) => dispatch(changeQuoteResponseAmount({ amount, index })),
-  onQuoteResponseCurrencyChange: (currency, index) => dispatch(changeQuoteResponseType({ currency, index })),
-  onQuoteResponseReasonChange: (reason, index) => dispatch(changeQuoteResponseAmount({ reason, index })),
+  onQuoteResponseCurrencyChange: (currency, index) => dispatch(changeQuoteResponseCurrency({ currency, index })),
+  onQuoteResponseReasonChange: (reason, index) => dispatch(changeQuoteResponseReason({ reason, index })),
 });
-
-
 
 const QuotesLoader = () => <Spinner center size="m" />;
 const QuotesError = () => <div id="app_error">There was an error while reading the quotes</div>;
@@ -44,6 +46,7 @@ const Quotes = ({
   quotes,
   quoteResponses,
   validations,
+  submitButtonsEnabled,
   onQuoteResponseTypeChange,
   onQuoteResponseAmountChange,
   onQuoteResponseCurrencyChange,
@@ -58,6 +61,7 @@ const Quotes = ({
             quote={quote}
             response={quoteResponses[index]}
             validation={validations[index]}
+            submitButtonEnabled={submitButtonsEnabled[index]}
             onQuoteResponseTypeChange={value => onQuoteResponseTypeChange(value, index)}
             onQuoteResponseAmountChange={value => onQuoteResponseAmountChange(value, index)}
             onQuoteResponseCurrencyChange={value => onQuoteResponseCurrencyChange(value, index)}
@@ -73,6 +77,7 @@ const Quote = ({
   quote,
   response,
   validation,
+  submitButtonEnabled,
   onQuoteResponseTypeChange,
   onQuoteResponseAmountChange,
   onQuoteResponseCurrencyChange,
@@ -134,8 +139,8 @@ const Quote = ({
           <Button
             size="m"
             label="Send Response"
-            pending={true}
-            disabled
+            pending={false}
+            disabled={!submitButtonEnabled}
           />
         </div>
       </div>

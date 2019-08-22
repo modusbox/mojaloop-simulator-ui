@@ -1,0 +1,25 @@
+#users {
+  display: flex;
+  flex-direction: column;
+  margin: 0px;
+}
+
+#users_error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 30px;
+  color: #c33;
+}
+
+.users__button__row {
+  display: block;
+  margin-bottom: 20px;
+}
+.users__icon__edit {
+  fill: #999;
+}
+.users__icon__delete {
+  fill: #c33;
+}

@@ -16,12 +16,14 @@ import {
 import {
   getUser,
   getUserValidationResult,
+  getIsSubmitEnabled,
 } from '../selectors';
 import './index.css';
 
 const stateProps = state => ({
   user: getUser(state),
   validation: getUserValidationResult(state),
+  isSubmitEnabled: getIsSubmitEnabled(state),
 });
 const actionProps = dispatch => ({
   onChangeUserDisplayName: value => dispatch(changeUserDisplayName(value)),
@@ -33,13 +35,12 @@ const actionProps = dispatch => ({
   onChangeUserIdValue: value => dispatch(changeUserIdValue(value)),
   onCloseClick: () => dispatch(hideUserModal()),
   onSubmitClick: () => dispatch(submitUserModal()),
-
 });
-
 
 const UserModal = ({
   user,
   validation,
+  isSubmitEnabled,
   onChangeUserField,
   onChangeUserDisplayName,
   onChangeUserFirstName,
@@ -52,7 +53,14 @@ const UserModal = ({
   onSubmitClick,
 }) => {
   return (
-    <Modal onClose={onCloseClick} onSubmit={onSubmitClick} id="user-modal" title="User">
+    <Modal
+      onClose={onCloseClick}
+      onSubmit={onSubmitClick}
+      allowSubmit
+      isSubmitEnabled={isSubmitEnabled}
+      id="user-modal"
+      title="User"
+    >
       <div className="user-modal__content">
         
         <FormInput

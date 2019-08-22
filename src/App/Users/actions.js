@@ -1,5 +1,7 @@
 import { createAction } from 'redux-actions';
 import api from 'utils/api';
+import { is20x } from 'utils/http';
+import { getUserId, getUser } from './selectors';
 
 export const SET_USERS_LOADING = 'Users / Set Is Loading';
 export const UNSET_USERS_LOADING = 'Users / Unset Is Loading';
@@ -30,9 +32,14 @@ export const changeUserIdType = createAction(CHANGE_USER_ID_TYPE);
 export const changeUserIdValue = createAction(CHANGE_USER_ID_VALUE);
 
 export const initUsers = () => async (dispatch, getState) => {
+  await dispatch(storeUsers());
+}
+
+const storeUsers = () => async (dispatch, getState) => {
   const { data, status } = await dispatch(api.parties.read());
   dispatch(setUsers(data));
 }
+
 
 export const openNewUserModal = () => async (dispatch, getState) => {
   dispatch(showUserModal());
@@ -44,8 +51,35 @@ export const openEditUserModal = (model) => async (dispatch, getState) => {
 }
 
 export const deleteUser = (user) => async (dispatch, getState) => {
+  const { status } = await dispatch(api.party.delete({ idType: user.idType, idValue: user.idValue }));
+  if (is20x(status)) {
+    dispatch(storeUsers());
+  }
+  
 }
 
 export const submitUserModal = () => async (dispatch, getState) => {
-  dispatch(hideUserModal());
+  const userId = getUserId(getState());
+  const user = getUser(getState());
+  let status;
+  
+  let response;
+  if (userId) {
+    response = await dispatch(api.party.update({ idType: userId.idType, idValue: userId.idValue, body: user }));
+  } else {
+    response = await dispatch(api.parties.create({ body: user }));
+  }
+  ({ status } = response);
+
+  if (is20x(status)) {
+    dispatch(hideUserModal());
+    dispatch(storeUsers());
+  }
+ 
 }
+
+
+
+
+
+

@@ -16,7 +16,7 @@ const handleError = (error, status, state) => {
 const services = {
   test: {
     getApplicationUrl: state => {
-      return 'http://localhost:3000';
+      return 'http://localhost:3003';
     },
     getApplicationHeaders: () => undefined,
     credentials: state => undefined,
@@ -42,9 +42,13 @@ const services = {
 };
 
 const endpoints = {
+  party: {
+    service: services.test,
+    url: ({ idType, idValue }) => `/repository/parties/${idType}/${idValue}`
+  },
   parties: {
     service: services.test,
-    url :'/parties'
+    url :'/repository/parties'
   },
   environments: {
     service: services.simulator,

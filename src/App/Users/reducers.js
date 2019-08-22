@@ -28,7 +28,8 @@ const userInitialState = {
 const initialState = {
   isUsersLoading: false,
   users: [],
-  user: userInitialState
+  user: userInitialState,
+  userId: undefined,
 };
 
 const Users = handleActions(
@@ -53,10 +54,12 @@ const Users = handleActions(
       ...state,
       isModalVisible: false,
       user: initialState.user,
+      userId: initialState.userId
     }),
     [SET_USER_MODAL_MODEL]: (state, action) => ({
       ...state,
       user: action.payload,
+      userId: { idType: action.payload.idType, idValue: action.payload.idValue }
     }),
     [CHANGE_USER_DISPLAY_NAME]: (state, action) => ({
       ...state,

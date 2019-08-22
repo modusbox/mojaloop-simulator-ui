@@ -11,7 +11,7 @@ import {
 import {
   getIsUsersLoading,
   getUsers,
-  getUserModalVisible,
+  getIsUserModalVisible,
 } from './selectors';
 
 import UserModal from './UserModal';
@@ -19,7 +19,7 @@ import UserModal from './UserModal';
 const stateProps = state => ({
   isUsersLoading: getIsUsersLoading(state),
   users: getUsers(state),
-  isUserModalVisible: getUserModalVisible(state),
+  isUserModalVisible: getIsUserModalVisible(state),
 });
 const actionProps = dispatch => ({
   onMount: () => dispatch(initUsers()),
@@ -77,10 +77,10 @@ class Users extends PureComponent {
         className: 'icon__column-40',
         func: (_, item) => (
           <ControlIcon
-            icon="close-small"
+            icon="edit-small"
             size={20}
-            className="users__icon__delete"
-            onClick={() => onDeleteUserClick(item)}
+            className="users__icon__edit"
+            onClick={() => onEditUserClick(item)}
           />
         )
       },
@@ -90,10 +90,10 @@ class Users extends PureComponent {
         className: 'icon__column-40',
         func: (_, item) => (
           <ControlIcon
-            icon="edit-small"
+            icon="close-small"
             size={20}
-            className="users__icon__edit"
-            onClick={() => onEditUserClick(item)}
+            className="users__icon__delete"
+            onClick={() => onDeleteUserClick(item)}
           />
         )
       },

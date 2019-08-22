@@ -6744,9 +6744,9 @@ mkdirp@0.5.1, mkdirp@0.5.x, "mkdirp@>=0.5 0", mkdirp@^0.5.0, mkdirp@^0.5.1, mkdi
   dependencies:
     minimist "0.0.8"
 
-"modusbox-ui-components@https://modusbox-release-artifacts.s3.amazonaws.com/ui-components/modusbox-ui-components-1.15.33.tgz":
-  version "1.15.33"
-  resolved "https://modusbox-release-artifacts.s3.amazonaws.com/ui-components/modusbox-ui-components-1.15.33.tgz#c03ea50e53ad9a951bb794e2ca519756388ee715"
+"modusbox-ui-components@https://modusbox-release-artifacts.s3.amazonaws.com/ui-components/modusbox-ui-components-1.15.37.tgz":
+  version "1.15.37"
+  resolved "https://modusbox-release-artifacts.s3.amazonaws.com/ui-components/modusbox-ui-components-1.15.37.tgz#fe0df366975b985e75d7476f60de3589d1f94263"
   dependencies:
     copy-webpack-plugin "^5.0.0"
     eslint-config-prettier "^3.1.0"

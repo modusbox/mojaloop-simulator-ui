@@ -9,20 +9,32 @@ import find from 'lodash/find';
 export const getIsUsersLoading = state => state.users.isUsersLoading;
 export const getUsers = state => state.users.users;
 export const getUser = state => state.users.user;
-export const getUserModalVisible = state => state.users.isModalVisible;
+export const getIsUserNew = state => state.users.isUserNew;
+export const getUserId = state => state.users.userId;
+export const getIsUserModalVisible = state => state.users.isModalVisible;
 
 
 const getIdType = createSelector(getUser, user => user.idType);
 const getIdValue = createSelector(getUser, user => user.idValue);
 
 const getIsIdTypeAndValidUnique = createSelector(
+  getUserId,
   getIdType,
   getIdValue,
   getUsers,
-  (idType, idValue, users) => !find(users, { idType, idValue })
+  (userId, idType, idValue, users) => !find(users, user => {
+    return user.idType === idType &&
+      user.idValue === idValue &&
+      (
+        userId.idType !== user.idType ||
+        userId.idValue !== user.idValue
+      )
+  })
 )
 
 const getUserValidation = createSelector(
+  getIdType,
+  getIdValue,
   getIsIdTypeAndValidUnique,
   getUserValidators
 );
@@ -32,13 +44,13 @@ export const getUserValidationResult = createSelector(
   toValidationResult,
 );
 
-export const isUserValid = createSelector(
+export const getIsUserValid = createSelector(
   getUserValidationResult,
   getIsValid,
 );
 
-export const isSubmitEnable = createSelector(
-  isUserValid, isValid => isValid
+export const getIsSubmitEnabled = createSelector(
+  getIsUserValid, isValid => isValid
 );
 
 

@@ -18,7 +18,9 @@ const initialState = {
   isDevelopment,
   config: {},
   isAppLoading: true,
-  isSuccessToastVisible: false,
+  isToastVisible: false,
+  toastKind: undefined,
+  toastMessage: undefined,
   isErrorModalVisible: false,
   errorModalPayload: undefined,
   environments: [],
@@ -46,11 +48,13 @@ const App = handleActions(
     }),
     [SHOW_TOAST]: (state, action) => ({
       ...state,
-      isSuccessToastVisible: true,
+      toastKind: action.payload.kind,
+      toastMessage: action.payload.message,
+      isToastVisible: true,
     }),
     [HIDE_TOAST]: (state, action) => ({
       ...state,
-      isSuccessToastVisible: false,
+      isToastVisible: false,
     }),
     [SHOW_ERROR_MODAL]: (state, action) => ({
       ...state,

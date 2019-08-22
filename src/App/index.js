@@ -2,7 +2,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
 import { Spinner } from 'components';
-import SuccessToast from './SuccessToast';
+import Toast from './Toast';
 import ErrorModal from './ErrorModal';
 import './App.css';
 import Navbar from './Navbar';
@@ -16,7 +16,9 @@ import { initApp, hideErrorModal } from './actions';
 import {
   getIsAppLoading,
   getIsAppLoadingFailed,
-  getIsSuccessToastVisible,
+  getIsToastVisible,
+  getToastKind,
+  getToastMessage,
   getIsErrorModalVisible,
   getErrorModalContent,
 } from './selectors';
@@ -28,7 +30,9 @@ const NotFound = () => <div> View Not Found </div>;
 class App extends PureComponent {
   render() {
     const {
-      isSuccessToastVisible,
+      isToastVisible,
+      toastKind,
+      toastMessage,
       isErrorModalVisible,
       errorModalContent,
       onCloseErrorModal,
@@ -49,7 +53,7 @@ class App extends PureComponent {
             <Route path="/history" component={Results} />
           </div>
         </div>
-        <SuccessToast isVisible={isSuccessToastVisible} />
+        <Toast isVisible={isToastVisible} message={toastMessage} kind={toastKind}/>
         <ErrorModal isVisible={isErrorModalVisible} content={errorModalContent} onClose={onCloseErrorModal} />
       </div>
     );
@@ -59,8 +63,10 @@ class App extends PureComponent {
 const stateProps = state => ({
   isAppLoading: getIsAppLoading(state),
   isAppLoadingFailed: getIsAppLoadingFailed(state),
-  isSuccessToastVisible: getIsSuccessToastVisible(state),
+  isToastVisible: getIsToastVisible(state),
   isErrorModalVisible: getIsErrorModalVisible(state),
+  toastKind: getToastKind(state),
+  toastMessage: getToastMessage(state),
   errorModalContent: getErrorModalContent(state),
 });
 const actionProps = dispatch => ({

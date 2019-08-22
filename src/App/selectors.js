@@ -5,7 +5,9 @@ import get from 'lodash/get';
 import { is422, is400, is500 } from 'utils/http';
 
 export const getIsAppLoading = state => state.app.isAppLoading;
-export const getIsSuccessToastVisible = state => state.app.isSuccessToastVisible;
+export const getIsToastVisible = state => state.app.isToastVisible;
+export const getToastKind = state => state.app.toastKind;
+export const getToastMessage = state => state.app.toastMessage;
 export const getIsErrorModalVisible = state => state.app.isErrorModalVisible;
 export const getErrorModalPayload = state => state.app.errorModalPayload;
 export const getDfsps = state => state.app.dfsps;

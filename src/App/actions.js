@@ -45,7 +45,13 @@ export const initApp = () => async (dispatch, getState) => {
 };
 
 export const showSuccessToast = (ms = 3000) => async dispatch => {
-  dispatch(showToast());
+  dispatch(showToast({ message: 'Saved Successfully', kind: 'success '}));
+  await sleep(ms);
+  dispatch(hideToast());
+};
+
+export const showErrorToast = (message, ms = 3000) => async dispatch => {
+  dispatch(showToast({ message, kind: 'error '}));
   await sleep(ms);
   dispatch(hideToast());
 };

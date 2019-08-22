@@ -1,6 +1,7 @@
 import { createAction } from 'redux-actions';
 import api from 'utils/api';
 import { is20x } from 'utils/http';
+import { showSuccessToast, showErrorToast } from '../actions';
 import { getUserId, getUser } from './selectors';
 
 export const SET_USERS_LOADING = 'Users / Set Is Loading';
@@ -37,7 +38,11 @@ export const initUsers = () => async (dispatch, getState) => {
 
 const storeUsers = () => async (dispatch, getState) => {
   const { data, status } = await dispatch(api.parties.read());
-  dispatch(setUsers(data));
+  if (is20x(status)) {
+    dispatch(setUsers(data));
+  } else {
+    dispatch(showErrorToast('error fetching users'))
+  }
 }
 
 
@@ -54,7 +59,9 @@ export const deleteUser = (user) => async (dispatch, getState) => {
   const { status } = await dispatch(api.party.delete({ idType: user.idType, idValue: user.idValue }));
   if (is20x(status)) {
     dispatch(storeUsers());
+    dispatch(showSuccessToast())
   }
+  dispatch(showErrorToast('Delete failed'))
   
 }
 
@@ -72,8 +79,11 @@ export const submitUserModal = () => async (dispatch, getState) => {
   ({ status } = response);
 
   if (is20x(status)) {
+    dispatch(showSuccessToast())
     dispatch(hideUserModal());
     dispatch(storeUsers());
+  } else {
+    dispatch(showErrorToast('error!'))
   }
  
 }

@@ -60,8 +60,9 @@ export const deleteUser = (user) => async (dispatch, getState) => {
   if (is20x(status)) {
     dispatch(storeUsers());
     dispatch(showSuccessToast())
+  } else {
+    dispatch(showErrorToast('Delete failed'))
   }
-  dispatch(showErrorToast('Delete failed'))
   
 }
 
@@ -79,11 +80,11 @@ export const submitUserModal = () => async (dispatch, getState) => {
   ({ status } = response);
 
   if (is20x(status)) {
-    dispatch(showSuccessToast())
+    dispatch(showSuccessToast(userId ? 'User updated' : 'User created'))
     dispatch(hideUserModal());
     dispatch(storeUsers());
   } else {
-    dispatch(showErrorToast('error!'))
+    dispatch(showErrorToast('An error occurred'))
   }
  
 }

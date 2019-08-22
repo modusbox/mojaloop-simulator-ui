@@ -15,6 +15,7 @@ import {
 } from '../actions';
 import {
   getUser,
+  getUserId,
   getUserValidationResult,
   getIsSubmitEnabled,
 } from '../selectors';
@@ -22,6 +23,7 @@ import './index.css';
 
 const stateProps = state => ({
   user: getUser(state),
+  userId: getUserId(state),
   validation: getUserValidationResult(state),
   isSubmitEnabled: getIsSubmitEnabled(state),
 });
@@ -39,6 +41,7 @@ const actionProps = dispatch => ({
 
 const UserModal = ({
   user,
+  userId,
   validation,
   isSubmitEnabled,
   onChangeUserField,
@@ -114,6 +117,7 @@ const UserModal = ({
           options={ID_TYPES}
           value={user.idType}
           validation={validation.fields.idType}
+          disabled={userId !== undefined}
           onChange={onChangeUserIdType}
           label="Id Type"
           className="user-modal__form__form-input"
@@ -123,6 +127,7 @@ const UserModal = ({
           size='m'
           value={user.idValue}
           validation={validation.fields.idValue}
+          disabled={userId !== undefined}
           onChange={onChangeUserIdValue}
           label="Id Value"
           className="user-modal__form__form-input"

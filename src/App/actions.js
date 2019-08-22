@@ -1,6 +1,4 @@
 import { createAction } from 'redux-actions';
-import api from 'utils/api';
-import { is200 } from 'utils/http';
 import { sleep } from 'utils/async';
 
 export const SET_APP_CONFIG = 'App / Set Config';
@@ -29,28 +27,18 @@ export const setDfspId = createAction(SET_DFSP_ID);
 export const unsetEnvironmentId = createAction(UNSET_ENVIRONMENT_ID);
 export const unsetDfsps = createAction(UNSET_DFSPS);
 
-export const storeDFSPs = () => async dispatch => {
-  const { data, status } = await dispatch(api.dfsps.read({}));
-  if (is200(status)) {
-    dispatch(setDfsps(data));
-  } else {
-    dispatch(setDfspsError(data));
-  }
-};
-
 export const initApp = () => async (dispatch, getState) => {
   dispatch(setAppLoading());
-  // await dispatch(storeEnvironments());
   dispatch(unsetAppLoading());
 };
 
-export const showSuccessToast = (ms = 3000) => async dispatch => {
-  dispatch(showToast({ message: 'Saved Successfully', kind: 'success '}));
+export const showSuccessToast = (message = 'Saved Successfully', ms = 3000) => async dispatch => {
+  dispatch(showToast({ message, kind: 'success '}));
   await sleep(ms);
   dispatch(hideToast());
 };
 
-export const showErrorToast = (message, ms = 3000) => async dispatch => {
+export const showErrorToast = (message = 'Operation Failed', ms = 3000) => async dispatch => {
   dispatch(showToast({ message, kind: 'error '}));
   await sleep(ms);
   dispatch(hideToast());

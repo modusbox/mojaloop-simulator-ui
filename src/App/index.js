@@ -8,10 +8,11 @@ import './App.css';
 import Navbar from './Navbar';
 import Menu from './Menu';
 import Users from './Users';
+import Transfer from './Transfer';
+import Settings from './Settings'; 
 // import Tester from './Tester';
 // import Quotes from './Quotes';
 // import Results from './Results';
-import Transfer from './Transfer';
 
 import { initApp, hideErrorModal } from './actions';
 import {
@@ -49,10 +50,11 @@ class App extends PureComponent {
           <ScrollBox>
             <div id="app__views">
               <Route path="/users" component={Users} />
+              <Route path="/transfer" component={Transfer} />
+              <Route path="/settings" component={Settings} />
               {/*<Route path="/payer" component={Tester} />
               <Route path="/payee" component={Quotes} />
               <Route path="/history" component={Results} />*/}
-              <Route path="/transfer" component={Transfer} />
             </div>
           </ScrollBox>
         </div>

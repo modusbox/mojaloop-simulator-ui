@@ -13,8 +13,7 @@ const MenuStructure = ({ pathname, onChange }) => {
     <Menu path="/" pathname={pathname} onChange={onChange}>
       <MenuItem path="/users" label="Config Inbound" />
       <MenuItem path="/transfer" label="Outbound Send" />
-      {/*<MenuItem path="/payer" label="Payer" />
-      <MenuItem path="/payee" label="Payee" />*/}
+      <MenuItem path="/settings" label="Settings" />
     </Menu>
   );
 };

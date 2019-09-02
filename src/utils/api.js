@@ -15,7 +15,7 @@ const handleError = (error, status, state) => {
 const services = {
   test: {
     getApplicationUrl: state => {
-      return 'http://localhost:3003';
+      return `http://${state.settings.host}:${state.settings.port}`;
     },
     getApplicationHeaders: () => undefined,
     credentials: state => undefined,

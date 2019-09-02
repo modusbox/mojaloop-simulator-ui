@@ -3,15 +3,15 @@ import React, { PureComponent } from 'react';
 import { Select, TextField, Checkbox, DatePicker, FileUploader, RadioGroup, Row, Button, Icon } from '../index';
 import './FormInput.scss';
 
-const Label = ({ label, required, complete }) => {
+const Label = ({ size='m', label, required, complete }) => {
   if (!label) {
     return null;
   }
   return (
-    <div className="forminput__label-box">
+    <div className={`forminput__label-box forminput__label-box--${size}`}>
       {required && (
         <Icon
-          size={14}
+          size={size === 'm' ? 12 : 14 }
           name="info-small"
           className="forminput__label-icon"
           fill={complete ? '#39f' : '#f93'}
@@ -52,7 +52,7 @@ const addKey = (element, index) => React.cloneElement(element, { key: index });
 
 const composeSelect = props => [
   <div className="forminput-input" style={props.wrapperStyle}>
-    <Label label={props.label} required={props.isRequired} complete={props.hasValue} />
+    <Label size={props.size} label={props.label} required={props.isRequired} complete={props.hasValue} />
     <Select
       size={props.size}
       className={props.className}
@@ -81,7 +81,7 @@ const composeSelect = props => [
 
 const composePicker = props => [
   <div className="forminput-input picker" style={props.wrapperStyle}>
-    <Label label={props.label} required={props.isRequired} complete={props.hasValue} />
+    <Label size={props.size} label={props.label} required={props.isRequired} complete={props.hasValue} />
     <TextField
       type="text"
       size={props.size}
@@ -110,7 +110,7 @@ const composePicker = props => [
 
 const composeText = props => [
   <div className="forminput-input" style={props.wrapperStyle}>
-    <Label label={props.label} required={props.isRequired} complete={props.hasValue} />
+    <Label size={props.size} label={props.label} required={props.isRequired} complete={props.hasValue} />
     <TextField
       type={props.type}
       className={props.className}
@@ -142,7 +142,7 @@ const composeText = props => [
 
 const composeDate = props => [
   <div className="forminput-input" style={props.wrapperStyle}>
-    <Label label={props.label} required={props.isRequired} complete={props.hasValue} />
+    <Label size={props.size} label={props.label} required={props.isRequired} complete={props.hasValue} />
     <DatePicker
       size={props.size}
       className={props.className}
@@ -183,7 +183,7 @@ const composeFile = props => {
   }
   return [
     <div className="forminput-input" style={props.wrapperStyle}>
-      <Label label={props.label} required={props.isRequired} complete={props.hasValue} />
+      <Label size={props.size} label={props.label} required={props.isRequired} complete={props.hasValue} />
       <FileUploader
         size={props.size}
         className={props.className}
@@ -215,7 +215,7 @@ const composeFile = props => {
 
 const composeRadio = props => [
   <div className="forminput-checkbox" style={props.wrapperStyle}>
-    <Label label={props.label} required={props.isRequired} complete={props.hasValue} />
+    <Label size={props.size} label={props.label} required={props.isRequired} complete={props.hasValue} />
     <RadioGroup
       id={props.componentId}
       onChange={props.onChange}

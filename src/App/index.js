@@ -1,16 +1,17 @@
 import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { Route } from 'react-router-dom';
-import { Spinner } from 'components';
+import { ScrollBox, Spinner } from 'components';
 import Toast from './Toast';
 import ErrorModal from './ErrorModal';
 import './App.css';
 import Navbar from './Navbar';
 import Menu from './Menu';
 import Users from './Users';
-import Tester from './Tester';
-import Quotes from './Quotes';
-import Results from './Results';
+// import Tester from './Tester';
+// import Quotes from './Quotes';
+// import Results from './Results';
+import Transfer from './Transfer';
 
 import { initApp, hideErrorModal } from './actions';
 import {
@@ -45,12 +46,15 @@ class App extends PureComponent {
           <div id="app__menu">
             <Menu />
           </div>
-          <div id="app__views">
-            <Route path="/users" component={Users} />
-            <Route path="/payer" component={Tester} />
-            <Route path="/payee" component={Quotes} />
-            <Route path="/history" component={Results} />
-          </div>
+          <ScrollBox>
+            <div id="app__views">
+              <Route path="/users" component={Users} />
+              {/*<Route path="/payer" component={Tester} />
+              <Route path="/payee" component={Quotes} />
+              <Route path="/history" component={Results} />*/}
+              <Route path="/transfer" component={Transfer} />
+            </div>
+          </ScrollBox>
         </div>
         <Toast isVisible={isToastVisible} message={toastMessage} kind={toastKind}/>
         <ErrorModal isVisible={isErrorModalVisible} content={errorModalContent} onClose={onCloseErrorModal} />

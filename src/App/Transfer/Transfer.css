@@ -1,0 +1,119 @@
+#transfer {
+  display: flex;
+  flex-direction: column;
+  margin: 0px;
+}
+
+#transfer_error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  font-size: 30px;
+  color: #c33;
+}
+
+.transfer__runner__form {
+  display: flex;
+  margin-bottom: 30px;
+  flex-direction: column;
+}
+
+.transfer__runner__form-row {
+  display: flex;
+  margin-bottom: 20px;
+  flex-direction: row;
+}
+.transfer__runner__form-row-label {
+  width: 80px;
+  font-size: 14px;
+  font-weight: bold;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding-right: 20px;
+  padding-bottom: 10px;
+}
+.transfer__runner__form-input {
+  width: 310px;
+  margin-right: 10px;
+  display: flex;
+  align-items: flex-end;
+}
+.transfer__runner__form-input--small{
+  width: 150px;
+}
+
+.transfer__button__row {
+  margin-left: 80px;
+  margin-bottom: 20px;
+  align-items: center;
+  flex-direction: row;
+  display: flex;
+}
+.transfer__button__item {
+  width: 150px;
+  margin-right: 10px;
+}
+
+
+.transfer__runner__response-row {
+  display: flex;
+  margin-bottom: 20px;
+  flex-direction: row;
+}
+.transfer__runner__response-row-label {
+  width: 80px;
+  font-size: 14px;
+  font-weight: bold;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding-right: 20px;
+  padding-bottom: 10px;
+}
+.transfer__runner__response-item {
+  width: 310px;
+  margin-right: 10px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  height: 50px;
+  border-bottom: 2px solid #ccc;
+  padding: 0px 5px;
+}
+.transfer__runner__response-item--small{
+  width: 150px;
+}
+
+
+.transfer__runner__response-item-label {
+  font-size: 12px;
+  margin-bottom: 2px;
+}
+.transfer__runner__response-item-path {
+  font-size: 10px;
+  color: #999;
+}
+.transfer__runner__response-item-value {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+.transfer__runner__response-item-value__content {
+  font-size: 13px;
+  margin-top: 3px;
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 0px;
+  display: flex;
+  overflow: hidden;
+
+  flex-grow: 1;
+  flex-shrink: 1;
+  flex-basis: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: left;
+  overflow: hidden;
+}

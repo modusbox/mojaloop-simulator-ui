@@ -7,6 +7,8 @@ import users from 'App/Users/reducers';
 import tester from 'App/Tester/reducers';
 import results from 'App/Results/reducers';
 import quotes from 'App/Quotes/reducers';
+import transfer from 'App/Transfer/reducers';
+
 
 const reducers = history =>
   combineReducers({
@@ -17,6 +19,7 @@ const reducers = history =>
     results,
     quotes,
     tester,
+    transfer,
   })
     
 export default reducers;

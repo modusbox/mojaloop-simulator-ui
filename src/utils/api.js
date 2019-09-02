@@ -1,7 +1,6 @@
 import { buildFetchActions } from 'modusbox-ui-components/dist/redux-fetch';
 
 const handleError = (error, status, state) => {
-  console.log(error)
   if (status === 401) {
     window.location.assign(state.app.config.loginUrl);
     // should exit the execution of the function
@@ -50,9 +49,9 @@ const endpoints = {
     service: services.test,
     url :'/repository/parties'
   },
-  environments: {
-    service: services.simulator,
-    url: '/environments',
+  scenarios: {
+    service: services.test,
+    url: '/scenarios',
   },
   quoteRequests: {
     service: services.simulator,

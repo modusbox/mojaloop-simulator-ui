@@ -15,7 +15,9 @@ export const getTransferRequestValidators = () => {
     name: createValidation([vd.isRequired, vd.isAlphaNum]),
     operation: createValidation([vd.isRequired]),
     body: {
+      note: createValidation([vd.isRequired]),
       homeTransactionId: createValidation([vd.isRequired, isUuid]),
+
       from: {
         idType: createValidation([vd.isRequired, isIdType]),
         idValue: createValidation([vd.isRequired, vd.isNum, vd.isLongBetween(1,128)])
@@ -24,6 +26,7 @@ export const getTransferRequestValidators = () => {
         idType: createValidation([vd.isRequired, isIdType]),
         idValue: createValidation([vd.isRequired, vd.isNum, vd.isLongBetween(1,128)])
       },
+      amountType: createValidation([vd.isRequired]),
       amount: createValidation([vd.isRequired, vd.isNum]),
       currency: createValidation([vd.isRequired, vd.maxLength(3)]),
     }

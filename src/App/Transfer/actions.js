@@ -3,7 +3,7 @@ import uuid from 'uuid/v4';
 import api from 'utils/api';
 import { ID_TYPES } from '../Users/constants'; 
 import { CURRENCIES } from '../constants';
-import { OPERATIONS } from './constants';
+import { OPERATIONS, QUOTE_TYPES } from './constants';
 import { getTransfer } from './selectors';
 
 export const SET_TRANSFER_LOADING = 'Transfer/ Set Is Loading';
@@ -52,7 +52,7 @@ export const randomize = () => (dispatch) => {
   const getWord = (min, max) => new Array(min + randomNumber(max - min)).fill(0).map(() => getAny(alphabet)).join('');
   const getCode = () => new Array(10).fill(0).map(_ => Math.random().toString().substring(4,5)).join('');
   const getAmount = () => Math.round(Math.random() * 1250)
-  const getAmountType = () => Math.round(Math.random()) ? 'SEND' : 'RECEIVE';
+  const getAmountType = () => getAny(QUOTE_TYPES);
   const getNote = () => new Array(1 + randomNumber(5)).fill(0).map(() => getWord(2, 10)).join(' ');
   const getDisplayName = () => `${getAny(names)} ${getAny(lastnames)}`;
   const getOperation = () => getAny(OPERATIONS).value;

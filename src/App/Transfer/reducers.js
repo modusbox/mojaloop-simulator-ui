@@ -76,7 +76,7 @@ const Transfer = handleActions(
     [CHANGE_TYPE]: changeTransferField('type'),
     [CHANGE_NAME]: changeTransferField('name'),
     [CHANGE_OPERATION]: changeTransferField('operation'),
-    [CHANGE_HOME_TRANSACTION_ID]: changeTransferField('body.transactionId'),
+    [CHANGE_HOME_TRANSACTION_ID]: changeTransferField('body.homeTransactionId'),
     [CHANGE_FROM_ID_DISPLAY_NAME]: changeTransferField('body.from.displayName'),
     [CHANGE_FROM_ID_TYPE]: changeTransferField('body.from.idType'),
     [CHANGE_FROM_ID_VALUE]: changeTransferField('body.from.idValue'),

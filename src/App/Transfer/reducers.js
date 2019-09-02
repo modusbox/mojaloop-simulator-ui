@@ -28,7 +28,7 @@ const initialTransferState = {
   body: {
     "homeTransactionId": uuid(),
     "from": {
-        "displayName": "The dark knight",
+        "displayName": "John Johnson",
         "idType": "MSISDN",
         "idValue": "123456"
     },

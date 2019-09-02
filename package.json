@@ -1,5 +1,11 @@
 {
-  "name": "dfsp-management-portal-ui",
+  "name": "mojaloop-simulator-ui",
+  "description": "Mojaloop simulator tester interface",
+  "author": "Ivan Annovazzi, Modusbox Inc.",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/modusbox/mojaloop-simulator-ui.git"
+  },
   "version": "0.1.0",
   "private": true,
   "dependencies": {

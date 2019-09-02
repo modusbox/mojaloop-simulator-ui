@@ -225,7 +225,7 @@ class Transfer extends PureComponent {
               <FormInput
                 size='m'
                 type="text"
-                label="From ID Value"
+                label="From Display Name"
                 placeholder="body.from.displayName"
                 value={transfer.body.from.displayName}
                 onChange={onFromDisplayNameChange}

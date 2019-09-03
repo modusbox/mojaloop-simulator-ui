@@ -87,29 +87,31 @@ class TransferResponse extends PureComponent {
           </ResponseRow>
 
           <ResponseRow title="Quote">
-            <ResponseItem label="Quote ID" path='quoteId' data={data}/>
-            <ResponseItem label="Expiration" path='quoteResponse.expiration' data={data}/>
+            <ResponseItem label="Payee FSP Fee Amount" path='quoteResponse.payeeFspFee.amount' data={data} />
+            <ResponseItem label="Payee FSP Fee Currency" path='quoteResponse.payeeFspFee.currency' data={data} />
           </ResponseRow>
-          
+
           <ResponseRow>
             <ResponseItem label="Quote Amount" path='quoteResponse.transferAmount.amount' data={data}/>
             <ResponseItem label="Quote Currency" path='quoteResponse.transferAmount.currency' data={data}/>
           </ResponseRow>
+          
+          <ResponseRow>
+            <ResponseItem label="Payee FSP Commission" path='quoteResponse.payeeFspCommission.amount' data={data} />
+            <ResponseItem label="Payee FSP Commission" path='quoteResponse.payeeFspCommission.currency' data={data} />
+          </ResponseRow>
+
+          <ResponseRow>
+            <ResponseItem label="Quote ID" path='quoteId' data={data}/>
+            <ResponseItem label="Expiration" path='quoteResponse.expiration' data={data}/>
+          </ResponseRow>
+          
 
           <ResponseRow>
             <ResponseItem label="ilp Packet" path='quoteResponse.ilpPacket' data={data} small split/>
             <ResponseItem label="Condition" path='quoteResponse.condition' data={data} small/>
           </ResponseRow>
 
-          <ResponseRow>
-            <ResponseItem label="Payee FSP Fee Amount" path='quoteResponse.payeeFspFee.amount' data={data} />
-            <ResponseItem label="Payee FSP Fee Currency" path='quoteResponse.payeeFspFee.currency' data={data} />
-          </ResponseRow>
-
-          <ResponseRow>
-            <ResponseItem label="Payee FSP Commission" path='quoteResponse.payeeFspCommission.amount' data={data} />
-            <ResponseItem label="Payee FSP Commission" path='quoteResponse.payeeFspCommission.currency' data={data} />
-          </ResponseRow>
 
         </div>
       </div>

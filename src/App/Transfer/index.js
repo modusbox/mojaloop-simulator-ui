@@ -150,7 +150,9 @@ class Transfer extends PureComponent {
             />
             <Button 
               className="transfer__button__item"
+              icon="open"
               label="Send Transfer"
+              iconPosition="right"
               disabled={!isSubmitEnabled}
               pending={isSubmitPending}
               onClick={onSendTransferClick}

@@ -1,0 +1,23 @@
+{
+  "name": "mojaloop_simulator_ui_webserver",
+  "version": "1.1.1",
+  "description": "Mojaloop Simulator UI web app server",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/modusbox/mojaloop-simulator-ui.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "git+https://github.com/modusbox/mojaloop-simulator-ui/issues"
+  },
+  "homepage": "https://github.com/modusbox/mojaloop-simulator-ui#readme",
+  "dependencies": {
+    "express": "^4.16.4"
+  }
+}

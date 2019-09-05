@@ -3,6 +3,7 @@ import cloneDeep from 'lodash/cloneDeep';
 import set from 'lodash/set';
 import uuid from 'uuid/v1';
 import {
+  TOGGLE_ALL_FIELDS,
   SET_TRANSFER_LOADING,
   UNSET_TRANSFER_LOADING,
   SET_TRANSFER_RESPONSE,
@@ -47,6 +48,7 @@ const initialTransferState = {
 
 
 const initialState = {
+  isAllFieldsVisible: false,
   isTransferLoading: false,
   transfer: initialTransferState,
   transferResponse: undefined,
@@ -61,6 +63,10 @@ const changeTransferField = (path) => (state, action) => {
 
 const Transfer = handleActions(
   {
+    [TOGGLE_ALL_FIELDS]: (state, action) => ({
+      ...state,
+      isAllFieldsVisible: !state.isAllFieldsVisible,
+    }),
     [SET_TRANSFER_LOADING]: (state, action) => ({
       ...state,
       isTransferLoading: true,

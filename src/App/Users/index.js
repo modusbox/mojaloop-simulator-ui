@@ -109,6 +109,7 @@ class Users extends PureComponent {
         <DataList
           list={users}
           columns={columns}
+          sortColumn="First Name"
           flex
         />
 

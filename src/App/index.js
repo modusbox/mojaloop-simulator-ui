@@ -10,6 +10,7 @@ import Menu from './Menu';
 import Users from './Users';
 import Transfer from './Transfer';
 import Settings from './Settings'; 
+// TODO: Enable when ready
 // import Tester from './Tester';
 // import Quotes from './Quotes';
 // import Results from './Results';
@@ -52,9 +53,6 @@ class App extends PureComponent {
               <Route path="/users" component={Users} />
               <Route path="/transfer" component={Transfer} />
               <Route path="/settings" component={Settings} />
-              {/*<Route path="/payer" component={Tester} />
-              <Route path="/payee" component={Quotes} />
-              <Route path="/history" component={Results} />*/}
             </div>
           </ScrollBox>
         </div>

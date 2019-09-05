@@ -6,9 +6,10 @@ import { CURRENCIES } from '../constants';
 import { OPERATIONS, QUOTE_TYPES } from './constants';
 import { getTransfer } from './selectors';
 
-export const SET_TRANSFER_LOADING = 'Transfer/ Set Is Loading';
-export const UNSET_TRANSFER_LOADING = 'Transfer/ Unset Is Loading';
-export const SET_TRANSFER_RESPONSE = 'Transfer/ Set Response';
+export const TOGGLE_ALL_FIELDS = 'Transfer / Toggle All Fields';
+export const SET_TRANSFER_LOADING = 'Transfer / Set Is Loading';
+export const UNSET_TRANSFER_LOADING = 'Transfer / Unset Is Loading';
+export const SET_TRANSFER_RESPONSE = 'Transfer / Set Response';
 
 export const CHANGE_TYPE = 'Transfer / change type';
 export const CHANGE_NAME = 'Transfer / change name';
@@ -25,6 +26,7 @@ export const CHANGE_AMOUNT = 'Transfer / change amount';
 export const CHANGE_CURRENCY = 'Transfer / change currency';
 export const CHANGE_TRANSACTION_TYPE = 'Transfer / change transaction type';
 
+export const toggleAllFields = createAction(TOGGLE_ALL_FIELDS);
 export const setTransferLoading = createAction(SET_TRANSFER_LOADING);
 export const unsetTransferLoading = createAction(UNSET_TRANSFER_LOADING);
 export const setTransferResponse = createAction(SET_TRANSFER_RESPONSE);
@@ -52,7 +54,7 @@ export const randomize = () => (dispatch) => {
   const getWord = (min, max) => new Array(min + randomNumber(max - min)).fill(0).map(() => getAny(alphabet)).join('');
   const getCode = () => new Array(10).fill(0).map(_ => Math.random().toString().substring(4,5)).join('');
   const getAmount = () => Math.round(Math.random() * 1250)
-  const getAmountType = () => getAny(QUOTE_TYPES);
+  const getAmountType = () => getAny(QUOTE_TYPES).value;
   const getNote = () => new Array(1 + randomNumber(5)).fill(0).map(() => getWord(2, 10)).join(' ');
   const getDisplayName = () => `${getAny(names)} ${getAny(lastnames)}`;
   const getOperation = () => getAny(OPERATIONS).value;

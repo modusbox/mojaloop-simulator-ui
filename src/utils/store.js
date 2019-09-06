@@ -1,8 +1,8 @@
-import { createStore, applyMiddleware, compose } from 'redux';
-import { routerMiddleware } from 'connected-react-router';
-import ReduxThunk from 'redux-thunk';
-import fetchMiddleware from 'modusbox-ui-components/dist/redux-fetch';
-import reducers from '../reducers';
+import { createStore, applyMiddleware, compose } from "redux";
+import { routerMiddleware } from "connected-react-router";
+import ReduxThunk from "redux-thunk";
+import fetchMiddleware from "modusbox-ui-components/dist/redux-fetch";
+import reducers from "../reducers";
 
 export default function configureStore(history, config) {
   const { isDevelopment } = config;
@@ -14,7 +14,9 @@ export default function configureStore(history, config) {
 
   if (isDevelopment) {
     // add devTool composer
-    const devToolsComposer = window.__REDUX_DEVTOOLS_EXTENSION__ ? window.__REDUX_DEVTOOLS_EXTENSION__() : f => f;
+    const devToolsComposer = window.__REDUX_DEVTOOLS_EXTENSION__
+      ? window.__REDUX_DEVTOOLS_EXTENSION__()
+      : f => f;
     composers.push(devToolsComposer);
   }
 

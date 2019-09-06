@@ -1,10 +1,19 @@
-import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
-import { Button, Spinner, Tab, Tabs, TabPanel, TabPanels, TabList, Title } from 'components';
-import SimpleTransferForm from './SimpleTransferForm';
-import AdvancedTransferForm from './AdvancedTransferForm';
-import TransferResponse from './TransferResponse';
-import './Transfer.css';
+import React, { PureComponent } from "react";
+import { connect } from "react-redux";
+import {
+  Button,
+  Spinner,
+  Tab,
+  Tabs,
+  TabPanel,
+  TabPanels,
+  TabList,
+  Title
+} from "components";
+import SimpleTransferForm from "./SimpleTransferForm";
+import AdvancedTransferForm from "./AdvancedTransferForm";
+import TransferResponse from "./TransferResponse";
+import "./Transfer.css";
 
 import {
   changeName,
@@ -25,8 +34,8 @@ import {
   randomizeForm,
   exportFormrandomize,
   sendTransfer,
-  toggleAllFields,
-} from './actions';
+  toggleAllFields
+} from "./actions";
 import {
   getIsTransferLoading,
   getTransfer,
@@ -35,8 +44,8 @@ import {
   getIsSubmitPending,
   getIsAllFieldsVisible,
   getIsAdvancedMode,
-  getValidationResult,
-} from './selectors';
+  getValidationResult
+} from "./selectors";
 
 const stateProps = state => ({
   isTransferLoading: getIsTransferLoading(state),
@@ -46,7 +55,7 @@ const stateProps = state => ({
   isSubmitPending: getIsSubmitPending(state),
   isAllFieldsVisible: getIsAllFieldsVisible(state),
   isAdvancedMode: getIsAdvancedMode(state),
-  validation: getValidationResult(state),
+  validation: getValidationResult(state)
 });
 
 const actionProps = dispatch => ({
@@ -63,16 +72,18 @@ const actionProps = dispatch => ({
   onAmountChange: value => dispatch(changeAmount(value)),
   onCurrencyChange: value => dispatch(changeCurrency(value)),
   onTransactionTypeChange: value => dispatch(changeTransactionType(value)),
-  onModeSelect: (_,tabIndex) => dispatch(setMode(tabIndex)),
+  onModeSelect: (_, tabIndex) => dispatch(setMode(tabIndex)),
   onSendTransferClick: () => dispatch(sendTransfer()),
   onResetFormButtonClick: () => dispatch(resetForm()),
   onRandomizeFormButtonClick: () => dispatch(randomizeForm()),
   onExportFormButtonClick: () => dispatch(exportFormrandomize()),
-  onAllFieldsViewChange: () => dispatch(toggleAllFields()),
+  onAllFieldsViewChange: () => dispatch(toggleAllFields())
 });
 
 const TransferLoader = () => <Spinner center size="m" />;
-const TransferError = () => <div id="app_error">There was an error while reading the environments</div>;
+const TransferError = () => (
+  <div id="app_error">There was an error while reading the environments</div>
+);
 
 class Transfer extends PureComponent {
   render() {
@@ -98,72 +109,70 @@ class Transfer extends PureComponent {
       onAmountChange,
       onCurrencyChange,
       onTransactionTypeChange,
-      
+
       onModeSelect,
       onResetFormButtonClick,
       onRandomizeFormButtonClick,
       onExportFormButtonClick,
       onSendTransferClick,
-      onAllFieldsViewChange,
+      onAllFieldsViewChange
     } = this.props;
     return (
       <div id="transfer">
-
-        <div className="transfer__runner__section"> 
+        <div className="transfer__runner__section">
           <Title>Send</Title>
-            <Tabs onSelect={onModeSelect} selected={isAdvancedMode ? 1 : 0}>
-              <TabList>
-                <Tab>Simple Mode</Tab>
-                <Tab>Advanced Mode</Tab>
-              </TabList>
-              <TabPanels>
-                <TabPanel>
-                  <SimpleTransferForm
-                    transfer={transfer}
-                    validation={validation}
-                    onNameChange={onNameChange}
-                    onOperationChange={onOperationChange}
-                    onHomeTransactionIdChange={onHomeTransactionIdChange}
-                    onFromDisplayNameChange={onFromDisplayNameChange}
-                    onFromIdTypeChange={onFromIdTypeChange}
-                    onFromIdValueChange={onFromIdValueChange}
-                    onToIdTypeChange={onToIdTypeChange}
-                    onToIdValueChange={onToIdValueChange}
-                    onNoteChange={onNoteChange}
-                    onAmountTypeChange={onAmountTypeChange}
-                    onAmountChange={onAmountChange}
-                    onCurrencyChange={onCurrencyChange}
-                    onTransactionTypeChange={onTransactionTypeChange}
-                  />
-                </TabPanel>
-                <TabPanel>
-                  <AdvancedTransferForm
-                    transfer={transfer}
-                    validation={validation}
-                    onResetFormButtonClick={onResetFormButtonClick}
-                    onRandomizeFormButtonClick={onRandomizeFormButtonClick}
-                    onExportFormButtonClick={onExportFormButtonClick}
-                    onNameChange={onNameChange}
-                    onOperationChange={onOperationChange}
-                    onHomeTransactionIdChange={onHomeTransactionIdChange}
-                    onFromDisplayNameChange={onFromDisplayNameChange}
-                    onFromIdTypeChange={onFromIdTypeChange}
-                    onFromIdValueChange={onFromIdValueChange}
-                    onToIdTypeChange={onToIdTypeChange}
-                    onToIdValueChange={onToIdValueChange}
-                    onNoteChange={onNoteChange}
-                    onAmountTypeChange={onAmountTypeChange}
-                    onAmountChange={onAmountChange}
-                    onCurrencyChange={onCurrencyChange}
-                    onTransactionTypeChange={onTransactionTypeChange}
-                  />
-                  
-                </TabPanel>
-              </TabPanels>
-            </Tabs>
-          
+          <Tabs onSelect={onModeSelect} selected={isAdvancedMode ? 1 : 0}>
+            <TabList>
+              <Tab>Simple Mode</Tab>
+              <Tab>Advanced Mode</Tab>
+            </TabList>
+            <TabPanels>
+              <TabPanel>
+                <SimpleTransferForm
+                  transfer={transfer}
+                  validation={validation}
+                  onNameChange={onNameChange}
+                  onOperationChange={onOperationChange}
+                  onHomeTransactionIdChange={onHomeTransactionIdChange}
+                  onFromDisplayNameChange={onFromDisplayNameChange}
+                  onFromIdTypeChange={onFromIdTypeChange}
+                  onFromIdValueChange={onFromIdValueChange}
+                  onToIdTypeChange={onToIdTypeChange}
+                  onToIdValueChange={onToIdValueChange}
+                  onNoteChange={onNoteChange}
+                  onAmountTypeChange={onAmountTypeChange}
+                  onAmountChange={onAmountChange}
+                  onCurrencyChange={onCurrencyChange}
+                  onTransactionTypeChange={onTransactionTypeChange}
+                />
+              </TabPanel>
+              <TabPanel>
+                <AdvancedTransferForm
+                  transfer={transfer}
+                  validation={validation}
+                  onResetFormButtonClick={onResetFormButtonClick}
+                  onRandomizeFormButtonClick={onRandomizeFormButtonClick}
+                  onExportFormButtonClick={onExportFormButtonClick}
+                  onNameChange={onNameChange}
+                  onOperationChange={onOperationChange}
+                  onHomeTransactionIdChange={onHomeTransactionIdChange}
+                  onFromDisplayNameChange={onFromDisplayNameChange}
+                  onFromIdTypeChange={onFromIdTypeChange}
+                  onFromIdValueChange={onFromIdValueChange}
+                  onToIdTypeChange={onToIdTypeChange}
+                  onToIdValueChange={onToIdValueChange}
+                  onNoteChange={onNoteChange}
+                  onAmountTypeChange={onAmountTypeChange}
+                  onAmountChange={onAmountChange}
+                  onCurrencyChange={onCurrencyChange}
+                  onTransactionTypeChange={onTransactionTypeChange}
+                />
+              </TabPanel>
+            </TabPanels>
+          </Tabs>
+
           <div className="transfer__button__row">
-            <Button 
+            <Button
               className="transfer__button__item"
               icon="open"
               label="Send Transfer"

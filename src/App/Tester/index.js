@@ -1,17 +1,17 @@
-import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
-import { Button, FormInput, Spinner, Title } from 'components';
-import { QUOTE_TYPES } from './constants';
-import { CURRENCIES } from '../constants';
-import { arrayToOptions } from '../../utils/html'
-import './Tester.css';
+import React, { PureComponent } from "react";
+import { connect } from "react-redux";
+import { Button, FormInput, Spinner, Title } from "components";
+import { QUOTE_TYPES } from "./constants";
+import { CURRENCIES } from "../constants";
+import { arrayToOptions } from "../../utils/html";
+import "./Tester.css";
 
 import {
   changeType,
   changeAmount,
   changeCurrency,
-  changePayeeDfsp,
-} from './actions';
+  changePayeeDfsp
+} from "./actions";
 import {
   getIsTesterLoading,
   getPayeeDfspId,
@@ -19,8 +19,8 @@ import {
   getAmount,
   getCurrency,
   getIsSubmitEnabled,
-  getValidationResult,
-} from './selectors';
+  getValidationResult
+} from "./selectors";
 
 const stateProps = state => ({
   isTesterLoading: getIsTesterLoading(state),
@@ -29,19 +29,21 @@ const stateProps = state => ({
   amount: getAmount(state),
   currency: getCurrency(state),
   isSubmitEnabled: getIsSubmitEnabled(state),
-  validation: getValidationResult(state),
+  validation: getValidationResult(state)
 });
 const actionProps = dispatch => ({
   onPayeeDfspChange: value => dispatch(changePayeeDfsp(value)),
   onTypeChange: value => dispatch(changeType(value)),
   onAmountChange: value => dispatch(changeAmount(value)),
-  onCurrencyChange: value => dispatch(changeCurrency(value)),
+  onCurrencyChange: value => dispatch(changeCurrency(value))
 });
 
 const currencies = arrayToOptions(CURRENCIES);
 
 const TesterLoader = () => <Spinner center size="m" />;
-const TesterError = () => <div id="app_error">There was an error while reading the environments</div>;
+const TesterError = () => (
+  <div id="app_error">There was an error while reading the environments</div>
+);
 
 class Tester extends PureComponent {
   render() {
@@ -55,11 +57,10 @@ class Tester extends PureComponent {
       onTypeChange,
       onCurrencyChange,
       onAmountChange,
-      onPayeeDfspChange,
+      onPayeeDfspChange
     } = this.props;
     return (
       <div id="tester">
-
         <Title>Request a Quote</Title>
 
         <div className="tester__runner__form">
@@ -106,7 +107,7 @@ class Tester extends PureComponent {
         </div>
 
         <div className="tester__runner__button">
-          <Button label="Request Quote" disabled={!isSubmitEnabled}/>
+          <Button label="Request Quote" disabled={!isSubmitEnabled} />
         </div>
       </div>
     );

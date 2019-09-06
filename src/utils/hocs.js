@@ -1,4 +1,4 @@
-import React, { PureComponent } from 'react';
+import React, { PureComponent } from "react";
 
 function withMount(Component, fnName) {
   return class loadDfspsCasHoc extends PureComponent {
@@ -6,7 +6,7 @@ function withMount(Component, fnName) {
       // select the mounting function and
       // run it only if set and correct typeof
       const fn = this.props[fnName];
-      fn && typeof fn === 'function' && fn();
+      fn && typeof fn === "function" && fn();
     }
     render() {
       return <Component {...this.props} />;

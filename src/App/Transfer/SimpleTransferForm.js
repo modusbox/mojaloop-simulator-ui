@@ -1,10 +1,9 @@
-import React from 'react';
-import { FormInput } from 'components';
-import { ID_TYPES } from '../Users/constants'; 
-import { CURRENCIES } from '../constants';
-import { QUOTE_TYPES } from './constants';
-import { arrayToOptions } from '../../utils/html'
-
+import React from "react";
+import { FormInput } from "components";
+import { ID_TYPES } from "../Users/constants";
+import { CURRENCIES } from "../constants";
+import { QUOTE_TYPES } from "./constants";
+import { arrayToOptions } from "../../utils/html";
 
 const currencies = arrayToOptions(CURRENCIES);
 
@@ -19,14 +18,14 @@ const SimpleTransferForm = ({
   onAmountTypeChange,
   onAmountChange,
   onCurrencyChange,
-  onTransactionTypeChange,
+  onTransactionTypeChange
 }) => (
   <div className="transfer__runner__form">
     <div className="transfer__runner__form-row">
-      <div className="transfer__runner__form-row-label">Amounts</div> 
+      <div className="transfer__runner__form-row-label">Amounts</div>
       <div className="transfer__runner__form-input transfer__runner__form-input--small">
         <FormInput
-          size='l'
+          size="l"
           type="select"
           label="Amount Type"
           placeholder="body.amountType"
@@ -38,7 +37,7 @@ const SimpleTransferForm = ({
       </div>
       <div className="transfer__runner__form-input transfer__runner__form-input--small">
         <FormInput
-          size='l'
+          size="l"
           type="text"
           label="Amount"
           placeholder="body.amount"
@@ -49,7 +48,7 @@ const SimpleTransferForm = ({
       </div>
       <div className="transfer__runner__form-input transfer__runner__form-input--small">
         <FormInput
-          size='l'
+          size="l"
           type="select"
           label="Currency"
           placeholder="body.currency"
@@ -61,7 +60,7 @@ const SimpleTransferForm = ({
       </div>
       <div className="transfer__runner__form-input transfer__runner__form-input--small">
         <FormInput
-          size='l'
+          size="l"
           type="select"
           options={ID_TYPES}
           label="To ID Type"
@@ -73,7 +72,7 @@ const SimpleTransferForm = ({
       </div>
       <div className="transfer__runner__form-input transfer__runner__form-input--small">
         <FormInput
-          size='l'
+          size="l"
           type="text"
           label="To ID Value"
           placeholder="body.to.idValue"

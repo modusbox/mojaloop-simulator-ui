@@ -1,9 +1,19 @@
-import PropTypes from 'prop-types';
-import React, { PureComponent } from 'react';
-import { Select, TextField, Checkbox, DatePicker, FileUploader, RadioGroup, Row, Button, Icon } from '../index';
-import './FormInput.scss';
+import PropTypes from "prop-types";
+import React, { PureComponent } from "react";
+import {
+  Select,
+  TextField,
+  Checkbox,
+  DatePicker,
+  FileUploader,
+  RadioGroup,
+  Row,
+  Button,
+  Icon
+} from "../index";
+import "./FormInput.scss";
 
-const Label = ({ size = 'l', label, required, complete }) => {
+const Label = ({ size = "l", label, required, complete }) => {
   if (!label) {
     return null;
   }
@@ -11,11 +21,11 @@ const Label = ({ size = 'l', label, required, complete }) => {
     <div className={`forminput__label-box forminput__label-box--${size}`}>
       {required && (
         <Icon
-          size={size === 'm' ? 12 : 14 }
+          size={size === "m" ? 12 : 14}
           name="info-small"
           className="forminput__label-icon"
-          fill={complete ? '#39f' : '#f93'}
-          tooltip={complete ? '' : 'This is a required field'}
+          fill={complete ? "#39f" : "#f93"}
+          tooltip={complete ? "" : "This is a required field"}
         />
       )}
       <label>{label}</label>
@@ -45,14 +55,26 @@ const LockedIcon = ({ locked }) => {
   if (!locked) {
     return null;
   }
-  return <Icon name="lock-small" size={20} fill="#999" style={{ marginLeft: '10px' }} />;
+  return (
+    <Icon
+      name="lock-small"
+      size={20}
+      fill="#999"
+      style={{ marginLeft: "10px" }}
+    />
+  );
 };
 
 const addKey = (element, index) => React.cloneElement(element, { key: index });
 
 const composeSelect = props => [
   <div className="forminput-input" style={props.wrapperStyle}>
-    <Label size={props.size} label={props.label} required={props.isRequired} complete={props.hasValue} />
+    <Label
+      size={props.size}
+      label={props.label}
+      required={props.isRequired}
+      complete={props.hasValue}
+    />
     <Select
       size={props.size}
       className={props.className}
@@ -76,12 +98,17 @@ const composeSelect = props => [
     onClick={props.onInlineButtonClick}
     label={props.inlineButtonLabel}
   />,
-  <LockedIcon locked={props.isLocked} />,
+  <LockedIcon locked={props.isLocked} />
 ];
 
 const composePicker = props => [
   <div className="forminput-input picker" style={props.wrapperStyle}>
-    <Label size={props.size} label={props.label} required={props.isRequired} complete={props.hasValue} />
+    <Label
+      size={props.size}
+      label={props.label}
+      required={props.isRequired}
+      complete={props.hasValue}
+    />
     <TextField
       type="text"
       size={props.size}
@@ -105,12 +132,17 @@ const composePicker = props => [
     />
     {props.children !== undefined && props.children}
   </div>,
-  <LockedIcon locked={props.isLocked} />,
+  <LockedIcon locked={props.isLocked} />
 ];
 
 const composeText = props => [
   <div className="forminput-input" style={props.wrapperStyle}>
-    <Label size={props.size} label={props.label} required={props.isRequired} complete={props.hasValue} />
+    <Label
+      size={props.size}
+      label={props.label}
+      required={props.isRequired}
+      complete={props.hasValue}
+    />
     <TextField
       type={props.type}
       className={props.className}
@@ -137,18 +169,23 @@ const composeText = props => [
     onClick={props.onInlineButtonClick}
     label={props.inlineButtonLabel}
   />,
-  <LockedIcon locked={props.isLocked} />,
+  <LockedIcon locked={props.isLocked} />
 ];
 
 const composeDate = props => [
   <div className="forminput-input" style={props.wrapperStyle}>
-    <Label size={props.size} label={props.label} required={props.isRequired} complete={props.hasValue} />
+    <Label
+      size={props.size}
+      label={props.label}
+      required={props.isRequired}
+      complete={props.hasValue}
+    />
     <DatePicker
       size={props.size}
       className={props.className}
-      withTime={props.type === 'datetime'}
-      format={props.format || 'X'} // export as seconds timestamp
-      exportFormat={props.exportFormat || 'X'}
+      withTime={props.type === "datetime"}
+      format={props.format || "X"} // export as seconds timestamp
+      exportFormat={props.exportFormat || "X"}
       onSelect={props.onChange}
       value={props.value}
       placeholder={props.placeholder}
@@ -171,19 +208,24 @@ const composeDate = props => [
     onClick={props.onInlineButtonClick}
     label={props.inlineButtonLabel}
   />,
-  <LockedIcon locked={props.isLocked} />,
+  <LockedIcon locked={props.isLocked} />
 ];
 
 const composeFile = props => {
   let parseFileAs;
   if (props.parseFileAsText) {
-    parseFileAs = 'text';
+    parseFileAs = "text";
   } else if (props.parseFileAsBase64) {
-    parseFileAs = 'base64';
+    parseFileAs = "base64";
   }
   return [
     <div className="forminput-input" style={props.wrapperStyle}>
-      <Label size={props.size} label={props.label} required={props.isRequired} complete={props.hasValue} />
+      <Label
+        size={props.size}
+        label={props.label}
+        required={props.isRequired}
+        complete={props.hasValue}
+      />
       <FileUploader
         size={props.size}
         className={props.className}
@@ -209,13 +251,18 @@ const composeFile = props => {
       onClick={props.onInlineButtonClick}
       label={props.inlineButtonLabel}
     />,
-    <LockedIcon locked={props.isLocked} />,
+    <LockedIcon locked={props.isLocked} />
   ];
 };
 
 const composeRadio = props => [
   <div className="forminput-checkbox" style={props.wrapperStyle}>
-    <Label size={props.size} label={props.label} required={props.isRequired} complete={props.hasValue} />
+    <Label
+      size={props.size}
+      label={props.label}
+      required={props.isRequired}
+      complete={props.hasValue}
+    />
     <RadioGroup
       id={props.componentId}
       onChange={props.onChange}
@@ -224,7 +271,7 @@ const composeRadio = props => [
       options={props.options}
     />
   </div>,
-  <LockedIcon locked={props.isLocked} />,
+  <LockedIcon locked={props.isLocked} />
 ];
 
 const composeCheckbox = props => [
@@ -237,7 +284,7 @@ const composeCheckbox = props => [
       disabled={props.isDisabled}
     />
   </div>,
-  <LockedIcon locked={props.isLocked} />,
+  <LockedIcon locked={props.isLocked} />
 ];
 
 class FormInput extends PureComponent {
@@ -251,22 +298,22 @@ class FormInput extends PureComponent {
       value: undefined,
       isRequired: undefined,
       isPending: undefined,
-      isInvalid: undefined,
+      isInvalid: undefined
     };
   }
   onChange(value) {
     const { transformUpdate, onChange } = this.props;
     let updateValue = value;
-    if (typeof transformUpdate === 'function') {
+    if (typeof transformUpdate === "function") {
       updateValue = transformUpdate(value);
     }
-    if (typeof onChange === 'function') {
+    if (typeof onChange === "function") {
       onChange(updateValue);
     }
   }
   onTextFieldChange(value) {
     let updateValue = value;
-    if (value === '') {
+    if (value === "") {
       updateValue = undefined;
     }
     this.onChange(updateValue);
@@ -274,7 +321,7 @@ class FormInput extends PureComponent {
   onTextFieldKeyDown(e) {
     e.nativeEvent.preventDefault();
     e.nativeEvent.stopPropagation();
-    if (typeof onClick === 'function') {
+    if (typeof onClick === "function") {
       this.props.onClick();
     }
   }
@@ -302,8 +349,8 @@ class FormInput extends PureComponent {
       disabled,
       locked,
       elementWidth,
-      rowWidth = '100%',
-      placeholder = '',
+      rowWidth = "100%",
+      placeholder = "",
       id,
       // select and radio parameters
       options,
@@ -321,7 +368,7 @@ class FormInput extends PureComponent {
       fileType,
       fileName,
       // has children to be shown below
-      children,
+      children
     } = this.props;
 
     if (hidden === true) {
@@ -330,24 +377,30 @@ class FormInput extends PureComponent {
 
     let value = this.props.value;
 
-    if (typeof transformValue === 'function') {
+    if (typeof transformValue === "function") {
       value = transformValue(value);
     }
 
-    const hasValue = value !== undefined && value !== null && value !== '';
-    const hasValidationMessages = validation && validation.messages && validation.messages.length > 0;
-    const isFieldInvalid = validation && validation.isValid === false && hasValue;
+    const hasValue = value !== undefined && value !== null && value !== "";
+    const hasValidationMessages =
+      validation && validation.messages && validation.messages.length > 0;
+    const isFieldInvalid =
+      validation && validation.isValid === false && hasValue;
     const hasValidationRequiredFlag = validation && validation.isRequired;
     const isRequired = required || hasValidationRequiredFlag;
-    const shouldShowValidation = invalid || isFieldInvalid || messageVisibility === true;
+    const shouldShowValidation =
+      invalid || isFieldInvalid || messageVisibility === true;
     const isInvalid = shouldShowValidation && errorVisibility !== false;
     const isPending = pending;
     const validationMessages = hasValidationMessages ? validation.messages : [];
     // Validate the extra message that appears below input, external to value validation
-    const messageVisibilities = Array.isArray(messageVisibility) ? messageVisibility : [messageVisibility];
+    const messageVisibilities = Array.isArray(messageVisibility)
+      ? messageVisibility
+      : [messageVisibility];
     const messages = Array.isArray(message) ? message : [message];
     const activeMessageIndex = messageVisibilities.indexOf(true);
-    const inputMessage = activeMessageIndex === -1 ? null : messages[activeMessageIndex];
+    const inputMessage =
+      activeMessageIndex === -1 ? null : messages[activeMessageIndex];
     if (inputMessage !== null) {
       validationMessages.push({ message: inputMessage, active: false });
     }
@@ -375,38 +428,60 @@ class FormInput extends PureComponent {
       isLocked: locked,
       hasValue,
       onChange: this.onChange,
-      children,
+      children
     };
 
     const buttonProps = {
-      hasInlineButton: typeof onInlineButtonClick === 'function',
+      hasInlineButton: typeof onInlineButtonClick === "function",
       inlineButtonLabel,
-      onInlineButtonClick,
+      onInlineButtonClick
     };
 
     // Return correct input
     let switchInput = null;
 
-    if (type === 'select') {
+    if (type === "select") {
       switchInput = composeSelect({ ...commonProps, ...buttonProps, options });
-    } else if (type === 'checkbox') {
+    } else if (type === "checkbox") {
       switchInput = composeCheckbox({ ...commonProps });
-    } else if (type === 'radio') {
+    } else if (type === "radio") {
       switchInput = composeRadio({ ...commonProps, options });
-    } else if (type === 'picker') {
-      switchInput = composePicker({ ...commonProps, ...buttonProps, onClick, onKeyDown: this.onTextFieldKeyDown });
-    } else if (type === 'date' || type === 'datetime') {
-      switchInput = composeDate({ ...commonProps, ...buttonProps, type, format, exportFormat });
-    } else if (type === 'file') {
-      switchInput = composeFile({ ...commonProps, parseFileAsText, parseFileAsBase64, fileType, fileName });
-    } else if (type === 'text' || type === 'number' || type === 'email' || type === 'password') {
+    } else if (type === "picker") {
+      switchInput = composePicker({
+        ...commonProps,
+        ...buttonProps,
+        onClick,
+        onKeyDown: this.onTextFieldKeyDown
+      });
+    } else if (type === "date" || type === "datetime") {
+      switchInput = composeDate({
+        ...commonProps,
+        ...buttonProps,
+        type,
+        format,
+        exportFormat
+      });
+    } else if (type === "file") {
+      switchInput = composeFile({
+        ...commonProps,
+        parseFileAsText,
+        parseFileAsBase64,
+        fileType,
+        fileName
+      });
+    } else if (
+      type === "text" ||
+      type === "number" ||
+      type === "email" ||
+      type === "password"
+    ) {
       switchInput = composeText({
         ...commonProps,
         ...buttonProps,
         type,
         icon,
         autofocus,
-        onChange: this.onTextFieldChange,
+        onChange: this.onTextFieldChange
       });
     }
     switchInput = switchInput.map(addKey);
@@ -421,17 +496,17 @@ class FormInput extends PureComponent {
 
 FormInput.propTypes = {
   type: PropTypes.oneOf([
-    'select',
-    'checkbox',
-    'radio',
-    'text',
-    'number',
-    'email',
-    'password',
-    'picker',
-    'date',
-    'datetime',
-    'file',
+    "select",
+    "checkbox",
+    "radio",
+    "text",
+    "number",
+    "email",
+    "password",
+    "picker",
+    "date",
+    "datetime",
+    "file"
   ]),
   name: PropTypes.string,
   label: PropTypes.string,
@@ -442,18 +517,25 @@ FormInput.propTypes = {
     messages: PropTypes.arrayOf(
       PropTypes.shape({
         message: PropTypes.string,
-        active: PropTypes.bool,
+        active: PropTypes.bool
       })
-    ),
+    )
   }),
-  value: PropTypes.oneOfType([PropTypes.string, PropTypes.number, PropTypes.bool]),
+  value: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.bool
+  ]),
   transformValue: PropTypes.func,
   transformUpdate: PropTypes.func,
   // eslint-disable-next-line
   allowEmpty: PropTypes.bool,
 
   // overwrite a nested object in the store
-  subgroup: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
+  subgroup: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.string)
+  ]),
   changeBase: PropTypes.bool,
   hidden: PropTypes.bool,
   disabled: PropTypes.bool,
@@ -463,11 +545,19 @@ FormInput.propTypes = {
   pending: PropTypes.bool,
   icon: PropTypes.string,
   // eslint-disable-next-line
-  message: PropTypes.oneOfType([PropTypes.string, PropTypes.arrayOf(PropTypes.string)]),
-  messageVisibility: PropTypes.oneOfType([PropTypes.bool, PropTypes.arrayOf(PropTypes.bool)]),
+  message: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.string)
+  ]),
+  messageVisibility: PropTypes.oneOfType([
+    PropTypes.bool,
+    PropTypes.arrayOf(PropTypes.bool)
+  ]),
   errorVisibility: PropTypes.bool,
   // eslint-disable-next-line
-  options: PropTypes.arrayOf(PropTypes.oneOfType([PropTypes.string, PropTypes.object])),
+  options: PropTypes.arrayOf(
+    PropTypes.oneOfType([PropTypes.string, PropTypes.object])
+  ),
   onClick: PropTypes.func,
   onInlineButtonClick: PropTypes.func,
   inlineButtonLabel: PropTypes.string,
@@ -488,7 +578,7 @@ FormInput.propTypes = {
   elementWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   rowWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 
-  locked: PropTypes.bool,
+  locked: PropTypes.bool
 };
 
 FormInput.defaultProps = {
@@ -516,17 +606,17 @@ FormInput.defaultProps = {
   message: undefined,
   onClick: undefined,
   onInlineButtonClick: undefined,
-  inlineButtonLabel: 'Custom',
+  inlineButtonLabel: "Custom",
   debug: undefined,
   format: undefined,
   exportFormat: undefined,
   parseFileAsText: undefined,
   fileName: undefined,
   fileType: undefined,
-  type: 'text',
+  type: "text",
   className: undefined,
   style: undefined,
   elementWidth: undefined,
-  rowWidth: '100%',
+  rowWidth: "100%"
 };
 export default FormInput;

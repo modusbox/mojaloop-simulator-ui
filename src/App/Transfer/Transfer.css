@@ -20,7 +20,6 @@
 }
 .transfer__runner__section--fading {
   animation: fadeIn 0.3s ease-out;
-
 }
 
 .transfer__runner__form {
@@ -35,12 +34,12 @@
   justify-content: flex-start;
   padding: 5px;
   background: #f4f4f4;
-  flex: 1 1  auto;
+  flex: 1 1 auto;
   border-radius: 5px;
   margin-left: 100px;
   margin-bottom: 10px;
   width: 660px;
-  border-bottom: 2px solid rgba(0,0,0,0.05);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.05);
 }
 
 .transfer__runner__icon-container {
@@ -55,7 +54,7 @@
   fill: #999;
 }
 .transfer__icon__edit {
-    fill: #999;
+  fill: #999;
 }
 .transfer__icon__reset {
 }
@@ -71,7 +70,7 @@
   font-weight: bold;
   font-family: Ubuntu;
   display: flex;
-  
+
   flex-direction: column;
   align-items: flex-end;
   justify-content: center;
@@ -84,7 +83,7 @@
   display: flex;
   align-items: flex-end;
 }
-.transfer__runner__form-input--small{
+.transfer__runner__form-input--small {
   width: 150px;
 }
 
@@ -107,7 +106,7 @@
   margin-bottom: 10px;
   padding: 5px 0px;
   border-radius: 10px;
-  border-bottom: 2px solid rgba(0,0,0,0.05);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.05);
 }
 .transfer__runner__response-block--regular {
   background: #f8f8f8;
@@ -115,7 +114,6 @@
 .transfer__runner__response-block--advanced {
   background: #ffe6ca;
 }
-
 
 .transfer__runner__response-row {
   display: flex;
@@ -139,10 +137,10 @@
   display: flex;
   align-items: flex-start;
   flex-direction: column;
-  border-bottom: 3px solid rgba(0,0,0,0.1);
-  padding: 10px 10px 2px 10px
+  border-bottom: 3px solid rgba(0, 0, 0, 0.1);
+  padding: 10px 10px 2px 10px;
 }
-.transfer__runner__response-item--small{
+.transfer__runner__response-item--small {
   width: 150px;
 }
 

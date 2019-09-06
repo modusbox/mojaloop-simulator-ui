@@ -1,10 +1,9 @@
-import React from 'react';
-import { ControlIcon, FormInput } from 'components';
-import { ID_TYPES } from '../Users/constants'; 
-import { CURRENCIES } from '../constants';
-import { OPERATIONS, QUOTE_TYPES } from './constants';
-import { arrayToOptions } from '../../utils/html'
-
+import React from "react";
+import { ControlIcon, FormInput } from "components";
+import { ID_TYPES } from "../Users/constants";
+import { CURRENCIES } from "../constants";
+import { OPERATIONS, QUOTE_TYPES } from "./constants";
+import { arrayToOptions } from "../../utils/html";
 
 const currencies = arrayToOptions(CURRENCIES);
 
@@ -27,7 +26,7 @@ const AdvancedTransferForm = ({
   onAmountTypeChange,
   onAmountChange,
   onCurrencyChange,
-  onTransactionTypeChange,
+  onTransactionTypeChange
 }) => (
   <div className="transfer__runner__form">
     <div className="transfer__runner__form-controls">
@@ -60,10 +59,10 @@ const AdvancedTransferForm = ({
       />
     </div>
     <div className="transfer__runner__form-row">
-      <div className="transfer__runner__form-row-label">General</div> 
+      <div className="transfer__runner__form-row-label">General</div>
       <div className="transfer__runner__form-input">
         <FormInput
-          size='m'
+          size="m"
           type="text"
           label="Name"
           placeholder="name"
@@ -74,7 +73,7 @@ const AdvancedTransferForm = ({
       </div>
       <div className="transfer__runner__form-input">
         <FormInput
-          size='m'
+          size="m"
           type="select"
           label="Operation"
           placeholder="operation"
@@ -86,10 +85,10 @@ const AdvancedTransferForm = ({
       </div>
     </div>
     <div className="transfer__runner__form-row">
-      <div className="transfer__runner__form-row-label">Transfer</div> 
+      <div className="transfer__runner__form-row-label">Transfer</div>
       <div className="transfer__runner__form-input">
         <FormInput
-          size='m'
+          size="m"
           type="text"
           label="Home Transaction ID"
           placeholder="body.homeTransactionId"
@@ -100,7 +99,7 @@ const AdvancedTransferForm = ({
       </div>
       <div className="transfer__runner__form-input">
         <FormInput
-          size='m'
+          size="m"
           type="text"
           label="Note"
           placeholder="body.note"
@@ -111,10 +110,10 @@ const AdvancedTransferForm = ({
       </div>
     </div>
     <div className="transfer__runner__form-row">
-      <div className="transfer__runner__form-row-label">Amounts</div> 
+      <div className="transfer__runner__form-row-label">Amounts</div>
       <div className="transfer__runner__form-input transfer__runner__form-input--small">
         <FormInput
-          size='m'
+          size="m"
           type="select"
           label="Amount Type"
           placeholder="body.amountType"
@@ -126,7 +125,7 @@ const AdvancedTransferForm = ({
       </div>
       <div className="transfer__runner__form-input transfer__runner__form-input--small">
         <FormInput
-          size='m'
+          size="m"
           type="text"
           label="Amount"
           placeholder="body.amount"
@@ -137,7 +136,7 @@ const AdvancedTransferForm = ({
       </div>
       <div className="transfer__runner__form-input transfer__runner__form-input--small">
         <FormInput
-          size='m'
+          size="m"
           type="select"
           label="Currency"
           placeholder="body.currency"
@@ -149,7 +148,7 @@ const AdvancedTransferForm = ({
       </div>
       <div className="transfer__runner__form-input transfer__runner__form-input--small">
         <FormInput
-          size='m'
+          size="m"
           type="text"
           label="Transaction Type"
           placeholder="body.transactionType"
@@ -160,10 +159,10 @@ const AdvancedTransferForm = ({
       </div>
     </div>
     <div className="transfer__runner__form-row">
-      <div className="transfer__runner__form-row-label">From</div> 
+      <div className="transfer__runner__form-row-label">From</div>
       <div className="transfer__runner__form-input transfer__runner__form-input--small">
         <FormInput
-          size='m'
+          size="m"
           type="select"
           options={ID_TYPES}
           label="From ID Type"
@@ -175,7 +174,7 @@ const AdvancedTransferForm = ({
       </div>
       <div className="transfer__runner__form-input transfer__runner__form-input--small">
         <FormInput
-          size='m'
+          size="m"
           type="text"
           label="From ID Value"
           placeholder="body.from.idValue"
@@ -186,7 +185,7 @@ const AdvancedTransferForm = ({
       </div>
       <div className="transfer__runner__form-input">
         <FormInput
-          size='m'
+          size="m"
           type="text"
           label="From Display Name"
           placeholder="body.from.displayName"
@@ -197,10 +196,10 @@ const AdvancedTransferForm = ({
       </div>
     </div>
     <div className="transfer__runner__form-row">
-      <div className="transfer__runner__form-row-label">To</div> 
+      <div className="transfer__runner__form-row-label">To</div>
       <div className="transfer__runner__form-input transfer__runner__form-input--small">
         <FormInput
-          size='m'
+          size="m"
           type="select"
           options={ID_TYPES}
           label="To ID Type"
@@ -212,7 +211,7 @@ const AdvancedTransferForm = ({
       </div>
       <div className="transfer__runner__form-input transfer__runner__form-input--small">
         <FormInput
-          size='m'
+          size="m"
           type="text"
           label="To ID Value"
           placeholder="body.to.idValue"

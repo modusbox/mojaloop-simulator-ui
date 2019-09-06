@@ -1,21 +1,21 @@
-import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
-import { Route } from 'react-router-dom';
-import { ScrollBox, Spinner } from 'components';
-import Toast from './Toast';
-import ErrorModal from './ErrorModal';
-import './App.css';
-import Navbar from './Navbar';
-import Menu from './Menu';
-import Users from './Users';
-import Transfer from './Transfer';
-import Settings from './Settings'; 
+import React, { PureComponent } from "react";
+import { connect } from "react-redux";
+import { Route } from "react-router-dom";
+import { ScrollBox, Spinner } from "components";
+import Toast from "./Toast";
+import ErrorModal from "./ErrorModal";
+import "./App.css";
+import Navbar from "./Navbar";
+import Menu from "./Menu";
+import Users from "./Users";
+import Transfer from "./Transfer";
+import Settings from "./Settings";
 // TODO: Enable when ready
 // import Tester from './Tester';
 // import Quotes from './Quotes';
 // import Results from './Results';
 
-import { initApp, hideErrorModal } from './actions';
+import { initApp, hideErrorModal } from "./actions";
 import {
   getIsAppLoading,
   getIsAppLoadingFailed,
@@ -23,11 +23,13 @@ import {
   getToastKind,
   getToastMessage,
   getIsErrorModalVisible,
-  getErrorModalContent,
-} from './selectors';
+  getErrorModalContent
+} from "./selectors";
 
 const AppLoader = () => <Spinner center size="m" />;
-const AppError = () => <div id="app_error">There was an error while reading the environments</div>;
+const AppError = () => (
+  <div id="app_error">There was an error while reading the environments</div>
+);
 
 class App extends PureComponent {
   render() {
@@ -37,7 +39,7 @@ class App extends PureComponent {
       toastMessage,
       isErrorModalVisible,
       errorModalContent,
-      onCloseErrorModal,
+      onCloseErrorModal
     } = this.props;
     return (
       <div id="app">
@@ -56,8 +58,16 @@ class App extends PureComponent {
             </div>
           </ScrollBox>
         </div>
-        <Toast isVisible={isToastVisible} message={toastMessage} kind={toastKind}/>
-        <ErrorModal isVisible={isErrorModalVisible} content={errorModalContent} onClose={onCloseErrorModal} />
+        <Toast
+          isVisible={isToastVisible}
+          message={toastMessage}
+          kind={toastKind}
+        />
+        <ErrorModal
+          isVisible={isErrorModalVisible}
+          content={errorModalContent}
+          onClose={onCloseErrorModal}
+        />
       </div>
     );
   }
@@ -70,11 +80,11 @@ const stateProps = state => ({
   isErrorModalVisible: getIsErrorModalVisible(state),
   toastKind: getToastKind(state),
   toastMessage: getToastMessage(state),
-  errorModalContent: getErrorModalContent(state),
+  errorModalContent: getErrorModalContent(state)
 });
 const actionProps = dispatch => ({
   initApp: () => dispatch(initApp()),
-  onCloseErrorModal: () => dispatch(hideErrorModal()),
+  onCloseErrorModal: () => dispatch(hideErrorModal())
 });
 
 class AppWrapper extends PureComponent {

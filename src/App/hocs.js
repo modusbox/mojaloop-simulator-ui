@@ -1,25 +1,29 @@
-import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
-import { Spinner } from 'components';
-import { getIsAuthDisabled, getJwt, getExpiration, getLoggedUsername } from 'Auth/selectors';
-import { logout } from 'Auth/actions';
-import { getLoginUrl } from 'App/selectors';
+import React, { PureComponent } from "react";
+import { connect } from "react-redux";
+import { Spinner } from "components";
+import {
+  getIsAuthDisabled,
+  getJwt,
+  getExpiration,
+  getLoggedUsername
+} from "Auth/selectors";
+import { logout } from "Auth/actions";
+import { getLoginUrl } from "App/selectors";
 
 const stateProps = state => ({
   isAuthDisabled: getIsAuthDisabled(state),
   jwt: getJwt(state),
   expiration: getExpiration(state),
   loginUrl: getLoginUrl(state),
-  username: getLoggedUsername(state),
+  username: getLoggedUsername(state)
 });
 
 const actionProps = dispatch => ({
-  onLogoutClick: () => dispatch(logout()),
+  onLogoutClick: () => dispatch(logout())
 });
 
 function withAuth(Component, fnName) {
   class authHoc extends PureComponent {
-
     static isExpired(ts) {
       return new Date().getTime() > ts;
     }
@@ -27,7 +31,9 @@ function withAuth(Component, fnName) {
     constructor(props) {
       super(props);
 
-      this.redirectIfUnauthenticated = this.redirectIfUnauthenticated.bind(this);
+      this.redirectIfUnauthenticated = this.redirectIfUnauthenticated.bind(
+        this
+      );
       this.redirectIfExpired = this.redirectIfExpired.bind(this);
     }
 
@@ -37,7 +43,7 @@ function withAuth(Component, fnName) {
     }
     componentDidMount() {
       if (!this.props.isAuthDisabled) {
-        this.interval = setInterval(this.redirectIfExpired, 60000)
+        this.interval = setInterval(this.redirectIfExpired, 60000);
       }
     }
     componentWillUnmount() {
@@ -45,10 +51,12 @@ function withAuth(Component, fnName) {
     }
     componentDidUpdate(prevProps) {
       const isJwtChanged = prevProps.jwt !== this.props.jwt;
-      const isAuthChanged = prevProps.isAuthDisabled !== this.props.isAuthDisabled;
-      const isExpirationChanged = prevProps.expiration !== this.props.expiration;
-      
-      if (isJwtChanged || isAuthChanged ||isExpirationChanged){
+      const isAuthChanged =
+        prevProps.isAuthDisabled !== this.props.isAuthDisabled;
+      const isExpirationChanged =
+        prevProps.expiration !== this.props.expiration;
+
+      if (isJwtChanged || isAuthChanged || isExpirationChanged) {
         this.redirectIfUnauthenticated();
         this.redirectIfExpired();
       }
@@ -64,7 +72,7 @@ function withAuth(Component, fnName) {
       }
     }
     redirectIfExpired() {
-      const { isAuthDisabled,expiration, loginUrl } = this.props;
+      const { isAuthDisabled, expiration, loginUrl } = this.props;
       if (isAuthDisabled) {
         return;
       }

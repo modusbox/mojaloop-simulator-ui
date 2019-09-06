@@ -1,34 +1,39 @@
-import React from 'react';
-import { Icon } from '../index';
-import { composeClassName } from '../../utils/html';
-import './MessageBox.css';
+import React from "react";
+import { Icon } from "../index";
+import { composeClassName } from "../../utils/html";
+import "./MessageBox.css";
 
-
-const splitLines = (prev, curr) => ([
-  ...prev,
-  ...curr.split(`\n`)
-]);
-const MessageBox = ({ kind = 'default', icon, message, center, size = 20, fontSize = 13 }) => {
+const splitLines = (prev, curr) => [...prev, ...curr.split(`\n`)];
+const MessageBox = ({
+  kind = "default",
+  icon,
+  message,
+  center,
+  size = 20,
+  fontSize = 13
+}) => {
   if (!message) {
     return null;
   }
 
   const messageBoxClassName = composeClassName([
-    'message-box',
+    "message-box",
     `message-box--${kind}`,
-    center && 'message-box--centered',
+    center && "message-box--centered"
   ]);
   const messagesClassName = composeClassName([
-    'message-box__messages',
-    center && 'message-box__messages--centered',
+    "message-box__messages",
+    center && "message-box__messages--centered"
   ]);
 
-  const messageMessages = typeof message === 'string' ? [message] : message;
-  const messages = messageMessages.reduce(splitLines, []).map((message, index) => (
-    <div key={index} className="message-box__message">
-      {message}
-    </div>
-  ));
+  const messageMessages = typeof message === "string" ? [message] : message;
+  const messages = messageMessages
+    .reduce(splitLines, [])
+    .map((message, index) => (
+      <div key={index} className="message-box__message">
+        {message}
+      </div>
+    ));
 
   let iconComponent = null;
   if (icon) {

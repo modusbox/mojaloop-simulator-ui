@@ -1,7 +1,7 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { FormInput, Modal } from 'components';
-import { ID_TYPES } from '../constants';
+import React from "react";
+import { connect } from "react-redux";
+import { FormInput, Modal } from "components";
+import { ID_TYPES } from "../constants";
 import {
   changeUserDisplayName,
   changeUserFirstName,
@@ -11,21 +11,21 @@ import {
   changeUserIdType,
   changeUserIdValue,
   hideUserModal,
-  submitUserModal,
-} from '../actions';
+  submitUserModal
+} from "../actions";
 import {
   getUser,
   getUserId,
   getUserValidationResult,
-  getIsSubmitEnabled,
-} from '../selectors';
-import './index.css';
+  getIsSubmitEnabled
+} from "../selectors";
+import "./index.css";
 
 const stateProps = state => ({
   user: getUser(state),
   userId: getUserId(state),
   validation: getUserValidationResult(state),
-  isSubmitEnabled: getIsSubmitEnabled(state),
+  isSubmitEnabled: getIsSubmitEnabled(state)
 });
 const actionProps = dispatch => ({
   onChangeUserDisplayName: value => dispatch(changeUserDisplayName(value)),
@@ -36,7 +36,7 @@ const actionProps = dispatch => ({
   onChangeUserIdType: value => dispatch(changeUserIdType(value)),
   onChangeUserIdValue: value => dispatch(changeUserIdValue(value)),
   onCloseClick: () => dispatch(hideUserModal()),
-  onSubmitClick: () => dispatch(submitUserModal()),
+  onSubmitClick: () => dispatch(submitUserModal())
 });
 
 const UserModal = ({
@@ -53,7 +53,7 @@ const UserModal = ({
   onChangeUserIdType,
   onChangeUserIdValue,
   onCloseClick,
-  onSubmitClick,
+  onSubmitClick
 }) => {
   return (
     <Modal
@@ -65,10 +65,9 @@ const UserModal = ({
       title="User"
     >
       <div className="user-modal__content">
-        
         <FormInput
           type="text"
-          size='m'
+          size="m"
           value={user.displayName}
           validation={validation.fields.displayName}
           onChange={onChangeUserDisplayName}
@@ -77,7 +76,7 @@ const UserModal = ({
         />
         <FormInput
           type="text"
-          size='m'
+          size="m"
           value={user.firstName}
           validation={validation.fields.firstName}
           onChange={onChangeUserFirstName}
@@ -86,7 +85,7 @@ const UserModal = ({
         />
         <FormInput
           type="text"
-          size='m'
+          size="m"
           value={user.lastName}
           validation={validation.fields.lastName}
           onChange={onChangeUserLastName}
@@ -95,7 +94,7 @@ const UserModal = ({
         />
         <FormInput
           type="text"
-          size='m'
+          size="m"
           value={user.middleName}
           validation={validation.fields.middleName}
           onChange={onChangeUserMiddleName}
@@ -104,7 +103,7 @@ const UserModal = ({
         />
         <FormInput
           type="text"
-          size='m'
+          size="m"
           value={user.dateOfBirth}
           validation={validation.fields.dateOfBirth}
           onChange={onChangeUserDateOfBirth}
@@ -113,7 +112,7 @@ const UserModal = ({
         />
         <FormInput
           type="select"
-          size='m'
+          size="m"
           options={ID_TYPES}
           value={user.idType}
           validation={validation.fields.idType}
@@ -124,7 +123,7 @@ const UserModal = ({
         />
         <FormInput
           type="text"
-          size='m'
+          size="m"
           value={user.idValue}
           validation={validation.fields.idValue}
           disabled={userId !== undefined}
@@ -132,7 +131,6 @@ const UserModal = ({
           label="Id Value"
           className="user-modal__form__form-input"
         />
-
       </div>
     </Modal>
   );

@@ -1,15 +1,14 @@
-import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
-import { Title, FormInput } from 'components';
-import './Settings.css';
-import { setSettingsHost, setSettingsPort } from './actions';
-import { getSettingsHost, getSettingsPort } from './selectors';
+import React, { PureComponent } from "react";
+import { connect } from "react-redux";
+import { Title, FormInput } from "components";
+import "./Settings.css";
+import { setSettingsHost, setSettingsPort } from "./actions";
+import { getSettingsHost, getSettingsPort } from "./selectors";
 
 class Settings extends PureComponent {
   render() {
     return (
       <div id="settings">
-
         <Title>Settings</Title>
 
         <div className="settings__form">
@@ -37,12 +36,12 @@ class Settings extends PureComponent {
 
 const stateProps = state => ({
   host: getSettingsHost(state),
-  port: getSettingsPort(state),
+  port: getSettingsPort(state)
 });
 
 const actionProps = dispatch => ({
   onPortChange: value => dispatch(setSettingsPort(value)),
-  onHostChange: value => dispatch(setSettingsHost(value)),
+  onHostChange: value => dispatch(setSettingsHost(value))
 });
 
 const ConnectedSettings = connect(

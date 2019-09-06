@@ -1,4 +1,4 @@
-import _isEqual from 'lodash/isEqual';
+import _isEqual from "lodash/isEqual";
 
 const getAnyIs = value => (...args) => args.some(arg => arg === value);
 const getAllAre = value => (...args) => args.every(arg => arg === value);
@@ -26,5 +26,5 @@ export {
   isUndefined,
   isEqual,
   isNotEmptyCollection,
-  not,
+  not
 };

@@ -1,46 +1,52 @@
-import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
-import { Button, FormInput, ScrollBox, Spinner } from 'components';
+import React, { PureComponent } from "react";
+import { connect } from "react-redux";
+import { Button, FormInput, ScrollBox, Spinner } from "components";
 import {
   QUOTE_RESPONSE_ACCEPT,
   QUOTE_RESPONSE_REJECT,
   QUOTE_RESPONSES,
   QUOTE_REJECT_REASONS
-} from './constants';
+} from "./constants";
 import {
   getIsQuotesLoading,
   getQuotes,
   getQuoteResponses,
   getQuoteRepsonsesValidationResults,
-  getSubmitButtonsEnabled,
-} from './selectors';
+  getSubmitButtonsEnabled
+} from "./selectors";
 import {
   initQuotes,
   changeQuoteResponseType,
   changeQuoteResponseAmount,
   changeQuoteResponseCurrency,
-  changeQuoteResponseReason,
-} from './actions';
-import './Quotes.css';
+  changeQuoteResponseReason
+} from "./actions";
+import "./Quotes.css";
 
 const stateProps = state => ({
   isQuotesLoading: getIsQuotesLoading(state),
   quotes: getQuotes(state),
   quoteResponses: getQuoteResponses(state),
   validations: getQuoteRepsonsesValidationResults(state),
-  submitButtonsEnabled: getSubmitButtonsEnabled(state),
+  submitButtonsEnabled: getSubmitButtonsEnabled(state)
 });
 
 const actionProps = dispatch => ({
   initQuotes: () => dispatch(initQuotes()),
-  onQuoteResponseTypeChange: (type, index) => dispatch(changeQuoteResponseType({ type, index })),
-  onQuoteResponseAmountChange: (amount, index) => dispatch(changeQuoteResponseAmount({ amount, index })),
-  onQuoteResponseCurrencyChange: (currency, index) => dispatch(changeQuoteResponseCurrency({ currency, index })),
-  onQuoteResponseReasonChange: (reason, index) => dispatch(changeQuoteResponseReason({ reason, index })),
+  onQuoteResponseTypeChange: (type, index) =>
+    dispatch(changeQuoteResponseType({ type, index })),
+  onQuoteResponseAmountChange: (amount, index) =>
+    dispatch(changeQuoteResponseAmount({ amount, index })),
+  onQuoteResponseCurrencyChange: (currency, index) =>
+    dispatch(changeQuoteResponseCurrency({ currency, index })),
+  onQuoteResponseReasonChange: (reason, index) =>
+    dispatch(changeQuoteResponseReason({ reason, index }))
 });
 
 const QuotesLoader = () => <Spinner center size="m" />;
-const QuotesError = () => <div id="app_error">There was an error while reading the quotes</div>;
+const QuotesError = () => (
+  <div id="app_error">There was an error while reading the quotes</div>
+);
 
 const Quotes = ({
   quotes,
@@ -50,28 +56,38 @@ const Quotes = ({
   onQuoteResponseTypeChange,
   onQuoteResponseAmountChange,
   onQuoteResponseCurrencyChange,
-  onQuoteResponseReasonChange,
+  onQuoteResponseReasonChange
 }) => {
   return (
     <div id="quotes">
       <ScrollBox>
         <div className="quotes__list">
-          {quotes.map((quote, index) => <Quote
-            key={index}
-            quote={quote}
-            response={quoteResponses[index]}
-            validation={validations[index]}
-            submitButtonEnabled={submitButtonsEnabled[index]}
-            onQuoteResponseTypeChange={value => onQuoteResponseTypeChange(value, index)}
-            onQuoteResponseAmountChange={value => onQuoteResponseAmountChange(value, index)}
-            onQuoteResponseCurrencyChange={value => onQuoteResponseCurrencyChange(value, index)}
-            onQuoteResponseReasonChange={value => onQuoteResponseReasonChange(value, index)}
-          />)}
+          {quotes.map((quote, index) => (
+            <Quote
+              key={index}
+              quote={quote}
+              response={quoteResponses[index]}
+              validation={validations[index]}
+              submitButtonEnabled={submitButtonsEnabled[index]}
+              onQuoteResponseTypeChange={value =>
+                onQuoteResponseTypeChange(value, index)
+              }
+              onQuoteResponseAmountChange={value =>
+                onQuoteResponseAmountChange(value, index)
+              }
+              onQuoteResponseCurrencyChange={value =>
+                onQuoteResponseCurrencyChange(value, index)
+              }
+              onQuoteResponseReasonChange={value =>
+                onQuoteResponseReasonChange(value, index)
+              }
+            />
+          ))}
         </div>
       </ScrollBox>
     </div>
   );
-}
+};
 
 const Quote = ({
   quote,
@@ -81,7 +97,7 @@ const Quote = ({
   onQuoteResponseTypeChange,
   onQuoteResponseAmountChange,
   onQuoteResponseCurrencyChange,
-  onQuoteResponseReasonChange,
+  onQuoteResponseReasonChange
 }) => (
   <div className="quote">
     <div className="quote__row">
@@ -103,7 +119,10 @@ const Quote = ({
           />
         </div>
         {response.type === QUOTE_RESPONSE_ACCEPT && [
-          <div className="quote__response__form-input quote__response__amount" key="amount">
+          <div
+            className="quote__response__form-input quote__response__amount"
+            key="amount"
+          >
             <FormInput
               size="m"
               type="text"
@@ -112,7 +131,10 @@ const Quote = ({
               onChange={onQuoteResponseAmountChange}
             />
           </div>,
-          <div className="quote__response__form-input quote__response__currency" key="currency">
+          <div
+            className="quote__response__form-input quote__response__currency"
+            key="currency"
+          >
             <FormInput
               size="m"
               type="text"
@@ -122,7 +144,7 @@ const Quote = ({
             />
           </div>
         ]}
-        {response.type === QUOTE_RESPONSE_REJECT && 
+        {response.type === QUOTE_RESPONSE_REJECT && (
           <div className="quote__response__form-input quote__response__reason">
             <FormInput
               size="m"
@@ -134,7 +156,7 @@ const Quote = ({
               onChange={onQuoteResponseReasonChange}
             />
           </div>
-        }
+        )}
         <div className="quote__response__form-input">
           <Button
             size="m"
@@ -144,7 +166,6 @@ const Quote = ({
           />
         </div>
       </div>
-
     </div>
   </div>
 );
@@ -155,7 +176,6 @@ const QuoteBlock = ({ label, value }) => (
     <div className="quote__data__value">{value}</div>
   </div>
 );
-
 
 class QuotesWrapper extends PureComponent {
   componentWillMount() {

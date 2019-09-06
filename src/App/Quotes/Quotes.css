@@ -34,7 +34,7 @@
   padding: 10px;
 }
 .quote__data__block {
-  flex:  0 0 auto;
+  flex: 0 0 auto;
   width: 200px;
   height: 38px;
   display: flex;
@@ -44,7 +44,7 @@
   font-size: 10px;
   color: #999;
   height: 15px;
-  padding-top:5px;
+  padding-top: 5px;
   display: flex;
   align-items: center;
 }

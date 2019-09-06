@@ -1,23 +1,23 @@
 const QUOTE_TYPES = [
   {
-    value: 'SEND',
-    label: 'Send',
+    value: "SEND",
+    label: "Send"
   },
   {
-    value: 'RECEIVE',
-    label: 'Receive',
+    value: "RECEIVE",
+    label: "Receive"
   }
 ];
 
 const OPERATIONS = [
   {
-    value: 'postTransfers',
-    label: 'Post Transfers',
+    value: "postTransfers",
+    label: "Post Transfers"
   },
   {
-    value: 'putTransfers',
-    label: 'Put Transfer',
+    value: "putTransfers",
+    label: "Put Transfer"
   }
 ];
 
-export { QUOTE_TYPES, OPERATIONS }
+export { QUOTE_TYPES, OPERATIONS };

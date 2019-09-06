@@ -1,6 +1,6 @@
-import React from 'react';
-import { Icon, Modal } from 'components';
-import './ErrorModal.css';
+import React from "react";
+import { Icon, Modal } from "components";
+import "./ErrorModal.css";
 
 const ErrorModal = ({ isVisible, content, onClose }) => {
   if (!isVisible) {

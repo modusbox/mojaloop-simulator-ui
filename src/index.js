@@ -1,22 +1,22 @@
-import 'babel-polyfill';
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { Provider } from 'react-redux';
-import { Route, Switch } from 'react-router-dom';
-import { ConnectedRouter } from 'connected-react-router';
-import { createBrowserHistory } from 'history';
-import configureStore from 'utils/store';
-import { sleep } from 'utils/async';
-import { isDevelopment } from 'utils/env';
-import { setAppConfig } from 'App/actions';
-import App from 'App/index.js';
-import 'icons/index';
-import 'assets/normalize.css';
-import 'index.css';
+import "babel-polyfill";
+import React from "react";
+import ReactDOM from "react-dom";
+import { Provider } from "react-redux";
+import { Route, Switch } from "react-router-dom";
+import { ConnectedRouter } from "connected-react-router";
+import { createBrowserHistory } from "history";
+import configureStore from "utils/store";
+import { sleep } from "utils/async";
+import { isDevelopment } from "utils/env";
+import { setAppConfig } from "App/actions";
+import App from "App/index.js";
+import "icons/index";
+import "assets/normalize.css";
+import "index.css";
 
 // setup browser history for client side routing
 const history = createBrowserHistory({
-  basename: '/',
+  basename: "/"
 });
 
 const store = configureStore(history, { isDevelopment });
@@ -39,9 +39,9 @@ export default Root;
 const boot = () => {
   const apiUrl = `127.0.0.1/api`;
   store.dispatch(setAppConfig({ apiUrl, loginUrl }));
-  
-  ReactDOM.render(<Root />, document.getElementById('root'));
-  
+
+  ReactDOM.render(<Root />, document.getElementById("root"));
+
   if (isDevelopment) {
     const fetch = window.fetch;
     window.fetch = async (...args) => {
@@ -52,15 +52,13 @@ const boot = () => {
     // and dispatch actions from the browser console
     global.dispatch = store.dispatch;
     global.getState = store.getState;
-  
   }
-  
+
   global.version = () => {
     // Prints the TSP version and Commit Hash
     console.info(`DFSP Management Portal v${process.env.REACT_APP_VERSION}`);
     console.info(`Commit # ${process.env.REACT_APP_COMMIT}`);
   };
-}
-
+};
 
 boot();

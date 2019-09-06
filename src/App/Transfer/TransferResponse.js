@@ -52,7 +52,7 @@ class TransferResponse extends PureComponent {
     }
 
     return (
-      <div className="transfer__section"> 
+      <div className="transfer__runner__section transfer__runner__section--fading"> 
         <div id="transfe__response">
 
           <Row align="left">
@@ -66,11 +66,16 @@ class TransferResponse extends PureComponent {
           </Row>
 
           <ResponseBlock type="regular">
+
             <ResponseRow title="From">
               <ResponseItem label="Display Name" path='from.displayName' data={data} />
               <ResponseItem label="ID Type" path='from.idType' data={data} small />
               <ResponseItem label="ID Value" path='from.idValue' data={data} small />
             </ResponseRow>
+
+          </ResponseBlock>
+
+          <ResponseBlock type="regular">
 
             <ResponseRow title="To">
               <ResponseItem label="FSP ID" path='to.fspId' data={data} />

@@ -1,11 +1,13 @@
 import { createAction } from 'redux-actions';
 import uuid from 'uuid/v4';
 import api from 'utils/api';
+import { downloadFile } from 'utils/html';
 import { ID_TYPES } from '../Users/constants'; 
 import { CURRENCIES } from '../constants';
 import { OPERATIONS, QUOTE_TYPES } from './constants';
 import { getTransfer } from './selectors';
 
+export const SET_MODE = 'Transfer / Set Mode';
 export const TOGGLE_ALL_FIELDS = 'Transfer / Toggle All Fields';
 export const SET_TRANSFER_LOADING = 'Transfer / Set Is Loading';
 export const UNSET_TRANSFER_LOADING = 'Transfer / Unset Is Loading';
@@ -26,6 +28,7 @@ export const CHANGE_AMOUNT = 'Transfer / change amount';
 export const CHANGE_CURRENCY = 'Transfer / change currency';
 export const CHANGE_TRANSACTION_TYPE = 'Transfer / change transaction type';
 
+export const setMode = createAction(SET_MODE);
 export const toggleAllFields = createAction(TOGGLE_ALL_FIELDS);
 export const setTransferLoading = createAction(SET_TRANSFER_LOADING);
 export const unsetTransferLoading = createAction(UNSET_TRANSFER_LOADING);
@@ -45,7 +48,31 @@ export const changeAmount = createAction(CHANGE_AMOUNT);;
 export const changeCurrency = createAction(CHANGE_CURRENCY);;
 export const changeTransactionType = createAction(CHANGE_TRANSACTION_TYPE);
 
-export const randomize = () => (dispatch) => {
+export const sendTransfer = () => async (dispatch, getState) => {
+  const transfer = getTransfer(getState());
+  const scenario = [transfer];
+  const { status, data } = await dispatch(api.scenarios.create({ body: scenario }));
+  if (status === 200) {
+    dispatch(setTransferResponse(data));
+  }
+}
+export const resetForm = () => dispatch => {
+  dispatch(changeName());
+  dispatch(changeOperation());
+  dispatch(changeHomeTransactionId());
+  dispatch(changeFromDisplayName());
+  dispatch(changeFromIdType());
+  dispatch(changeFromIdValue());
+  dispatch(changeToIdType());
+  dispatch(changeToIdValue());
+  dispatch(changeNote());
+  dispatch(changeAmountType());
+  dispatch(changeAmount());
+  dispatch(changeCurrency());
+  dispatch(changeTransactionType());
+
+}
+export const randomizeForm = () => dispatch => {
   const names = ['Mark', 'Steve', 'Rob', 'Joe', 'Mike', 'Lisa', 'Aria', 'Sue'];
   const lastnames = ['Lee', 'Flinn', 'Perk', 'Vosh', 'Ancher', 'Martinez', 'Yang', 'Jung'];
   const alphabet = new Array(26).fill(0).map((_,i) => String.fromCharCode(97 + i));
@@ -75,11 +102,8 @@ export const randomize = () => (dispatch) => {
   dispatch(changeTransactionType('TRANSFER'));
 
 }
-export const sendTransfer = () => async (dispatch, getState) => {
+export const exportFormrandomize = () => (dispatch, getState) => {
   const transfer = getTransfer(getState());
-  const scenario = [transfer];
-  const { status, data } = await dispatch(api.scenarios.create({ body: scenario }));
-  if (status === 200) {
-    dispatch(setTransferResponse(data));
-  }
+  const jsonFile = JSON.stringify([transfer], null, 2);
+  downloadFile(jsonFile, 'scenarios.json');
 }

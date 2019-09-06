@@ -17,7 +17,7 @@ export const getTransferRequestValidators = () => {
     body: {
       note: createValidation([vd.isRequired]),
       homeTransactionId: createValidation([vd.isRequired, isUuid]),
-
+      transactionType: createValidation([vd.isRequired]),
       from: {
         idType: createValidation([vd.isRequired, isIdType]),
         idValue: createValidation([vd.isRequired, vd.isNum, vd.isLongBetween(1,128)])

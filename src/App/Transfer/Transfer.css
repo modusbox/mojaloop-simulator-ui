@@ -13,15 +13,51 @@
   color: #c33;
 }
 
-.transfer__section {
+.transfer__runner__section {
   padding-top: 20px;
-  border-bottom: 2px solid #eee;
+  border-bottom: 10px solid #f8f8f8;
+  margin-bottom: 20px;
+}
+.transfer__runner__section--fading {
+  animation: fadeIn 0.3s ease-out;
+
 }
 
 .transfer__runner__form {
   display: flex;
-  margin-bottom: 30px;
+  margin-bottom: 10px;
   flex-direction: column;
+}
+.transfer__runner__form-controls {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 5px;
+  background: #f4f4f4;
+  flex: 1 1  auto;
+  border-radius: 5px;
+  margin-left: 100px;
+  margin-bottom: 10px;
+  width: 660px;
+  border-bottom: 2px solid rgba(0,0,0,0.05);
+}
+
+.transfer__runner__icon-container {
+  padding: 6px;
+  transform: scale3d(0.9, 0.9, 0.9);
+}
+.transfer__runner__icon-container:hover {
+  transform: scale3d(1, 1, 1);
+}
+.transfer__runner__icon {
+  margin: 0px 10px;
+  fill: #999;
+}
+.transfer__icon__edit {
+    fill: #999;
+}
+.transfer__icon__reset {
 }
 
 .transfer__runner__form-row {
@@ -43,8 +79,8 @@
   padding-top: 19px;
 }
 .transfer__runner__form-input {
-  width: 305px;
-  margin-right: 5px;
+  width: 320px;
+  margin-right: 20px;
   display: flex;
   align-items: flex-end;
 }
@@ -65,12 +101,13 @@
 }
 
 .transfer__all-fields__toggle {
-  margin: 0px 5px 10px;
+  margin: 0px 20px 10px;
 }
 .transfer__runner__response-block {
   margin-bottom: 10px;
-  padding: 10px 0px;
+  padding: 5px 0px;
   border-radius: 10px;
+  border-bottom: 2px solid rgba(0,0,0,0.05);
 }
 .transfer__runner__response-block--regular {
   background: #f8f8f8;
@@ -82,7 +119,7 @@
 
 .transfer__runner__response-row {
   display: flex;
-  margin-bottom: 10px;
+  margin: 5px 0px;
   flex-direction: row;
 }
 .transfer__runner__response-row-label {
@@ -97,14 +134,13 @@
   padding-bottom: 18px;
 }
 .transfer__runner__response-item {
-  width: 305px;
-  margin-right: 5px;
+  width: 320px;
+  margin-right: 20px;
   display: flex;
   align-items: flex-start;
   flex-direction: column;
-  height: 50px;
-  border-bottom: 2px solid #ccc;
-  padding: 0px 5px;
+  border-bottom: 3px solid rgba(0,0,0,0.1);
+  padding: 10px 10px 2px 10px
 }
 .transfer__runner__response-item--small{
   width: 150px;
@@ -123,6 +159,7 @@
   flex-direction: row;
   width: 100%;
 }
+
 .transfer__runner__response-item-value__content {
   font-size: 13px;
   margin-top: 3px;
@@ -139,4 +176,15 @@
   align-items: center;
   justify-content: left;
   overflow: hidden;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
 }

@@ -3,6 +3,7 @@ import cloneDeep from 'lodash/cloneDeep';
 import set from 'lodash/set';
 import uuid from 'uuid/v1';
 import {
+  SET_MODE,
   TOGGLE_ALL_FIELDS,
   SET_TRANSFER_LOADING,
   UNSET_TRANSFER_LOADING,
@@ -35,7 +36,7 @@ const initialTransferState = {
     },
     "to": {
         "idType": "MSISDN",
-        "idValue": "123456789"
+        "idValue": "000111"
     },
     "note": "this is a test",
     "amountType": "SEND",
@@ -48,6 +49,7 @@ const initialTransferState = {
 
 
 const initialState = {
+  isAdvancedMode: false,
   isAllFieldsVisible: false,
   isTransferLoading: false,
   transfer: initialTransferState,
@@ -63,6 +65,10 @@ const changeTransferField = (path) => (state, action) => {
 
 const Transfer = handleActions(
   {
+    [SET_MODE]: (state, action) => ({
+      ...state,
+      isAdvancedMode: action.payload === 1,
+    }),
     [TOGGLE_ALL_FIELDS]: (state, action) => ({
       ...state,
       isAllFieldsVisible: !state.isAllFieldsVisible,

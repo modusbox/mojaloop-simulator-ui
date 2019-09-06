@@ -52,7 +52,7 @@ class TransferResponse extends PureComponent {
     }
 
     return (
-      <div className="transfer__section"> 
+      <div className="transfer__runner__section transfer__runner__section--fading"> 
         <div id="transfe__response">
 
           <Row align="left">

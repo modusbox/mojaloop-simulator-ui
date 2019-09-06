@@ -20,7 +20,10 @@ import {
   changeAmount,
   changeCurrency,
   changeTransactionType,
-  randomize,
+  setMode,
+  resetForm,
+  randomizeForm,
+  exportFormrandomize,
   sendTransfer,
   toggleAllFields,
 } from './actions';
@@ -31,6 +34,7 @@ import {
   getIsSubmitEnabled,
   getIsSubmitPending,
   getIsAllFieldsVisible,
+  getIsAdvancedMode,
   getValidationResult,
 } from './selectors';
 
@@ -40,8 +44,9 @@ const stateProps = state => ({
   transferResponse: getTransferResponse(state),
   isSubmitEnabled: getIsSubmitEnabled(state),
   isSubmitPending: getIsSubmitPending(state),
-  validation: getValidationResult(state),
   isAllFieldsVisible: getIsAllFieldsVisible(state),
+  isAdvancedMode: getIsAdvancedMode(state),
+  validation: getValidationResult(state),
 });
 
 const actionProps = dispatch => ({
@@ -58,8 +63,11 @@ const actionProps = dispatch => ({
   onAmountChange: value => dispatch(changeAmount(value)),
   onCurrencyChange: value => dispatch(changeCurrency(value)),
   onTransactionTypeChange: value => dispatch(changeTransactionType(value)),
+  onModeSelect: (_,tabIndex) => dispatch(setMode(tabIndex)),
   onSendTransferClick: () => dispatch(sendTransfer()),
-  onRandomizeClick: () => dispatch(randomize()),
+  onResetFormButtonClick: () => dispatch(resetForm()),
+  onRandomizeFormButtonClick: () => dispatch(randomizeForm()),
+  onExportFormButtonClick: () => dispatch(exportFormrandomize()),
   onAllFieldsViewChange: () => dispatch(toggleAllFields()),
 });
 
@@ -75,6 +83,7 @@ class Transfer extends PureComponent {
       isSubmitEnabled,
       isSubmitPending,
       isAllFieldsVisible,
+      isAdvancedMode,
 
       onNameChange,
       onOperationChange,
@@ -90,16 +99,19 @@ class Transfer extends PureComponent {
       onCurrencyChange,
       onTransactionTypeChange,
       
-      onRandomizeClick,
+      onModeSelect,
+      onResetFormButtonClick,
+      onRandomizeFormButtonClick,
+      onExportFormButtonClick,
       onSendTransferClick,
       onAllFieldsViewChange,
     } = this.props;
     return (
       <div id="transfer">
 
-        <div className="transfer__section"> 
+        <div className="transfer__runner__section"> 
           <Title>Send</Title>
-            <Tabs>
+            <Tabs onSelect={onModeSelect} selected={isAdvancedMode ? 1 : 0}>
               <TabList>
                 <Tab>Simple Mode</Tab>
                 <Tab>Advanced Mode</Tab>
@@ -128,6 +140,9 @@ class Transfer extends PureComponent {
                   <AdvancedTransferForm
                     transfer={transfer}
                     validation={validation}
+                    onResetFormButtonClick={onResetFormButtonClick}
+                    onRandomizeFormButtonClick={onRandomizeFormButtonClick}
+                    onExportFormButtonClick={onExportFormButtonClick}
                     onNameChange={onNameChange}
                     onOperationChange={onOperationChange}
                     onHomeTransactionIdChange={onHomeTransactionIdChange}
@@ -150,13 +165,6 @@ class Transfer extends PureComponent {
           <div className="transfer__button__row">
             <Button 
               className="transfer__button__item"
-              kind="secondary"
-              noFill
-              label="Randomize"
-              onClick={onRandomizeClick}
-            />
-            <Button 
-              className="transfer__button__item"
               icon="open"
               label="Send Transfer"
               iconPosition="right"
@@ -175,7 +183,6 @@ class Transfer extends PureComponent {
             onAllFieldsViewChange={onAllFieldsViewChange}
           />
         )}
-
       </div>
     );
   }

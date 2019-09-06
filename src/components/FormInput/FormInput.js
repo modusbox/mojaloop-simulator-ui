@@ -3,7 +3,7 @@ import React, { PureComponent } from 'react';
 import { Select, TextField, Checkbox, DatePicker, FileUploader, RadioGroup, Row, Button, Icon } from '../index';
 import './FormInput.scss';
 
-const Label = ({ size='m', label, required, complete }) => {
+const Label = ({ size = 'l', label, required, complete }) => {
   if (!label) {
     return null;
   }

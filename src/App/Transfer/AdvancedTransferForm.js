@@ -1,5 +1,5 @@
 import React from 'react';
-import { FormInput} from 'components';
+import { ControlIcon, FormInput } from 'components';
 import { ID_TYPES } from '../Users/constants'; 
 import { CURRENCIES } from '../constants';
 import { OPERATIONS, QUOTE_TYPES } from './constants';
@@ -12,6 +12,10 @@ const AdvancedTransferForm = ({
   transfer,
   validation,
   onNameChange,
+
+  onResetFormButtonClick,
+  onRandomizeFormButtonClick,
+  onExportFormButtonClick,
   onOperationChange,
   onHomeTransactionIdChange,
   onFromDisplayNameChange,
@@ -26,6 +30,29 @@ const AdvancedTransferForm = ({
   onTransactionTypeChange,
 }) => (
   <div className="transfer__runner__form">
+    <div className="transfer__runner__form-controls">
+      <ControlIcon
+        tooltip="Reset"
+        icon="trash-small"
+        size={16}
+        className="transfer__runner__icon transfer__icon__reset"
+        onClick={onResetFormButtonClick}
+      />
+      <ControlIcon
+        tooltip="Generate random values"
+        icon="edit-small"
+        size={16}
+        className="transfer__runner__icon transfer__icon__edit"
+        onClick={onRandomizeFormButtonClick}
+      />
+      <ControlIcon
+        tooltip="Export current form"
+        icon="saved"
+        size={16}
+        className="transfer__runner__icon transfer__icon__export"
+        onClick={onExportFormButtonClick}
+      />
+    </div>
     <div className="transfer__runner__form-row">
       <div className="transfer__runner__form-row-label">General</div> 
       <div className="transfer__runner__form-input">

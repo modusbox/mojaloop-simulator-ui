@@ -1,6 +1,7 @@
 import { createAction } from 'redux-actions';
 import uuid from 'uuid/v4';
 import api from 'utils/api';
+import { downloadFile } from 'utils/html';
 import { ID_TYPES } from '../Users/constants'; 
 import { CURRENCIES } from '../constants';
 import { OPERATIONS, QUOTE_TYPES } from './constants';
@@ -101,6 +102,8 @@ export const randomizeForm = () => dispatch => {
   dispatch(changeTransactionType('TRANSFER'));
 
 }
-export const exportFormrandomize = () => dispatch => {
-
+export const exportFormrandomize = () => (dispatch, getState) => {
+  const transfer = getTransfer(getState());
+  const jsonFile = JSON.stringify([transfer], null, 2);
+  downloadFile(jsonFile, 'scenarios.json');
 }

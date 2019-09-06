@@ -32,25 +32,31 @@ const AdvancedTransferForm = ({
   <div className="transfer__runner__form">
     <div className="transfer__runner__form-controls">
       <ControlIcon
-        tooltip="Reset"
+        tooltip="Reset Form"
         icon="trash-small"
-        size={16}
+        size={20}
+        containerClassName="transfer__runner__icon-container"
         className="transfer__runner__icon transfer__icon__reset"
         onClick={onResetFormButtonClick}
+        delay={1000}
       />
       <ControlIcon
-        tooltip="Generate random values"
+        tooltip="Generate Random Values"
         icon="edit-small"
-        size={16}
+        size={20}
+        containerClassName="transfer__runner__icon-container"
         className="transfer__runner__icon transfer__icon__edit"
         onClick={onRandomizeFormButtonClick}
+        delay={1000}
       />
       <ControlIcon
-        tooltip="Export current form"
+        tooltip="Export Form (JSON)"
         icon="saved"
-        size={16}
+        size={20}
+        containerClassName="transfer__runner__icon-container"
         className="transfer__runner__icon transfer__icon__export"
         onClick={onExportFormButtonClick}
+        delay={1000}
       />
     </div>
     <div className="transfer__runner__form-row">

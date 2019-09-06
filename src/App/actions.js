@@ -1,5 +1,6 @@
 import { createAction } from 'redux-actions';
 import { sleep } from 'utils/async';
+import { push } from 'connected-react-router';
 
 export const SET_APP_CONFIG = 'App / Set Config';
 export const SET_APP_LOADING = 'App / Set Is Loading';
@@ -29,6 +30,7 @@ export const unsetDfsps = createAction(UNSET_DFSPS);
 
 export const initApp = () => async (dispatch, getState) => {
   dispatch(setAppLoading());
+  dispatch(push('/users'));
   dispatch(unsetAppLoading());
 };
 

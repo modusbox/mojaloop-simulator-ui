@@ -9,6 +9,7 @@ import { createPendingSelector } from 'modusbox-ui-components/dist/redux-fetch';
 export const getIsTransferLoading = state => state.transfer.isTransferLoading;
 export const getTransfer = state => state.transfer.transfer;
 export const getTransferResponse = state => state.transfer.transferResponse;
+export const getIsAllFieldsVisible = state => state.transfer.isAllFieldsVisible;
 
 
 export const getValidationResult = createSelector(

@@ -22,6 +22,7 @@ import {
   changeTransactionType,
   randomize,
   sendTransfer,
+  toggleAllFields,
 } from './actions';
 import {
   getIsTransferLoading,
@@ -29,6 +30,7 @@ import {
   getTransferResponse,
   getIsSubmitEnabled,
   getIsSubmitPending,
+  getIsAllFieldsVisible,
   getValidationResult,
 } from './selectors';
 
@@ -39,7 +41,9 @@ const stateProps = state => ({
   isSubmitEnabled: getIsSubmitEnabled(state),
   isSubmitPending: getIsSubmitPending(state),
   validation: getValidationResult(state),
+  isAllFieldsVisible: getIsAllFieldsVisible(state),
 });
+
 const actionProps = dispatch => ({
   onNameChange: value => dispatch(changeName(value)),
   onOperationChange: value => dispatch(changeOperation(value)),
@@ -55,7 +59,8 @@ const actionProps = dispatch => ({
   onCurrencyChange: value => dispatch(changeCurrency(value)),
   onTransactionTypeChange: value => dispatch(changeTransactionType(value)),
   onSendTransferClick: () => dispatch(sendTransfer()),
-  onRandomizeClick: () =>dispatch(randomize()),
+  onRandomizeClick: () => dispatch(randomize()),
+  onAllFieldsViewChange: () => dispatch(toggleAllFields()),
 });
 
 const TransferLoader = () => <Spinner center size="m" />;
@@ -69,6 +74,7 @@ class Transfer extends PureComponent {
       validation,
       isSubmitEnabled,
       isSubmitPending,
+      isAllFieldsVisible,
 
       onNameChange,
       onOperationChange,
@@ -86,6 +92,7 @@ class Transfer extends PureComponent {
       
       onRandomizeClick,
       onSendTransferClick,
+      onAllFieldsViewChange,
     } = this.props;
     return (
       <div id="transfer">
@@ -160,7 +167,14 @@ class Transfer extends PureComponent {
           </div>
         </div>
 
-        {transferResponse && <TransferResponse response={transferResponse} name={transfer.name}/> }
+        {transferResponse && (
+          <TransferResponse
+            response={transferResponse}
+            name={transfer.name}
+            isAllFieldsVisible={isAllFieldsVisible}
+            onAllFieldsViewChange={onAllFieldsViewChange}
+          />
+        )}
 
       </div>
     );

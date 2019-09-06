@@ -1,12 +1,12 @@
 const PROTOCOLS = [
   {
     label: "HTTP",
-    value: 'http'
+    value: "http"
   },
   {
     label: "HTTPS",
-    value: 'https'
+    value: "https"
   }
 ];
 
-export { PROTOCOLS }
+export { PROTOCOLS };

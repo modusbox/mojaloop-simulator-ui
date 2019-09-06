@@ -1,6 +1,6 @@
-import { setItem, getItem, removeItem } from 'utils/storage';
+import { setItem, getItem, removeItem } from "utils/storage";
 import { handleActions } from "redux-actions";
-import findIndex from 'lodash/findIndex';
+import findIndex from "lodash/findIndex";
 import {
   RESET_SETTINGS,
   SELECT_CONFIGURATION,
@@ -11,32 +11,34 @@ import {
   SET_SETTINGS_PORT
 } from "./actions";
 
-const isSameItem = (item, protocol, host, port) => 
-  item.protocol === protocol &&
-  item.host === host &&
-  item.port === port;
+const isSameItem = (item, protocol, host, port) =>
+  item.protocol === protocol && item.host === host && item.port === port;
 
-const initialConfigurationState = [{
-  protocol: "http",
-  host: "localhost",
-  port: "3003",
-}]
-let configs = getItem('configurations');
-let currentProtocol = getItem('currentProtocol');
-let currentHost = getItem('currentHost');
-let currentPort = getItem('currentPort');
+const initialConfigurationState = [
+  {
+    protocol: "http",
+    host: "localhost",
+    port: "3003"
+  }
+];
+let configs = getItem("configurations");
+let currentProtocol = getItem("currentProtocol");
+let currentHost = getItem("currentHost");
+let currentPort = getItem("currentPort");
 
 if (!configs || !configs.length) {
-  removeItem('configurations');
+  removeItem("configurations");
   configs = initialConfigurationState;
 }
 
-if (!configs.some(item => {
-  return isSameItem(item, currentProtocol, currentHost, currentPort);
-})) {
-  removeItem('currentProtocol');
-  removeItem('currentHost');
-  removeItem('currentPort');
+if (
+  !configs.some(item => {
+    return isSameItem(item, currentProtocol, currentHost, currentPort);
+  })
+) {
+  removeItem("currentProtocol");
+  removeItem("currentHost");
+  removeItem("currentPort");
   currentProtocol = configs[0].protocol;
   currentHost = configs[0].host;
   currentPort = configs[0].port;
@@ -49,7 +51,7 @@ const initialState = {
   port: undefined,
   currentProtocol,
   currentHost,
-  currentPort,
+  currentPort
 };
 
 const Settings = handleActions(
@@ -63,16 +65,16 @@ const Settings = handleActions(
         configurations: [
           ...state.configurations,
           {
-              protocol: state.protocol,
-              host: state.host,
-              port: state.port,
-          },
+            protocol: state.protocol,
+            host: state.host,
+            port: state.port
+          }
         ],
         protocol: "",
         host: "",
-        port: "",
+        port: ""
       };
-      setItem('configurations', newState.configurations);
+      setItem("configurations", newState.configurations);
       return newState;
     },
     [SELECT_CONFIGURATION]: (state, action) => {
@@ -80,11 +82,11 @@ const Settings = handleActions(
         ...state,
         currentProtocol: action.payload.protocol,
         currentHost: action.payload.host,
-        currentPort: action.payload.port,
-      }
-      setItem('currentProtocol', newState.currentProtocol);
-      setItem('currentHost', newState.currentHost);
-      setItem('currentPort', newState.currentPort);
+        currentPort: action.payload.port
+      };
+      setItem("currentProtocol", newState.currentProtocol);
+      setItem("currentHost", newState.currentHost);
+      setItem("currentPort", newState.currentPort);
 
       return newState;
     },
@@ -94,10 +96,10 @@ const Settings = handleActions(
         ...state,
         configurations: [
           ...state.configurations.slice(0, index),
-          ...state.configurations.slice(index + 1),
-        ],
-      }
-      setItem('configurations', newState.configurations);
+          ...state.configurations.slice(index + 1)
+        ]
+      };
+      setItem("configurations", newState.configurations);
       return newState;
     },
     [SET_SETTINGS_PROTOCOL]: (state, action) => ({

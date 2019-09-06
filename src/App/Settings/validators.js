@@ -6,5 +6,5 @@ import {
 export const getSettingsValidators = () => ({
   protocol: createValidation([vd.isRequired]),
   host: createValidation([vd.isRequired]),
-  port: createValidation([vd.isRequired, vd.isNum]),
-})
+  port: createValidation([vd.isRequired, vd.isNum])
+});

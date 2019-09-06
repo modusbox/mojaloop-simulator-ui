@@ -1,6 +1,13 @@
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";
-import { Button, ControlIcon, DataList, Icon, FormInput, Title } from "components";
+import {
+  Button,
+  ControlIcon,
+  DataList,
+  Icon,
+  FormInput,
+  Title
+} from "components";
 import "./Settings.css";
 import {
   saveConfiguration,
@@ -9,7 +16,7 @@ import {
   removeConfiguration,
   setSettingsProtocol,
   setSettingsHost,
-  setSettingsPort,
+  setSettingsPort
 } from "./actions";
 import {
   getConfigurations,
@@ -20,41 +27,40 @@ import {
   getCurrentSettingsHost,
   getCurrentSettingsPort,
   getValidationResult,
-  getIsSubmitEnabled,
+  getIsSubmitEnabled
 } from "./selectors";
-import { PROTOCOLS } from './constants';
+import { PROTOCOLS } from "./constants";
 
-const getColumns = (
-  currentProtocol,
-  currentHost,
-  currentPort,
-  onRemove
-) => {
-  const isSameItem = (item, protocol, host, port) => 
-    item.protocol === protocol &&
-    item.host === host &&
-    item.port === port;
+const getColumns = (currentProtocol, currentHost, currentPort, onRemove) => {
+  const isSameItem = (item, protocol, host, port) =>
+    item.protocol === protocol && item.host === host && item.port === port;
 
   return [
     {
-
       sortable: false,
-      func: (_,item) => {
-        const isSame = isSameItem(item, currentProtocol, currentHost, currentPort);
-        return isSame ? <Icon size={20} name="check-small" fill="#3c9" /> : null;
+      func: (_, item) => {
+        const isSame = isSameItem(
+          item,
+          currentProtocol,
+          currentHost,
+          currentPort
+        );
+        return isSame ? (
+          <Icon size={20} name="check-small" fill="#3c9" />
+        ) : null;
       }
     },
     {
-      key: 'protocol',
-      label: 'Protocol', 
+      key: "protocol",
+      label: "Protocol"
     },
     {
-      key: 'host',
-      label: 'Host', 
+      key: "host",
+      label: "Host"
     },
     {
-      key: 'port',
-      label: 'Port', 
+      key: "port",
+      label: "Port"
     },
     {
       label: "",
@@ -70,8 +76,8 @@ const getColumns = (
         />
       )
     }
-  ]
-}
+  ];
+};
 class Settings extends PureComponent {
   render() {
     const columns = getColumns(
@@ -121,7 +127,6 @@ class Settings extends PureComponent {
             onClick={this.props.onConfigurationSaveClick}
           />
         </div>
-        
 
         <div className="settings_list_container">
           <DataList
@@ -152,14 +157,14 @@ const stateProps = state => ({
   currentHost: getCurrentSettingsHost(state),
   currentPort: getCurrentSettingsPort(state),
   validation: getValidationResult(state),
-  isSubmitEnabled: getIsSubmitEnabled(state),
+  isSubmitEnabled: getIsSubmitEnabled(state)
 });
 
 const actionProps = dispatch => ({
   onExportConfigurationsClick: () => dispatch(exportConfigurations()),
   onConfigurationSaveClick: () => dispatch(saveConfiguration()),
   onConfigurationSelect: config => dispatch(selectConfiguration(config)),
-  onRemoveConfigurationClick: config  => dispatch(removeConfiguration(config)),
+  onRemoveConfigurationClick: config => dispatch(removeConfiguration(config)),
   onProtocolChange: value => dispatch(setSettingsProtocol(value)),
   onPortChange: value => dispatch(setSettingsPort(value)),
   onHostChange: value => dispatch(setSettingsHost(value))

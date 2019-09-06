@@ -1,25 +1,20 @@
-import { handleActions } from 'redux-actions';
-import {
-  SET_RESULTS_LOADING,
-  UNSET_RESULTS_LOADING,
-  
-} from './actions';
+import { handleActions } from "redux-actions";
+import { SET_RESULTS_LOADING, UNSET_RESULTS_LOADING } from "./actions";
 
 const initialState = {
-  isResultsLoading: true,
+  isResultsLoading: true
 };
 
 const Results = handleActions(
   {
     [SET_RESULTS_LOADING]: (state, action) => ({
       ...state,
-      isResultsLoading: true,
+      isResultsLoading: true
     }),
     [UNSET_RESULTS_LOADING]: (state, action) => ({
       ...state,
-      isResultsLoading: false,
-    }),
-    
+      isResultsLoading: false
+    })
   },
   initialState
 );

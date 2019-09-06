@@ -1,4 +1,7 @@
-import { createValidation, vd } from 'modusbox-ui-components/dist/redux-validation';
+import {
+  createValidation,
+  vd
+} from "modusbox-ui-components/dist/redux-validation";
 
 export const getQuoteRequestValidators = () => {
   const validators = {
@@ -8,4 +11,4 @@ export const getQuoteRequestValidators = () => {
     payeeDfspId: createValidation([vd.isRequired])
   };
   return validators;
-}
+};

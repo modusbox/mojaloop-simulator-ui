@@ -1,12 +1,12 @@
 const QUOTE_TYPES = [
   {
-    value: 'SEND',
-    label: 'Send',
+    value: "SEND",
+    label: "Send"
   },
   {
-    value: 'RECEIVE',
-    label: 'Receive',
+    value: "RECEIVE",
+    label: "Receive"
   }
 ];
 
-export { QUOTE_TYPES }
+export { QUOTE_TYPES };

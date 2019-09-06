@@ -1,6 +1,6 @@
-import React from 'react';
-import { Spinner } from 'components';
-import './index.css';
+import React from "react";
+import { Spinner } from "components";
+import "./index.css";
 
 const PendingOverlay = () => (
   <div className="pending-overlay">

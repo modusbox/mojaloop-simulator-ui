@@ -1,36 +1,37 @@
-import React, { PureComponent } from 'react';
-import { connect } from 'react-redux';
-import { Button, ControlIcon, DataList, Spinner, Title } from 'components';
-import './Users.css';
+import React, { PureComponent } from "react";
+import { connect } from "react-redux";
+import { Button, ControlIcon, DataList, Spinner, Title } from "components";
+import "./Users.css";
 import {
   initUsers,
   openNewUserModal,
   openEditUserModal,
-  deleteUser,
-} from './actions';
+  deleteUser
+} from "./actions";
 import {
   getIsUsersLoading,
   getUsers,
-  getIsUserModalVisible,
-} from './selectors';
+  getIsUserModalVisible
+} from "./selectors";
 
-import UserModal from './UserModal';
+import UserModal from "./UserModal";
 
 const stateProps = state => ({
   isUsersLoading: getIsUsersLoading(state),
   users: getUsers(state),
-  isUserModalVisible: getIsUserModalVisible(state),
+  isUserModalVisible: getIsUserModalVisible(state)
 });
 const actionProps = dispatch => ({
   onMount: () => dispatch(initUsers()),
   onAddUserClick: () => dispatch(openNewUserModal()),
-  onEditUserClick: (user) => dispatch(openEditUserModal(user)),
-  onDeleteUserClick: (user) => dispatch(deleteUser(user)),
+  onEditUserClick: user => dispatch(openEditUserModal(user)),
+  onDeleteUserClick: user => dispatch(deleteUser(user))
 });
 
 const UsersLoader = () => <Spinner center size="m" />;
-const UsersError = () => <div id="app_error">There was an error while reading the environments</div>;
-
+const UsersError = () => (
+  <div id="app_error">There was an error while reading the environments</div>
+);
 
 class Users extends PureComponent {
   render() {
@@ -39,42 +40,42 @@ class Users extends PureComponent {
       isUserModalVisible,
       onAddUserClick,
       onEditUserClick,
-      onDeleteUserClick,
+      onDeleteUserClick
     } = this.props;
 
     const columns = [
       {
-        label: 'Display Name',
-        key: 'displayName',
+        label: "Display Name",
+        key: "displayName"
       },
       {
-        label: 'First Name',
-        key: 'firstName',
+        label: "First Name",
+        key: "firstName"
       },
       {
-        label: 'Middle Name',
-        key: 'middleName',
+        label: "Middle Name",
+        key: "middleName"
       },
       {
-        label: 'Last Name',
-        key: 'lastName',
+        label: "Last Name",
+        key: "lastName"
       },
       {
-        label: 'Date Of Birth',
-        key: 'dateOfBirth',
+        label: "Date Of Birth",
+        key: "dateOfBirth"
       },
       {
-        label: 'Id Type',
-        key: 'idType',
+        label: "Id Type",
+        key: "idType"
       },
       {
-        label: 'Id Value',
-        key: 'idValue',
+        label: "Id Value",
+        key: "idValue"
       },
       {
-        label: '',
-        key: '',
-        className: 'icon__column-40',
+        label: "",
+        key: "",
+        className: "icon__column-40",
         func: (_, item) => (
           <ControlIcon
             icon="edit-small"
@@ -85,9 +86,9 @@ class Users extends PureComponent {
         )
       },
       {
-        label: '',
-        key: '',
-        className: 'icon__column-40',
+        label: "",
+        key: "",
+        className: "icon__column-40",
         func: (_, item) => (
           <ControlIcon
             icon="close-small"
@@ -96,22 +97,16 @@ class Users extends PureComponent {
             onClick={() => onDeleteUserClick(item)}
           />
         )
-      },
+      }
     ];
     return (
       <div id="users">
-
         <div className="users__button__row">
           <Button label="Add User" onClick={onAddUserClick} icon="plus-small" />
         </div>
         <Title>Users</Title>
 
-        <DataList
-          list={users}
-          columns={columns}
-          sortColumn="First Name"
-          flex
-        />
+        <DataList list={users} columns={columns} sortColumn="First Name" flex />
 
         {isUserModalVisible && <UserModal />}
       </div>

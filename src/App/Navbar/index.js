@@ -1,6 +1,6 @@
-import React from 'react';
-import { Icon, Tooltip } from 'components';
-import './Navbar.css';
+import React from "react";
+import { Icon, Tooltip } from "components";
+import "./Navbar.css";
 
 const Navbar = ({ username, onLogoutClick }) => (
   <div id="navbar">
@@ -14,7 +14,7 @@ const Navbar = ({ username, onLogoutClick }) => (
         <Icon name="user-small" fill="#fff" />
       </div>
       <div id="navbar__user__name" onClick={onLogoutClick}>
-        <Tooltip label="logout">{username || '-'}</Tooltip>
+        <Tooltip label="logout">{username || "-"}</Tooltip>
       </div>
     </div>
   </div>

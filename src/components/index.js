@@ -1,11 +1,11 @@
 // Modusbox UI components
-import 'modusbox-ui-components/dist/index.css';
+import "modusbox-ui-components/dist/index.css";
 
-import ControlIcon from './ControlIcon';
-import MessageBox from './MessageBox';
-import FormInput from './FormInput';
-import PendingOverlay from './PendingOverlay';
-import Title from './Title';
+import ControlIcon from "./ControlIcon";
+import MessageBox from "./MessageBox";
+import FormInput from "./FormInput";
+import PendingOverlay from "./PendingOverlay";
+import Title from "./Title";
 
 import {
   Button,
@@ -34,8 +34,8 @@ import {
   Tabs,
   TextField,
   Toast,
-  Tooltip,
-} from 'modusbox-ui-components/dist/index';
+  Tooltip
+} from "modusbox-ui-components/dist/index";
 
 export {
   Button,
@@ -69,5 +69,5 @@ export {
   Toast,
   TextField,
   Title,
-  Tooltip,
+  Tooltip
 };

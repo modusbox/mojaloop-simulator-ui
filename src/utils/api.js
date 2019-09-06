@@ -1,4 +1,4 @@
-import { buildFetchActions } from 'modusbox-ui-components/dist/redux-fetch';
+import { buildFetchActions } from "modusbox-ui-components/dist/redux-fetch";
 
 const handleError = (error, status, state) => {
   if (status === 401) {
@@ -19,14 +19,14 @@ const services = {
     },
     getApplicationHeaders: () => undefined,
     credentials: state => undefined,
-    mode: 'no-cors',
+    mode: "no-cors",
     sendAsJson: true,
     parseAsJson: true,
-    handleError: handleError,
+    handleError: handleError
   },
   simulator: {
     getApplicationUrl: state => {
-      return 'http://localhost:3002';
+      return "http://localhost:3002";
     },
     getApplicationHeaders: () => {
       return undefined;
@@ -36,8 +36,8 @@ const services = {
     },
     sendAsJson: true,
     parseAsJson: true,
-    handleError: handleError,
-  },
+    handleError: handleError
+  }
 };
 
 const endpoints = {
@@ -47,17 +47,16 @@ const endpoints = {
   },
   parties: {
     service: services.test,
-    url :'/repository/parties'
+    url: "/repository/parties"
   },
   scenarios: {
     service: services.test,
-    url: '/scenarios',
+    url: "/scenarios"
   },
   quoteRequests: {
     service: services.simulator,
-    url: () => `/quoterequests`,
-  },
-  
+    url: () => `/quoterequests`
+  }
 };
 
 const apis = buildFetchActions(endpoints);

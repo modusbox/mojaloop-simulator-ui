@@ -1,4 +1,4 @@
-import { handleActions } from 'redux-actions';
+import { handleActions } from "redux-actions";
 import {
   SET_USERS_LOADING,
   UNSET_USERS_LOADING,
@@ -12,8 +12,8 @@ import {
   CHANGE_USER_MIDDLE_NAME,
   CHANGE_USER_DATE_OF_BIRTH,
   CHANGE_USER_ID_TYPE,
-  CHANGE_USER_ID_VALUE,
-} from './actions';
+  CHANGE_USER_ID_VALUE
+} from "./actions";
 
 const userInitialState = {
   displayName: undefined,
@@ -22,33 +22,33 @@ const userInitialState = {
   middleName: undefined,
   dateOfBirth: undefined,
   idType: undefined,
-  idValue: undefined,
+  idValue: undefined
 };
 
 const initialState = {
   isUsersLoading: false,
   users: [],
   user: userInitialState,
-  userId: undefined,
+  userId: undefined
 };
 
 const Users = handleActions(
   {
     [SET_USERS_LOADING]: (state, action) => ({
       ...state,
-      isUsersLoading: true,
+      isUsersLoading: true
     }),
     [UNSET_USERS_LOADING]: (state, action) => ({
       ...state,
-      isUsersLoading: false,
+      isUsersLoading: false
     }),
     [SET_USERS]: (state, action) => ({
       ...state,
-      users: action.payload,
+      users: action.payload
     }),
     [SHOW_USER_MODAL]: (state, action) => ({
       ...state,
-      isModalVisible: true,
+      isModalVisible: true
     }),
     [HIDE_USER_MODAL]: (state, action) => ({
       ...state,
@@ -65,51 +65,51 @@ const Users = handleActions(
       ...state,
       user: {
         ...state.user,
-        displayName: action.payload,
+        displayName: action.payload
       }
     }),
     [CHANGE_USER_FIRST_NAME]: (state, action) => ({
       ...state,
       user: {
         ...state.user,
-        firstName: action.payload,
+        firstName: action.payload
       }
     }),
     [CHANGE_USER_LAST_NAME]: (state, action) => ({
       ...state,
       user: {
         ...state.user,
-        lastName: action.payload,
+        lastName: action.payload
       }
     }),
     [CHANGE_USER_MIDDLE_NAME]: (state, action) => ({
       ...state,
       user: {
         ...state.user,
-        middleName: action.payload,
+        middleName: action.payload
       }
     }),
     [CHANGE_USER_DATE_OF_BIRTH]: (state, action) => ({
       ...state,
       user: {
         ...state.user,
-        dateOfBirth: action.payload,
+        dateOfBirth: action.payload
       }
     }),
     [CHANGE_USER_ID_TYPE]: (state, action) => ({
       ...state,
       user: {
         ...state.user,
-        idType: action.payload,
+        idType: action.payload
       }
     }),
     [CHANGE_USER_ID_VALUE]: (state, action) => ({
       ...state,
       user: {
         ...state.user,
-        idValue: action.payload,
+        idValue: action.payload
       }
-    }),
+    })
   },
   initialState
 );

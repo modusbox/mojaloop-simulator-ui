@@ -1,11 +1,11 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
-import { Menu, MenuItem } from 'components';
+import React from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
+import { Menu, MenuItem } from "components";
 //import { getMenuIcons } from './selectors';
 
 const stateProps = state => ({
-//  icons: getMenuIcons(state),
+  //  icons: getMenuIcons(state),
 });
 
 const MenuStructure = ({ pathname, onChange }) => {

@@ -14,8 +14,13 @@
 }
 
 .users__button__row {
-  display: block;
+  display: flex;
   margin-bottom: 20px;
+  align-items: flex-start;
+}
+.users__button__item {
+  width: 150px;
+  margin-right: 10px;
 }
 .users__icon__edit {
   fill: #999;

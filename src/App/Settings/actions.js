@@ -1,5 +1,5 @@
 import { createAction } from "redux-actions";
-import { downloadFile } from "utils/html";
+import { downloadFile, loadFile } from "utils/html";
 
 export const RESET_SETTINGS = "Settings / Set Is Loading";
 export const SET_CONFIGURATIONS = "Settings / Set Configurations";
@@ -29,46 +29,22 @@ export const exportConfigurations = () => (dispatch, getState) => {
   downloadFile(jsonFile, "settings.json");
 };
 
-export const importConfigurations = () => (dispatch, getState) => {
-  const onChange = cb => async e => {
-    const readAsText = file => {
-      const reader = new FileReader();
-      return new Promise((resolve, reject) => {
-        reader.onload = event => resolve(event.target.result);
-        reader.onerror = error => reject(error);
-        reader.readAsText(file);
-      });
-    };
-    try {
-      const [file] = e.target.files;
-      if (!file) {
-        return;
-      }
-      const txt = await readAsText(file);
-      const json = JSON.parse(txt);
+export const importConfigurations = () => async (dispatch, getState) => {
+  const isConfiguration = conf => conf.id && conf.name && conf.host && conf.port && conf.protocol;
+  try {
+    const txt = await loadFile('.json');
+    const json = JSON.parse(txt);
 
-      if (
-        json.length &&
-        json.every(
-          conf =>
-            conf.id && conf.name && conf.host && conf.port && conf.protocol
-        )
-      ) {
-        dispatch(setConfigurations(json));
-        dispatch(selectConfiguration(json[0].id));
-      } else {
-        throw new Error("Configuration corrupted");
-      }
-    } catch (e) {
-      alert(`Unable to import file.\nReason: ${e.message}`);
+    if (
+      json.length &&
+      json.every(isConfiguration)
+    ) {
+      dispatch(setConfigurations(json));
+      dispatch(selectConfiguration(json[0].id));
+    } else {
+      throw new Error("Configuration corrupted");
     }
-    cb();
-  };
-  const input = document.createElement("input");
-  const remove = () => input.parentNode.removeChild(input);
-
-  document.body.append(input);
-  input.setAttribute("type", "file");
-  input.addEventListener("change", onChange(remove));
-  input.click();
+  } catch (e) {
+    alert(`Unable to import file.\nReason: ${e.message}`);
+  }
 };

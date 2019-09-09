@@ -1,12 +1,15 @@
 import { createAction } from "redux-actions";
+import find from "lodash/find";
 import api from "utils/api";
 import { is20x } from "utils/http";
+import { loadFile, downloadFile } from "utils/html";
 import { showSuccessToast, showErrorToast } from "../actions";
-import { getUserId, getUser } from "./selectors";
+import { getUserId, getUser, getUsers, getSelectedUsers } from "./selectors";
 
 export const SET_USERS_LOADING = "Users / Set Is Loading";
 export const UNSET_USERS_LOADING = "Users / Unset Is Loading";
 export const SET_USERS = "Users / Set users";
+export const SELECT_USERS = "Users / Select";
 export const SHOW_USER_MODAL = "Users / Show Modal";
 export const HIDE_USER_MODAL = "Users / Hide Modal";
 export const SET_USER_MODAL_MODEL = "Users / Set Modal Model";
@@ -21,6 +24,7 @@ export const CHANGE_USER_ID_VALUE = "Users / change user id value";
 export const setUsersLoading = createAction(SET_USERS_LOADING);
 export const unsetUsersLoading = createAction(UNSET_USERS_LOADING);
 export const setUsers = createAction(SET_USERS);
+export const selectUsers = createAction(SELECT_USERS);
 export const showUserModal = createAction(SHOW_USER_MODAL);
 export const hideUserModal = createAction(HIDE_USER_MODAL);
 export const setUserModalModel = createAction(SET_USER_MODAL_MODEL);
@@ -93,3 +97,43 @@ export const submitUserModal = () => async (dispatch, getState) => {
     dispatch(showErrorToast("An error occurred"));
   }
 };
+
+
+export const exportUsers = () => async (dispatch, getState) => {
+  const users = getSelectedUsers(getState());
+  const jsonFile = JSON.stringify(users, null, 2);
+  downloadFile(jsonFile, 'users.json');
+  dispatch(selectUsers([]));
+  dispatch(storeUsers());
+}
+
+export const importUsers = () => async (dispatch, getState) => {
+  const isUser = item => 
+    item.displayName !== undefined &&
+    item.firstName !== undefined &&
+    item.middleName !== undefined &&
+    item.lastName !== undefined &&
+    item.dateOfBirth !== undefined &&
+    item.idType !== undefined &&
+    item.idValue !== undefined;
+
+  try {
+    const txt = await loadFile('.json');
+    const users = JSON.parse(txt);
+    if (!users.length) {
+      dispatch(showErrorToast('No users'));
+      return;
+    }
+    if (!users.every(isUser)) {
+      dispatch(showErrorToast('Unable to read users'));
+      return;
+    }
+    const existingUsers = getUsers(getState());
+    const usersToCreate = users.filter(user => !find(existingUsers, user));
+    const apiCalls = usersToCreate.map(user => dispatch(api.parties.create({ body: user })));
+    await Promise.all(apiCalls);
+  } catch (e) {
+    dispatch(showErrorToast(`Error occurred: ${e.message}`));
+  }
+  dispatch(storeUsers());
+}

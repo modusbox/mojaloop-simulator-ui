@@ -3,6 +3,7 @@ import {
   SET_USERS_LOADING,
   UNSET_USERS_LOADING,
   SET_USERS,
+  SELECT_USERS,
   SHOW_USER_MODAL,
   HIDE_USER_MODAL,
   SET_USER_MODAL_MODEL,
@@ -26,6 +27,7 @@ const userInitialState = {
 };
 
 const initialState = {
+  selectedUsers: [],
   isUsersLoading: false,
   users: [],
   user: userInitialState,
@@ -45,6 +47,10 @@ const Users = handleActions(
     [SET_USERS]: (state, action) => ({
       ...state,
       users: action.payload
+    }),
+    [SELECT_USERS]: (state, action) => ({
+      ...state,
+      selectedUsers: action.payload
     }),
     [SHOW_USER_MODAL]: (state, action) => ({
       ...state,

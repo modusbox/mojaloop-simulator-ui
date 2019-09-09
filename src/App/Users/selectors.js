@@ -10,6 +10,7 @@ import find from "lodash/find";
 
 export const getIsUsersLoading = state => state.users.isUsersLoading;
 export const getUsers = state => state.users.users;
+export const getSelectedUsers = state => state.users.selectedUsers;
 export const getUser = state => state.users.user;
 export const getIsUserNew = state => state.users.isUserNew;
 export const getUserId = state => state.users.userId;

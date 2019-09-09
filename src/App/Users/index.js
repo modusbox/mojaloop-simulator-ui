@@ -1,9 +1,13 @@
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";
+import isEqual from "lodash/isEqual";
 import { Button, ControlIcon, DataList, Spinner, Title } from "components";
 import "./Users.css";
 import {
   initUsers,
+  selectUsers,
+  exportUsers,
+  importUsers,
   openNewUserModal,
   openEditUserModal,
   deleteUser
@@ -11,6 +15,7 @@ import {
 import {
   getIsUsersLoading,
   getUsers,
+  getSelectedUsers,
   getIsUserModalVisible
 } from "./selectors";
 
@@ -19,10 +24,14 @@ import UserModal from "./UserModal";
 const stateProps = state => ({
   isUsersLoading: getIsUsersLoading(state),
   users: getUsers(state),
+  selectedUsers: getSelectedUsers(state),
   isUserModalVisible: getIsUserModalVisible(state)
 });
 const actionProps = dispatch => ({
   onMount: () => dispatch(initUsers()),
+  onUsersCheck: (users) => dispatch(selectUsers(users)),
+  onExportUsersClick: () => dispatch(exportUsers()),
+  onImportUsersClick: () => dispatch(importUsers()),
   onAddUserClick: () => dispatch(openNewUserModal()),
   onEditUserClick: user => dispatch(openEditUserModal(user)),
   onDeleteUserClick: user => dispatch(deleteUser(user))
@@ -37,7 +46,11 @@ class Users extends PureComponent {
   render() {
     const {
       users,
+      selectedUsers,
       isUserModalVisible,
+      onUsersCheck,
+      onExportUsersClick,
+      onImportUsersClick,
       onAddUserClick,
       onEditUserClick,
       onDeleteUserClick
@@ -104,10 +117,43 @@ class Users extends PureComponent {
         <Title>Users</Title>
 
         <div className="users__button__row">
-          <Button label="Add User" onClick={onAddUserClick} icon="plus-small" />
+          <Button
+            className="users__button__item"
+            label="Add User"
+            onClick={onAddUserClick}
+            icon="plus-small"
+          />
+          <Button
+            className="users__button__item"
+            label="Import Users"
+            onClick={onImportUsersClick}
+            icon="open"
+            iconPosition="right"
+            noFill
+            kind="secondary"
+          />
+          <Button
+            className="users__button__item"
+            label="Export Users"
+            onClick={onExportUsersClick}
+            icon="saved"
+            iconPosition="right"
+            noFill
+            kind="secondary"
+            disabled={selectedUsers.length === 0}
+          />
         </div>
 
-        <DataList list={users} columns={columns} sortColumn="First Name" flex />
+        <DataList
+          list={users}
+          columns={columns}
+          sortColumn="First Name"
+          onCheck={onUsersCheck}
+          checked={(user) => {
+            return selectedUsers.some(selected => isEqual(selected, user))
+          }}
+          flex
+        />
 
         {isUserModalVisible && <UserModal />}
       </div>

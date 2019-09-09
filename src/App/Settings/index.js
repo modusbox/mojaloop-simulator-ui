@@ -9,7 +9,7 @@ import {
   Title
 } from "components";
 import "./Settings.css";
-import { isSameSetting, isDefaultSettings } from './funcs';
+import { isSameSetting, isDefaultSettings } from "./funcs";
 import {
   saveConfiguration,
   importConfigurations,
@@ -19,7 +19,7 @@ import {
   setSettingsName,
   setSettingsProtocol,
   setSettingsHost,
-  setSettingsPort,
+  setSettingsPort
 } from "./actions";
 import {
   getConfigurationOptions,
@@ -35,16 +35,15 @@ import {
 import { PROTOCOLS } from "./constants";
 
 const getColumns = (configurationId, onRemove) => {
-
   return [
     {
       className: "icon__column-30",
       key: "",
       label: "",
       func: (_, item) => {
-        return isSameSetting(item, configurationId) 
-        ? <Icon size={20} name="check-small" fill="#3c9" />
-        : null;
+        return isSameSetting(item, configurationId) ? (
+          <Icon size={20} name="check-small" fill="#3c9" />
+        ) : null;
       }
     },
     {
@@ -69,7 +68,9 @@ const getColumns = (configurationId, onRemove) => {
       className: "icon__column-40",
       func: (_, item) => (
         <ControlIcon
-          disabled={isSameSetting(item, configurationId) || isDefaultSettings(item)}
+          disabled={
+            isSameSetting(item, configurationId) || isDefaultSettings(item)
+          }
           icon="close-small"
           size={20}
           className="users__icon__delete"
@@ -79,7 +80,6 @@ const getColumns = (configurationId, onRemove) => {
     }
   ];
 };
-
 
 const Settings = ({
   configurationOptions,
@@ -102,12 +102,9 @@ const Settings = ({
   onNameChange,
   onProtocolChange,
   onPortChange,
-  onHostChange,
+  onHostChange
 }) => {
-  const columns = getColumns(
-    configurationId,
-    onRemoveConfigurationClick
-  );
+  const columns = getColumns(configurationId, onRemoveConfigurationClick);
   return (
     <div id="settings">
       <Title>Settings</Title>
@@ -181,10 +178,7 @@ const Settings = ({
       <Title small>All configs</Title>
 
       <div className="settings_list_container">
-        <DataList
-          list={configurations}
-          columns={columns}
-        />
+        <DataList list={configurations} columns={columns} />
       </div>
       <Button
         className="settings__button__item settings__button__item--export"
@@ -207,7 +201,7 @@ const Settings = ({
       />
     </div>
   );
-}
+};
 
 const stateProps = state => ({
   configurationOptions: getConfigurationOptions(state),

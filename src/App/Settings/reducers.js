@@ -42,7 +42,7 @@ const initialState = {
   protocol: undefined,
   host: undefined,
   port: undefined,
-  configurationId,
+  configurationId
 };
 
 const Settings = handleActions(
@@ -54,7 +54,7 @@ const Settings = handleActions(
       setItem("configurations", action.payload);
       return {
         ...state,
-        configurations: action.payload,
+        configurations: action.payload
       };
     },
     [SAVE_SETTINGS_CONFIGURATION]: (state, action) => {
@@ -82,8 +82,8 @@ const Settings = handleActions(
       setItem("configurationId", action.payload);
       return {
         ...state,
-        configurationId: action.payload,
-      }
+        configurationId: action.payload
+      };
     },
     [REMOVE_CONFIGURATION]: (state, action) => {
       const index = findIndex(state.configurations, action.payload);
@@ -99,7 +99,7 @@ const Settings = handleActions(
     },
     [SET_SETTINGS_NAME]: (state, action) => ({
       ...state,
-      name: action.payload,
+      name: action.payload
     }),
     [SET_SETTINGS_PROTOCOL]: (state, action) => ({
       ...state,

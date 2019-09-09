@@ -16,7 +16,9 @@ const services = {
   test: {
     getApplicationUrl: state => {
       const { configurations, configurationId } = state.settings;
-      const [{ protocol, host, port }] = configurations.filter(cfg => cfg.id === configurationId);
+      const [{ protocol, host, port }] = configurations.filter(
+        cfg => cfg.id === configurationId
+      );
       return `${protocol}://${host}:${port}`;
     },
     getApplicationHeaders: () => undefined,

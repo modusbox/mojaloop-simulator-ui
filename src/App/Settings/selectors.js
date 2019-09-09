@@ -11,7 +11,8 @@ export const getSettingsName = state => state.settings.name;
 export const getSettingsProtocol = state => state.settings.protocol;
 export const getSettingsHost = state => state.settings.host;
 export const getSettingsPort = state => state.settings.port;
-export const getSettingsConfigurationId = state => state.settings.configurationId;
+export const getSettingsConfigurationId = state =>
+  state.settings.configurationId;
 
 export const getSettingsCurrentConfiguration = createSelector(
   getConfigurations,
@@ -38,11 +39,13 @@ export const getIsSubmitEnabled = createSelector(
   getIsValid
 );
 
-
 export const getConfigurationOptions = createSelector(
   getConfigurations,
-  configs => configs.map(config => ({
-    label: `${config.name} - ${config.protocol}://${config.host}:${config.port}`,
-    value: config.id
-  }))
+  configs =>
+    configs.map(config => ({
+      label: `${config.name} - ${config.protocol}://${config.host}:${
+        config.port
+      }`,
+      value: config.id
+    }))
 );

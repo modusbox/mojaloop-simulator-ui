@@ -2,7 +2,7 @@ import { createAction } from "redux-actions";
 import { downloadFile } from "utils/html";
 
 export const RESET_SETTINGS = "Settings / Set Is Loading";
-export const SET_CONFIGURATIONS = "Settings / Set Configurations"
+export const SET_CONFIGURATIONS = "Settings / Set Configurations";
 export const SELECT_CONFIGURATION = "Settings / Select Configuration";
 export const REMOVE_CONFIGURATION = "Settings / Remove Configuration";
 export const SAVE_SETTINGS_CONFIGURATION = "Settings / Save Configuration";
@@ -30,10 +30,10 @@ export const exportConfigurations = () => (dispatch, getState) => {
 };
 
 export const importConfigurations = () => (dispatch, getState) => {
-  const onChange = cb => async (e) => {
+  const onChange = cb => async e => {
     const readAsText = file => {
       const reader = new FileReader();
-        return new Promise((resolve, reject) => {
+      return new Promise((resolve, reject) => {
         reader.onload = event => resolve(event.target.result);
         reader.onerror = error => reject(error);
         reader.readAsText(file);
@@ -47,23 +47,28 @@ export const importConfigurations = () => (dispatch, getState) => {
       const txt = await readAsText(file);
       const json = JSON.parse(txt);
 
-      if (json.length && json.every(conf => conf.id && conf.name && conf.host && conf.port && conf.protocol)) {
+      if (
+        json.length &&
+        json.every(
+          conf =>
+            conf.id && conf.name && conf.host && conf.port && conf.protocol
+        )
+      ) {
         dispatch(setConfigurations(json));
-        dispatch(selectConfiguration(json[0].id))
+        dispatch(selectConfiguration(json[0].id));
       } else {
-        throw new Error('Configuration corrupted');
+        throw new Error("Configuration corrupted");
       }
-
-    } catch(e) {
+    } catch (e) {
       alert(`Unable to import file.\nReason: ${e.message}`);
     }
     cb();
   };
-  const input = document.createElement('input');
+  const input = document.createElement("input");
   const remove = () => input.parentNode.removeChild(input);
-  
+
   document.body.append(input);
-  input.setAttribute('type', 'file');
-  input.addEventListener('change', onChange(remove));
+  input.setAttribute("type", "file");
+  input.addEventListener("change", onChange(remove));
   input.click();
 };

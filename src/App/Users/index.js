@@ -102,7 +102,7 @@ class Users extends PureComponent {
     return (
       <div id="users">
         <Title>Users</Title>
-        
+
         <div className="users__button__row">
           <Button label="Add User" onClick={onAddUserClick} icon="plus-small" />
         </div>

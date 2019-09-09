@@ -1,7 +1,7 @@
 import React from "react";
 
-const Title = ({ children }) => (
-  <div style={{ fontSize: "24px", fontWeight: "normal", marginBottom: "10px" }}>
+const Title = ({ children, small }) => (
+  <div style={{ fontSize: small ? "16px" : "24px", fontWeight: "normal", marginBottom: small ? "10px" : "20px" }}>
     {children}
   </div>
 );

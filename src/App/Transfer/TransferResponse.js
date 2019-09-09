@@ -80,9 +80,9 @@ class TransferResponse extends PureComponent {
 
     return (
       <div className="transfer__runner__section transfer__runner__section--fading">
-        <div id="transfe__response">
+        <div id="transfer__response">
           <Row align="left">
-            <Title>Response</Title>
+            <Title small>Response</Title>
             <Checkbox
               className="transfer__all-fields__toggle"
               label="Show All Fields"

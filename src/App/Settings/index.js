@@ -1,4 +1,4 @@
-import React, { PureComponent } from "react";
+import React from "react";
 import { connect } from "react-redux";
 import {
   Button,
@@ -9,46 +9,46 @@ import {
   Title
 } from "components";
 import "./Settings.css";
+import { isSameSetting, isDefaultSettings } from "./funcs";
 import {
   saveConfiguration,
+  importConfigurations,
   exportConfigurations,
   selectConfiguration,
   removeConfiguration,
+  setSettingsName,
   setSettingsProtocol,
   setSettingsHost,
   setSettingsPort
 } from "./actions";
 import {
+  getConfigurationOptions,
   getConfigurations,
+  getSettingsName,
   getSettingsProtocol,
   getSettingsHost,
   getSettingsPort,
-  getCurrentSettingsProtocol,
-  getCurrentSettingsHost,
-  getCurrentSettingsPort,
+  getSettingsConfigurationId,
   getValidationResult,
   getIsSubmitEnabled
 } from "./selectors";
 import { PROTOCOLS } from "./constants";
 
-const getColumns = (currentProtocol, currentHost, currentPort, onRemove) => {
-  const isSameItem = (item, protocol, host, port) =>
-    item.protocol === protocol && item.host === host && item.port === port;
-
+const getColumns = (configurationId, onRemove) => {
   return [
     {
-      sortable: false,
+      className: "icon__column-30",
+      key: "",
+      label: "",
       func: (_, item) => {
-        const isSame = isSameItem(
-          item,
-          currentProtocol,
-          currentHost,
-          currentPort
-        );
-        return isSame ? (
+        return isSameSetting(item, configurationId) ? (
           <Icon size={20} name="check-small" fill="#3c9" />
         ) : null;
       }
+    },
+    {
+      key: "name",
+      label: "Name"
     },
     {
       key: "protocol",
@@ -68,7 +68,9 @@ const getColumns = (currentProtocol, currentHost, currentPort, onRemove) => {
       className: "icon__column-40",
       func: (_, item) => (
         <ControlIcon
-          disabled={isSameItem(item, currentProtocol, currentHost, currentPort)}
+          disabled={
+            isSameSetting(item, configurationId) || isDefaultSettings(item)
+          }
           icon="close-small"
           size={20}
           className="users__icon__delete"
@@ -78,93 +80,148 @@ const getColumns = (currentProtocol, currentHost, currentPort, onRemove) => {
     }
   ];
 };
-class Settings extends PureComponent {
-  render() {
-    const columns = getColumns(
-      this.props.currentProtocol,
-      this.props.currentHost,
-      this.props.currentPort,
-      this.props.onRemoveConfigurationClick
-    );
-    return (
-      <div id="settings">
-        <Title>Settings</Title>
 
-        <div className="settings__form">
-          <div className="settings__form-input">
+const Settings = ({
+  configurationOptions,
+  configurations,
+  name,
+  protocol,
+  host,
+  port,
+  configurationId,
+  currentProtocol,
+  currentHost,
+  currentPort,
+  validation,
+  isSubmitEnabled,
+  onExportConfigurationsClick,
+  onImportConfigurationsClick,
+  onConfigurationSaveClick,
+  onConfigurationSelect,
+  onRemoveConfigurationClick,
+  onNameChange,
+  onProtocolChange,
+  onPortChange,
+  onHostChange
+}) => {
+  const columns = getColumns(configurationId, onRemoveConfigurationClick);
+  return (
+    <div id="settings">
+      <Title>Settings</Title>
+
+      <Title small>Current setting</Title>
+
+      <div className="settings__form">
+        <div className="settings__selection__row">
+          <div className="settings__selection__input">
             <FormInput
+              size="l"
               type="select"
-              options={PROTOCOLS}
-              label="Protocol"
-              value={this.props.protocol}
-              onChange={this.props.onProtocolChange}
-              validation={this.props.validation.fields.protocol}
+              placeholder="Configuration"
+              options={configurationOptions}
+              value={configurationId}
+              onChange={onConfigurationSelect}
             />
           </div>
-          <div className="settings__form-input">
-            <FormInput
-              type="text"
-              label="Host"
-              value={this.props.host}
-              onChange={this.props.onHostChange}
-              validation={this.props.validation.fields.host}
-            />
-          </div>
-          <div className="settings__form-input">
-            <FormInput
-              type="text"
-              label="Port"
-              value={this.props.port}
-              onChange={this.props.onPortChange}
-              validation={this.props.validation.fields.port}
-            />
-          </div>
-          <Button
-            className="settings__button__item"
-            kind="primary"
-            label="Save"
-            disabled={!this.props.isSubmitEnabled}
-            onClick={this.props.onConfigurationSaveClick}
+        </div>
+      </div>
+
+      <Title small>New config</Title>
+
+      <div className="settings__form">
+        <div className="settings__form-input">
+          <FormInput
+            type="text"
+            label="Name"
+            value={name}
+            onChange={onNameChange}
+            validation={validation.fields.name}
           />
         </div>
-
-        <div className="settings_list_container">
-          <DataList
-            list={this.props.configurations}
-            columns={columns}
-            onSelect={this.props.onConfigurationSelect}
+        <div className="settings__form-input">
+          <FormInput
+            type="select"
+            options={PROTOCOLS}
+            label="Protocol"
+            value={protocol}
+            onChange={onProtocolChange}
+            validation={validation.fields.protocol}
+          />
+        </div>
+        <div className="settings__form-input">
+          <FormInput
+            type="text"
+            label="Host"
+            value={host}
+            onChange={onHostChange}
+            validation={validation.fields.host}
+          />
+        </div>
+        <div className="settings__form-input">
+          <FormInput
+            type="text"
+            label="Port"
+            value={port}
+            onChange={onPortChange}
+            validation={validation.fields.port}
           />
         </div>
         <Button
-          className=".settings__button__item settings__button__item--export"
-          disabled={this.props.configurations.length === 0}
-          kind="secondary"
-          label="Export"
-          noFill
-          onClick={this.props.onExportConfigurationsClick}
+          className="settings__button__item"
+          kind="primary"
+          label="Save"
+          disabled={!isSubmitEnabled}
+          onClick={onConfigurationSaveClick}
         />
       </div>
-    );
-  }
-}
+
+      <Title small>All configs</Title>
+
+      <div className="settings_list_container">
+        <DataList list={configurations} columns={columns} />
+      </div>
+      <Button
+        className="settings__button__item settings__button__item--export"
+        disabled={configurations.length === 0}
+        kind="secondary"
+        label="Export"
+        icon="saved"
+        iconPosition="right"
+        noFill
+        onClick={onExportConfigurationsClick}
+      />
+      <Button
+        className="settings__button__item settings__button__item--import"
+        kind="secondary"
+        label="Import"
+        icon="open"
+        iconPosition="right"
+        noFill
+        onClick={onImportConfigurationsClick}
+      />
+    </div>
+  );
+};
 
 const stateProps = state => ({
+  configurationOptions: getConfigurationOptions(state),
   configurations: getConfigurations(state),
+  name: getSettingsName(state),
   protocol: getSettingsProtocol(state),
   host: getSettingsHost(state),
   port: getSettingsPort(state),
-  currentProtocol: getCurrentSettingsProtocol(state),
-  currentHost: getCurrentSettingsHost(state),
-  currentPort: getCurrentSettingsPort(state),
+  configurationId: getSettingsConfigurationId(state),
   validation: getValidationResult(state),
   isSubmitEnabled: getIsSubmitEnabled(state)
 });
 
 const actionProps = dispatch => ({
   onExportConfigurationsClick: () => dispatch(exportConfigurations()),
+  onImportConfigurationsClick: () => dispatch(importConfigurations()),
   onConfigurationSaveClick: () => dispatch(saveConfiguration()),
-  onConfigurationSelect: config => dispatch(selectConfiguration(config)),
+  onConfigurationSelect: id => dispatch(selectConfiguration(id)),
   onRemoveConfigurationClick: config => dispatch(removeConfiguration(config)),
+  onNameChange: value => dispatch(setSettingsName(value)),
   onProtocolChange: value => dispatch(setSettingsProtocol(value)),
   onPortChange: value => dispatch(setSettingsPort(value)),
   onHostChange: value => dispatch(setSettingsHost(value))

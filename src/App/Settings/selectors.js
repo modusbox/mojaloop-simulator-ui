@@ -1,4 +1,5 @@
 import { createSelector } from "reselect";
+import find from "lodash/find";
 import {
   toValidationResult,
   getIsValid
@@ -6,21 +7,25 @@ import {
 import { getSettingsValidators } from "./validators";
 
 export const getConfigurations = state => state.settings.configurations;
+export const getSettingsName = state => state.settings.name;
 export const getSettingsProtocol = state => state.settings.protocol;
 export const getSettingsHost = state => state.settings.host;
 export const getSettingsPort = state => state.settings.port;
-export const getCurrentSettingsProtocol = state =>
-  state.settings.currentProtocol;
-export const getCurrentSettingsHost = state => state.settings.currentHost;
-export const getCurrentSettingsPort = state => state.settings.currentPort;
+export const getSettingsConfigurationId = state =>
+  state.settings.configurationId;
 
-const buildSetting = (protocol, host, port) => ({ protocol, host, port });
+export const getSettingsCurrentConfiguration = createSelector(
+  getConfigurations,
+  getSettingsConfigurationId,
+  (configuratios, id) => find(configuratios, { id })
+);
 
 const getSetting = createSelector(
+  getSettingsName,
   getSettingsProtocol,
   getSettingsHost,
   getSettingsPort,
-  buildSetting
+  (name, protocol, host, port) => ({ name, protocol, host, port })
 );
 
 export const getValidationResult = createSelector(
@@ -32,4 +37,15 @@ export const getValidationResult = createSelector(
 export const getIsSubmitEnabled = createSelector(
   getValidationResult,
   getIsValid
+);
+
+export const getConfigurationOptions = createSelector(
+  getConfigurations,
+  configs =>
+    configs.map(config => ({
+      label: `${config.name} - ${config.protocol}://${config.host}:${
+        config.port
+      }`,
+      value: config.id
+    }))
 );

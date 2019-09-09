@@ -113,3 +113,7 @@ p {
 .icon__column-40 {
   flex: 0 0 40px;
 }
+
+.icon__column-30 {
+  flex: 0 0 30px;
+}

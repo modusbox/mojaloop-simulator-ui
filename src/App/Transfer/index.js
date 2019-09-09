@@ -121,6 +121,8 @@ class Transfer extends PureComponent {
       <div id="transfer">
         <div className="transfer__runner__section">
           <Title>Send</Title>
+
+          <Title small>Editor</Title>
           <Tabs onSelect={onModeSelect} selected={isAdvancedMode ? 1 : 0}>
             <TabList>
               <Tab>Simple Mode</Tab>

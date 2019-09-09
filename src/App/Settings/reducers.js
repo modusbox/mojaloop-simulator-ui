@@ -1,57 +1,48 @@
-import { setItem, getItem, removeItem } from "utils/storage";
 import { handleActions } from "redux-actions";
+import uuid from "uuid/v4";
+import { setItem, getItem, removeItem } from "utils/storage";
 import findIndex from "lodash/findIndex";
 import {
   RESET_SETTINGS,
+  SET_CONFIGURATIONS,
   SELECT_CONFIGURATION,
   REMOVE_CONFIGURATION,
   SAVE_SETTINGS_CONFIGURATION,
+  SET_SETTINGS_NAME,
   SET_SETTINGS_PROTOCOL,
   SET_SETTINGS_HOST,
   SET_SETTINGS_PORT
 } from "./actions";
 
-const isSameItem = (item, protocol, host, port) =>
-  item.protocol === protocol && item.host === host && item.port === port;
-
 const initialConfigurationState = [
   {
+    id: "00000000",
+    name: "default",
     protocol: "http",
     host: "localhost",
     port: "3003"
   }
 ];
 let configs = getItem("configurations");
-let currentProtocol = getItem("currentProtocol");
-let currentHost = getItem("currentHost");
-let currentPort = getItem("currentPort");
+let configurationId = getItem("configurationId");
 
 if (!configs || !configs.length) {
   removeItem("configurations");
   configs = initialConfigurationState;
 }
 
-if (
-  !configs.some(item => {
-    return isSameItem(item, currentProtocol, currentHost, currentPort);
-  })
-) {
-  removeItem("currentProtocol");
-  removeItem("currentHost");
-  removeItem("currentPort");
-  currentProtocol = configs[0].protocol;
-  currentHost = configs[0].host;
-  currentPort = configs[0].port;
+if (!configs.some(item => item.id === configurationId)) {
+  removeItem("configurationId");
+  configurationId = configs[0].id;
 }
 
 const initialState = {
   configurations: configs,
+  name: undefined,
   protocol: undefined,
   host: undefined,
   port: undefined,
-  currentProtocol,
-  currentHost,
-  currentPort
+  configurationId
 };
 
 const Settings = handleActions(
@@ -59,17 +50,27 @@ const Settings = handleActions(
     [RESET_SETTINGS]: (state, action) => ({
       ...initialState
     }),
+    [SET_CONFIGURATIONS]: (state, action) => {
+      setItem("configurations", action.payload);
+      return {
+        ...state,
+        configurations: action.payload
+      };
+    },
     [SAVE_SETTINGS_CONFIGURATION]: (state, action) => {
       const newState = {
         ...state,
         configurations: [
           ...state.configurations,
           {
+            id: uuid(),
+            name: state.name,
             protocol: state.protocol,
             host: state.host,
             port: state.port
           }
         ],
+        name: "",
         protocol: "",
         host: "",
         port: ""
@@ -78,17 +79,11 @@ const Settings = handleActions(
       return newState;
     },
     [SELECT_CONFIGURATION]: (state, action) => {
-      const newState = {
+      setItem("configurationId", action.payload);
+      return {
         ...state,
-        currentProtocol: action.payload.protocol,
-        currentHost: action.payload.host,
-        currentPort: action.payload.port
+        configurationId: action.payload
       };
-      setItem("currentProtocol", newState.currentProtocol);
-      setItem("currentHost", newState.currentHost);
-      setItem("currentPort", newState.currentPort);
-
-      return newState;
     },
     [REMOVE_CONFIGURATION]: (state, action) => {
       const index = findIndex(state.configurations, action.payload);
@@ -102,6 +97,10 @@ const Settings = handleActions(
       setItem("configurations", newState.configurations);
       return newState;
     },
+    [SET_SETTINGS_NAME]: (state, action) => ({
+      ...state,
+      name: action.payload
+    }),
     [SET_SETTINGS_PROTOCOL]: (state, action) => ({
       ...state,
       protocol: action.payload

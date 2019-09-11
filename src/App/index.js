@@ -67,7 +67,7 @@ class App extends PureComponent {
           <div id="app__menu">
             <Menu />
           </div>
-          <ScrollBox>
+          <ScrollBox flex>
             <div id="app__views">
               <Route path="/users" component={Users} />
               <Route path="/transfer" component={Transfer} />

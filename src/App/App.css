@@ -27,7 +27,7 @@
 }
 #app__views {
   min-width: 0px;
-  flex: 1 1 1px;
+  flex: 1 1 auto;
   display: flex;
   max-height: 100%;
   min-height: 0;

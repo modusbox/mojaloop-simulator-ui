@@ -26,7 +26,7 @@ import {
   Title
 } from "components";
 import "./Settings.css";
-import { isSameSetting, isDefaultSettings } from "./funcs";
+import { isSameSetting } from "./funcs";
 import {
   saveConfiguration,
   importConfigurations,
@@ -84,17 +84,21 @@ const getColumns = (configurationId, onRemove) => {
       label: "",
       key: "",
       className: "icon__column-40",
-      func: (_, item) => (
-        <ControlIcon
-          disabled={
-            isSameSetting(item, configurationId) || isDefaultSettings(item)
-          }
-          icon="close-small"
-          size={20}
-          className="users__icon__delete"
-          onClick={() => onRemove(item)}
-        />
-      )
+      func: (_, item) => {
+        const isActive = isSameSetting(item, configurationId);
+        return (
+          <ControlIcon
+            disabled={isActive}
+            icon="close-small"
+            size={20}
+            kind="error"
+            tooltip={isActive ? "Can't delete active settings" : "Delete settings"}
+            tooltipPosition="left"
+            className="users__icon__delete"
+            onClick={() => onRemove(item)}
+          />
+        );
+      }
     }
   ];
 };

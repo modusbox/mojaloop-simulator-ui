@@ -17,7 +17,6 @@
 
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";
-import isEqual from "lodash/isEqual";
 import { Button, ControlIcon, DataList, Spinner, Title } from "components";
 import "./Users.css";
 import {
@@ -171,10 +170,7 @@ class Users extends PureComponent {
           columns={columns}
           sortColumn="First Name"
           onCheck={onUsersCheck}
-          checked={(user) => {
-            return selectedUsers.some(selected => isEqual(selected, user))
-          }}
-          flex
+          checked={selectedUsers}
         />
 
         {isUserModalVisible && <UserModal />}

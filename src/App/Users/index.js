@@ -17,7 +17,6 @@
 
 import React, { PureComponent } from "react";
 import { connect } from "react-redux";
-import isEqual from "lodash/isEqual";
 import { Button, ControlIcon, DataList, Spinner, Title } from "components";
 import "./Users.css";
 import {
@@ -112,6 +111,8 @@ class Users extends PureComponent {
             size={20}
             className="users__icon__edit"
             onClick={() => onEditUserClick(item)}
+            tooltip="Edit user"
+            tooltipPosition="left"
           />
         )
       },
@@ -125,6 +126,9 @@ class Users extends PureComponent {
             size={20}
             className="users__icon__delete"
             onClick={() => onDeleteUserClick(item)}
+            kind="error"
+            tooltip="Delete user"
+            tooltipPosition="left"
           />
         )
       }
@@ -166,10 +170,7 @@ class Users extends PureComponent {
           columns={columns}
           sortColumn="First Name"
           onCheck={onUsersCheck}
-          checked={(user) => {
-            return selectedUsers.some(selected => isEqual(selected, user))
-          }}
-          flex
+          checked={selectedUsers}
         />
 
         {isUserModalVisible && <UserModal />}

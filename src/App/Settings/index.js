@@ -26,7 +26,7 @@ import {
   Title
 } from "components";
 import "./Settings.css";
-import { isSameSetting, isDefaultSettings } from "./funcs";
+import { isSameSetting } from "./funcs";
 import {
   saveConfiguration,
   importConfigurations,
@@ -57,6 +57,7 @@ const getColumns = (configurationId, onRemove) => {
       className: "icon__column-30",
       key: "",
       label: "",
+      sortable: false,
       func: (_, item) => {
         return isSameSetting(item, configurationId) ? (
           <Icon size={20} name="check-small" fill="#3c9" />
@@ -83,17 +84,21 @@ const getColumns = (configurationId, onRemove) => {
       label: "",
       key: "",
       className: "icon__column-40",
-      func: (_, item) => (
-        <ControlIcon
-          disabled={
-            isSameSetting(item, configurationId) || isDefaultSettings(item)
-          }
-          icon="close-small"
-          size={20}
-          className="users__icon__delete"
-          onClick={() => onRemove(item)}
-        />
-      )
+      func: (_, item) => {
+        const isActive = isSameSetting(item, configurationId);
+        return (
+          <ControlIcon
+            disabled={isActive}
+            icon="close-small"
+            size={20}
+            kind="error"
+            tooltip={isActive ? "Can't delete active settings" : "Delete settings"}
+            tooltipPosition="left"
+            className="users__icon__delete"
+            onClick={() => onRemove(item)}
+          />
+        );
+      }
     }
   ];
 };
@@ -195,7 +200,7 @@ const Settings = ({
       <Title small>All configs</Title>
 
       <div className="settings_list_container">
-        <DataList list={configurations} columns={columns} />
+        <DataList list={configurations} columns={columns} sortColumn="Name" />
       </div>
       <Button
         className="settings__button__item settings__button__item--export"

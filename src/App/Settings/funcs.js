@@ -17,4 +17,4 @@
 
 export const isSameSetting = (item, configurationId) =>
   item.id === configurationId;
-export const isDefaultSettings = item => item.id === "000000";
+export const isDefaultSettings = item => item.id === "00000000";

@@ -112,6 +112,8 @@ class Users extends PureComponent {
             size={20}
             className="users__icon__edit"
             onClick={() => onEditUserClick(item)}
+            tooltip="Edit user"
+            tooltipPosition="left"
           />
         )
       },
@@ -125,6 +127,9 @@ class Users extends PureComponent {
             size={20}
             className="users__icon__delete"
             onClick={() => onDeleteUserClick(item)}
+            kind="error"
+            tooltip="Delete user"
+            tooltipPosition="left"
           />
         )
       }

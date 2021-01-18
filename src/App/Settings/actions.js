@@ -27,6 +27,7 @@ export const SET_SETTINGS_NAME = "Settings / Set Name";
 export const SET_SETTINGS_PROTOCOL = "Settings / Set Protocol";
 export const SET_SETTINGS_HOST = "Settings / Set Host";
 export const SET_SETTINGS_PORT = "Settings / Set Port";
+export const SET_SETTINGS_PATH = "Settings / Set Path";
 
 export const resetSettings = createAction(RESET_SETTINGS);
 export const selectConfiguration = createAction(SELECT_CONFIGURATION);
@@ -37,6 +38,7 @@ export const setSettingsName = createAction(SET_SETTINGS_NAME);
 export const setSettingsProtocol = createAction(SET_SETTINGS_PROTOCOL);
 export const setSettingsHost = createAction(SET_SETTINGS_HOST);
 export const setSettingsPort = createAction(SET_SETTINGS_PORT);
+export const setSettingsPath = createAction(SET_SETTINGS_PATH);
 
 export const initSettings = () => async (dispatch, getState) => {};
 
@@ -47,15 +49,13 @@ export const exportConfigurations = () => (dispatch, getState) => {
 };
 
 export const importConfigurations = () => async (dispatch, getState) => {
-  const isConfiguration = conf => conf.id && conf.name && conf.host && conf.port && conf.protocol;
+  const isConfiguration = conf =>
+    conf.id && conf.name && conf.host && conf.port && conf.protocol;
   try {
-    const txt = await loadFile('.json');
+    const txt = await loadFile(".json");
     const json = JSON.parse(txt);
 
-    if (
-      json.length &&
-      json.every(isConfiguration)
-    ) {
+    if (json.length && json.every(isConfiguration)) {
       dispatch(setConfigurations(json));
       dispatch(selectConfiguration(json[0].id));
     } else {

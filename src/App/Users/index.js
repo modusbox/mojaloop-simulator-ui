@@ -45,7 +45,7 @@ const stateProps = state => ({
 });
 const actionProps = dispatch => ({
   onMount: () => dispatch(initUsers()),
-  onUsersCheck: (users) => dispatch(selectUsers(users)),
+  onUsersCheck: users => dispatch(selectUsers(users)),
   onExportUsersClick: () => dispatch(exportUsers()),
   onImportUsersClick: () => dispatch(importUsers()),
   onAddUserClick: () => dispatch(openNewUserModal()),

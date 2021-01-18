@@ -36,7 +36,8 @@ import {
   setSettingsName,
   setSettingsProtocol,
   setSettingsHost,
-  setSettingsPort
+  setSettingsPort,
+  setSettingsPath
 } from "./actions";
 import {
   getConfigurationOptions,
@@ -45,6 +46,7 @@ import {
   getSettingsProtocol,
   getSettingsHost,
   getSettingsPort,
+  getSettingsPath,
   getSettingsConfigurationId,
   getValidationResult,
   getIsSubmitEnabled
@@ -81,6 +83,10 @@ const getColumns = (configurationId, onRemove) => {
       label: "Port"
     },
     {
+      key: "path",
+      label: "Path"
+    },
+    {
       label: "",
       key: "",
       className: "icon__column-40",
@@ -92,7 +98,9 @@ const getColumns = (configurationId, onRemove) => {
             icon="close-small"
             size={20}
             kind="error"
-            tooltip={isActive ? "Can't delete active settings" : "Delete settings"}
+            tooltip={
+              isActive ? "Can't delete active settings" : "Delete settings"
+            }
             tooltipPosition="left"
             className="users__icon__delete"
             onClick={() => onRemove(item)}
@@ -110,10 +118,8 @@ const Settings = ({
   protocol,
   host,
   port,
+  path,
   configurationId,
-  currentProtocol,
-  currentHost,
-  currentPort,
   validation,
   isSubmitEnabled,
   onExportConfigurationsClick,
@@ -124,6 +130,7 @@ const Settings = ({
   onNameChange,
   onProtocolChange,
   onPortChange,
+  onPathChange,
   onHostChange
 }) => {
   const columns = getColumns(configurationId, onRemoveConfigurationClick);
@@ -188,6 +195,15 @@ const Settings = ({
             validation={validation.fields.port}
           />
         </div>
+        <div className="settings__form-input">
+          <FormInput
+            type="text"
+            label="Path"
+            value={path}
+            onChange={onPathChange}
+            validation={validation.fields.path}
+          />
+        </div>
         <Button
           className="settings__button__item"
           kind="primary"
@@ -232,6 +248,7 @@ const stateProps = state => ({
   protocol: getSettingsProtocol(state),
   host: getSettingsHost(state),
   port: getSettingsPort(state),
+  path: getSettingsPath(state),
   configurationId: getSettingsConfigurationId(state),
   validation: getValidationResult(state),
   isSubmitEnabled: getIsSubmitEnabled(state)
@@ -245,6 +262,7 @@ const actionProps = dispatch => ({
   onRemoveConfigurationClick: config => dispatch(removeConfiguration(config)),
   onNameChange: value => dispatch(setSettingsName(value)),
   onProtocolChange: value => dispatch(setSettingsProtocol(value)),
+  onPathChange: value => dispatch(setSettingsPath(value)),
   onPortChange: value => dispatch(setSettingsPort(value)),
   onHostChange: value => dispatch(setSettingsHost(value))
 });

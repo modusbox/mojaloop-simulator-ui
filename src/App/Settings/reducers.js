@@ -28,7 +28,8 @@ import {
   SET_SETTINGS_NAME,
   SET_SETTINGS_PROTOCOL,
   SET_SETTINGS_HOST,
-  SET_SETTINGS_PORT
+  SET_SETTINGS_PORT,
+  SET_SETTINGS_PATH
 } from "./actions";
 
 const initialConfigurationState = [
@@ -37,7 +38,8 @@ const initialConfigurationState = [
     name: "default",
     protocol: "http",
     host: "localhost",
-    port: "3003"
+    port: "3003",
+    path: ""
   }
 ];
 let configs = getItem("configurations");
@@ -59,6 +61,7 @@ const initialState = {
   protocol: undefined,
   host: undefined,
   port: undefined,
+  path: undefined,
   configurationId
 };
 
@@ -84,7 +87,8 @@ const Settings = handleActions(
             name: state.name,
             protocol: state.protocol,
             host: state.host,
-            port: state.port
+            port: state.port,
+            path: state.path
           }
         ],
         name: "",
@@ -129,6 +133,10 @@ const Settings = handleActions(
     [SET_SETTINGS_PORT]: (state, action) => ({
       ...state,
       port: action.payload
+    }),
+    [SET_SETTINGS_PATH]: (state, action) => ({
+      ...state,
+      path: action.payload
     })
   },
   initialState

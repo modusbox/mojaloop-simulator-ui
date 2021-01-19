@@ -28,6 +28,7 @@ export const getSettingsName = state => state.settings.name;
 export const getSettingsProtocol = state => state.settings.protocol;
 export const getSettingsHost = state => state.settings.host;
 export const getSettingsPort = state => state.settings.port;
+export const getSettingsPath = state => state.settings.path;
 export const getSettingsConfigurationId = state =>
   state.settings.configurationId;
 
@@ -42,7 +43,8 @@ const getSetting = createSelector(
   getSettingsProtocol,
   getSettingsHost,
   getSettingsPort,
-  (name, protocol, host, port) => ({ name, protocol, host, port })
+  getSettingsPath,
+  (name, protocol, host, port, path) => ({ name, protocol, host, port, path })
 );
 
 export const getValidationResult = createSelector(
@@ -62,7 +64,7 @@ export const getConfigurationOptions = createSelector(
     configs.map(config => ({
       label: `${config.name} - ${config.protocol}://${config.host}:${
         config.port
-      }`,
+      }${config.path || ""}`,
       value: config.id
     }))
 );

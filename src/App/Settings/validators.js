@@ -16,13 +16,23 @@
  ******************************************************************************/
 
 import {
+  createValidator,
   createValidation,
+  createOptionalValidation,
   vd
 } from "modusbox-ui-components/dist/redux-validation";
+
+const pathValidator = createValidator(`Is a valid path`, path => {
+  if (!path || path === "") {
+    return true;
+  }
+  return path.startsWith("/") && path.indexOf(" ") === -1;
+});
 
 export const getSettingsValidators = () => ({
   name: createValidation([vd.isRequired]),
   protocol: createValidation([vd.isRequired]),
   host: createValidation([vd.isRequired]),
-  port: createValidation([vd.isRequired, vd.isNum])
+  port: createValidation([vd.isRequired, vd.isNum]),
+  path: createOptionalValidation([pathValidator])
 });

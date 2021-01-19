@@ -112,6 +112,9 @@ p {
 
 .icon__column-40 {
   flex: 0 0 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .icon__column-30 {

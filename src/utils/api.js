@@ -33,10 +33,10 @@ const services = {
   test: {
     getApplicationUrl: state => {
       const { configurations, configurationId } = state.settings;
-      const [{ protocol, host, port }] = configurations.filter(
+      const [{ protocol, host, port, path }] = configurations.filter(
         cfg => cfg.id === configurationId
       );
-      return `${protocol}://${host}:${port}`;
+      return `${protocol}://${host}:${port}${path || ""}`;
     },
     getApplicationHeaders: () => undefined,
     credentials: state => undefined,

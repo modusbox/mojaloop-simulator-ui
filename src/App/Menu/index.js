@@ -28,7 +28,6 @@ const stateProps = state => ({
 const MenuStructure = ({ pathname, onChange }) => {
   return (
     <Menu path="/" pathname={pathname} onChange={onChange}>
-      <MenuItem path="/users" label="Config Inbound" />
       <MenuItem path="/transfer" label="Outbound Send" />
       <MenuItem path="/settings" label="Settings" />
     </Menu>
